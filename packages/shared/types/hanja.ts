@@ -42,8 +42,8 @@ export interface DictEntry {
   chars: CharDetail[];
 }
 
-/** 급수별 사전 JSON 타입 */
-export type HanjaDict = Record<string, DictEntry>;
+/** 급수별 사전 JSON 타입 — 동음이의어는 배열로 보존 */
+export type HanjaDict = Record<string, DictEntry[]>;
 
 /** 한자 변환 매치 결과 */
 export interface HanjaMatch {

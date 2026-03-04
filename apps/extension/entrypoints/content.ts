@@ -1,12 +1,62 @@
+import { loadDict, clearCache } from '@/lib/dictionary';
+import { convertPage, setupMutationObserver } from '@/lib/converter';
+import { initMecab } from '@/lib/tokenizer';
+
+const DEFAULT_LEVEL = 8;
+
+interface Settings {
+  enabled: boolean;
+  level: number;
+}
+
+async function getSettings(): Promise<Settings> {
+  const result = await browser.storage.local.get(['enabled', 'level']);
+  return {
+    enabled: result.enabled ?? true,
+    level: result.level ?? DEFAULT_LEVEL,
+  };
+}
+
+let observer: MutationObserver | null = null;
+
+async function run() {
+  const settings = await getSettings();
+  if (!settings.enabled) {
+    console.log('[한자한자] 비활성화 상태');
+    return;
+  }
+
+  console.log(`[한자한자] 변환 시작 (${settings.level}급)`);
+  await initMecab();
+  const dict = await loadDict();
+  await convertPage(dict, settings.level);
+  observer = setupMutationObserver(dict, settings.level);
+}
+
+browser.storage.onChanged.addListener(async (changes) => {
+  if (changes.enabled || changes.level) {
+    console.log('[한자한자] 설정 변경 감지, 페이지 새로고침 필요');
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    clearCache();
+
+    const settings = await getSettings();
+    if (changes.enabled?.newValue === false) {
+      location.reload();
+      return;
+    }
+    if (settings.enabled) {
+      location.reload();
+    }
+  }
+});
+
 export default defineContentScript({
-  matches: ["<all_urls>"],
+  matches: ['<all_urls>'],
+  runAt: 'document_idle',
   main() {
-    console.log("한자한자 Content Script 로드됨");
-    // TODO: 한자 변환 엔진 구현
-    // 1. 페이지 텍스트 스캔
-    // 2. 사전 매칭 (최장일치)
-    // 3. 사용자 레벨 필터링
-    // 4. HTML 변환 (<ruby> 태그)
-    // 5. 이벤트 리스너 등록 (hover, 우클릭)
+    run();
   },
 });

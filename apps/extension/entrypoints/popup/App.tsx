@@ -1,8 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const LEVEL_OPTIONS = [
+  { value: 8, label: "8급" },
+  { value: 7.5, label: "준7급" },
+  { value: 7, label: "7급" },
+  { value: 6.5, label: "준6급" },
+  { value: 6, label: "6급" },
+  { value: 5.5, label: "준5급" },
+  { value: 5, label: "5급" },
+  { value: 4.5, label: "준4급" },
+  { value: 4, label: "4급" },
+  { value: 3.5, label: "준3급" },
+  { value: 3, label: "3급" },
+  { value: 2.5, label: "준2급" },
+  { value: 2, label: "2급" },
+  { value: 1.5, label: "준1급" },
+  { value: 1, label: "1급" },
+  { value: 0.5, label: "준특급" },
+  { value: 0, label: "특급" },
+];
 
 function App() {
   const [isEnabled, setIsEnabled] = useState(true);
   const [level, setLevel] = useState(8);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    browser.storage.local.get(["enabled", "level"]).then((result) => {
+      setIsEnabled(result.enabled ?? true);
+      setLevel(result.level ?? 8);
+      setLoaded(true);
+    });
+  }, []);
+
+  const toggleEnabled = async () => {
+    const next = !isEnabled;
+    setIsEnabled(next);
+    await browser.storage.local.set({ enabled: next });
+  };
+
+  const changeLevel = async (newLevel: number) => {
+    setLevel(newLevel);
+    await browser.storage.local.set({ level: newLevel });
+  };
+
+  if (!loaded) return null;
 
   return (
     <div style={{ width: 300, padding: 16, fontFamily: "sans-serif" }}>
@@ -15,7 +57,7 @@ function App() {
         <span>{isEnabled ? "🟢" : "🔴"}</span>
         <span>변환 {isEnabled ? "활성화" : "비활성화"}</span>
         <button
-          onClick={() => setIsEnabled(!isEnabled)}
+          onClick={toggleEnabled}
           style={{ marginLeft: "auto", cursor: "pointer" }}
         >
           {isEnabled ? "끄기" : "켜기"}
@@ -27,19 +69,19 @@ function App() {
           현재 레벨:{" "}
           <select
             value={level}
-            onChange={(e) => setLevel(Number(e.target.value))}
+            onChange={(e) => changeLevel(Number(e.target.value))}
           >
-            <option value={8}>8급</option>
-            <option value={7}>7급</option>
-            <option value={6}>6급</option>
-            <option value={5}>5급</option>
-            <option value={4}>4급</option>
+            {LEVEL_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
           </select>
         </label>
       </div>
 
       <div style={{ color: "#888", fontSize: 13 }}>
-        오늘 본 한자: 0개
+        설정 변경 시 페이지가 새로고침됩니다.
       </div>
 
       <div style={{ marginTop: 12 }}>
