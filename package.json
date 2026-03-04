@@ -1,0 +1,25 @@
+{
+  "name": "hanjahanja",
+  "private": true,
+  "version": "0.1.0",
+  "description": "한자한자 - 일상 텍스트 기반 한자 노출 학습 서비스",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:extension": "pnpm --filter extension dev",
+    "build:web": "pnpm --filter web build",
+    "build:extension": "pnpm --filter extension build",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+.output/
+dist/
+out/
+
+# WXT
+.wxt/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE / Tools
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+*~
+.bkit-memory.json
+.pdca-status.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+npm-debug.log*
+pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml
+
+# Data files (large, not for git)
+scripts/data/
+*.xml
+
+# CSV는 기본 무시하되, 레퍼런스 데이터는 허용
+*.csv
+!docs/reference/*.csv
+
+!.env.example
