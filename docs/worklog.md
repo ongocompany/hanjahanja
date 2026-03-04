@@ -128,4 +128,24 @@
 - `apps/extension/entrypoints/popup/App.tsx` — 전체 급수 옵션 확장
 - `scripts/generate-dict-json.ts` — source 필드 포함, stdict 우선 정렬
 
-**현재 상태**: 툴팁 UX 완성, stdict 우선순위 적용, 빌드 완료 & 테스트 중. ⚠️ 미커밋 상태
+**현재 상태**: 툴팁 UX 완성, stdict 우선순위 적용, 빌드 완료 & 테스트 중. ✅ 커밋 완료
+
+### 세션 8: WSD 동음이의어 판별 모델 파이프라인 설계
+- **ETRI 공공데이터포털 API 조사**
+  - [언어 분석 기술 API](https://www.data.go.kr/data/15117596/openapi.do) — `POST /api/WiseNLU` (분석코드 `wsd`=동음이의어, 1만 글자/회, 5,000건/일)
+  - [동음이의어 정보 API](https://www.data.go.kr/data/15144927/openapi.do) — `POST /api/WiseWWN_Homonym` (단어별 동음이의어 목록)
+  - 실시간 사용 불가 판단 (5,000건/일 서버 전체 한도 → 만 명이면 0.5건/일)
+- **WSD 모델 자체 학습 방향 결정**
+  - jinserver 사양 확인: i5-12400, 48GB RAM, **RTX 3080 10GB**, CUDA 13.0 → 충분
+  - KcBERT/KoBERT 파인튜닝 가능 (VRAM 4~6GB, batch 16~32)
+  - ONNX 변환 → ONNX Runtime Web으로 브라우저 로컬 추론
+- **동음이의어 현황 재확인**
+  - 전체 동음이의어: 76,396개 (2개: 50,194 / 3~5개: 20,622 / 6개+: 5,580)
+  - 최다 동음이의어: 조사(42), 전사(41), 사전(40), 고사(40)
+- **WSD 파이프라인 4단계 설계** → `docs/checklist.md` Week 2.5에 반영
+  1. 학습 데이터 수집: 뉴스 코퍼스 + ETRI `wsd` API 자동 라벨링
+  2. 모델 학습: KcBERT 파인튜닝 (jinserver RTX 3080)
+  3. 경량화: ONNX 변환 + INT8 양자화 (목표 5~20MB)
+  4. 크롬 확장 통합: ONNX Runtime Web 로컬 추론 (목표 <500ms/페이지)
+
+**현재 상태**: WSD 파이프라인 설계 완료. 다음: ETRI API 키 발급 → 학습 데이터 수집
