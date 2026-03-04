@@ -31,9 +31,9 @@
 - ✅ 공유 패키지 생성 (packages/shared - 타입, 상수) 🤖
 - ✅ 데이터 스크립트 구조 생성 (scripts/) 🤖
 - ✅ 배포 설정 (Dockerfile, docker-compose.yml, nginx.conf) 🤖
-- ⬜ Supabase 테이블 생성 (6개 테이블 + RLS) 🤖
+- ✅ Supabase 테이블 생성 (6개 테이블 + RLS) 🤖
 - ⬜ .env.local 환경변수 설정 🤝
-- ⬜ NAS에 Git 리모트 연결 + 첫 커밋 🤝
+- ✅ GitHub 리모트 연결 + 첫 커밋 🤝
 
 ### Day 3-4: 한자 데이터 파이프라인 (★ 핵심)
 - ⬜ PM 한자 CSV → hanja_characters 임포트 스크립트 🤖
