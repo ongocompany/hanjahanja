@@ -1,41 +1,35 @@
 # 개발 환경 (서버 구성)
 
-## 서버 3대 구성
+## 역할 분담
 
-### 1. VPS (Vultr) - 배포 전용
+```
+GitHub (소스 관리) ←→ jinserver (개발/빌드/테스트) ──→ VPS (배포)
+```
+
+| 역할 | 서버 | 접속 |
+|------|------|------|
+| 소스 관리 | GitHub | https://github.com/ongocompany/hanjahanja.git |
+| 개발/빌드 | jinserver (집 리눅스) | ssh jinwoo@100.68.25.79 (Tailscale) |
+| 배포 | VPS (Vultr) | 158.247.225.152 / hanjahanja.kr |
+| 백업 | NAS | 100.115.194.12 (Tailscale) |
+
+## jinserver (메인 개발 서버)
+- **IP**: 100.68.25.79 (Tailscale)
+- **유저**: jinwoo
+- **SSH**: 맥북 키 등록 완료
+- **Node**: v22.22.0
+- **OS**: Ubuntu 24.04 (Linux 6.17)
+- **도구**: http://100.68.25.79:8787 (사전 뷰어)
+
+## VPS (Vultr) - 배포 전용
 - **IP**: 158.247.225.152
-- **용도**: 프로덕션 배포만 (사양 낮음)
 - **도메인**: hanjahanja.kr
 - **구성**: Docker + Nginx 리버스 프록시 (3100→3000)
 
-### 2. 개발 서버 (집 리눅스) - 메인 개발용
-- **IP**: 100.68.25.79 (Tailscale)
-- **접속**: 유동 IP라서 Tailscale 망으로만 접근
-- **SSH 키**: 맥북(로컬), 맥미니 모두 등록됨
-- **용도**: 성능 빵빵 → 개발 서버, 빌드, 테스트
-- **Git 서버**: Gitea 운영 중
-- **현재 상태**: ⚠️ 서버 다운 (일시적)
-
-### 3. NAS - 백업
-- **IP**: 100.115.194.12 (Tailscale)
-- **용도**: 데이터 백업, 대형 파일 다운로드
-
-## 현재 작업 환경 (로컬)
-- **장비**: 맥북 (macOS)
+## 맥북 (로컬)
 - **Node**: v24.13.1
-- **pnpm**: v10.30.3 (Homebrew)
-
-## Git 리모트
-- **GitHub**: https://github.com/ongocompany/hanjahanja.git
-
-## 네트워크 구조
-
-```
-[맥북 (로컬 개발)] ──GitHub────→ [GitHub] (소스 관리)
-                   ──Tailscale──→ [개발서버 100.68.25.79]
-                   ──Tailscale──→ [NAS 100.115.194.12] (백업)
-                   ──인터넷────→ [Vultr 158.247.225.152] (배포)
-```
+- **pnpm**: v10.30.3
+- 보조 개발용 (jinserver가 메인)
 
 ## 참고
 - sudo 필요시 형(진)에게 비밀번호 요청

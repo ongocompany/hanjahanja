@@ -11,8 +11,7 @@
 - ✅ 개별 한자 CSV 파일 정리 → `docs/reference/hanja_characters.csv` (5,978자)
 - ✅ 우리말샘 오픈 API 키 발급 → `120a24d0-4598-4567-948d-653f61b460b3`
 - ✅ 국립국어원 오픈 API 키 발급 → `C822A15091C0A8A2218553923DD925D7`
-- ⬜ (선택) 한국어기초사전 API 키 발급 (https://krdict.korean.go.kr/openApi/openApiInfo)
-- ⬜ 우리말샘 오픈 데이터(XML) 벌크 다운로드 (https://ithub.korean.go.kr) — 사이트 장애 중, API 수집으로 대체 가능
+- ✅ korean-dict-nikl 사전 XML 데이터 다운로드 (opendict + stdict)
 
 ### 외부 서비스 세팅 🧑
 - ✅ Supabase 프로젝트 생성 → URL, anon key, service role key 확보
@@ -32,21 +31,21 @@
 - ✅ 데이터 스크립트 구조 생성 (scripts/) 🤖
 - ✅ 배포 설정 (Dockerfile, docker-compose.yml, nginx.conf) 🤖
 - ✅ Supabase 테이블 생성 (6개 테이블 + RLS) 🤖
-- ⬜ .env.local 환경변수 설정 🤝
+- ✅ .env.local 환경변수 설정 🤝
 - ✅ GitHub 리모트 연결 + 첫 커밋 🤝
 
 ### Day 3-4: 한자 데이터 파이프라인 (★ 핵심)
-- ⬜ PM 한자 CSV → hanja_characters 임포트 스크립트 🤖
-- ⬜ CSV 데이터 실제 임포트 실행 🤝
-- ⬜ 우리말샘 XML 파싱 → 한자어 추출 스크립트 🤖
-- ⬜ 한자어 + 급수 교차 매칭 → hanja_words 구축 🤖
-- ⬜ 국립국어원 API 보완 스크립트 🤖
+- ✅ PM 한자 CSV → hanja_characters 임포트 스크립트 🤖
+- ✅ CSV 데이터 실제 임포트 실행 → 5,978개 한자 🤝
+- ✅ 우리말샘/표준국어대사전 XML 파싱 → 한자어 추출 (SAX 스트리밍) 🤖
+- ✅ 한자어 + 급수 교차 매칭 → hanja_words 589,822개 구축 🤖
+- ~~국립국어원 API 보완 스크립트~~ → XML 벌크 데이터로 대체 완료
 
 ### Day 5-6: 데이터 품질 + JSON 생성
-- ⬜ hanja_words 데이터 검증 (급수 분포, 누락 확인) 🤝
+- ✅ hanja_words 데이터 검증 (급수 분포, 누락 확인) 🤝
 - ⬜ AI API 데이터 보강 (뜻풀이, 한자 분해) 🤖
-- ⬜ 급수별 JSON 사전 파일 생성 스크립트 🤖
-- ⬜ 크롬 확장용 JSON 번들링 확인 🤖
+- ✅ 급수별 JSON 사전 파일 생성 스크립트 🤖
+- ✅ 크롬 확장용 JSON 번들링 확인 (apps/extension/public/dict/) 🤖
 
 ### Day 7: 인증 시스템
 - ⬜ Supabase Auth 설정 (구글 + 카카오 OAuth) 🤝
@@ -59,12 +58,12 @@
 ## Week 2: 크롬 확장 개발
 
 ### Day 8-10: 한자 변환 엔진 (핵심)
-- ⬜ 사전 데이터 로더 (dictionary.ts) 🤖
-- ⬜ 토크나이저 - 최장일치 알고리즘 (tokenizer.ts) 🤖
-- ⬜ 한자 변환 엔진 (converter.ts) 🤖
-- ⬜ Content Script: DOM 텍스트 스캔 + HTML 변환 🤖
-- ⬜ MutationObserver 동적 콘텐츠 대응 🤖
-- ⬜ 변환 제외 요소 처리 (script, input, textarea 등) 🤖
+- ✅ 사전 데이터 로더 (dictionary.ts) 🤖
+- ✅ 토크나이저 - 최장일치 알고리즘 (tokenizer.ts) 🤖
+- ✅ 한자 변환 엔진 (converter.ts) 🤖
+- ✅ Content Script: DOM 텍스트 스캔 + HTML 변환 🤖
+- ✅ MutationObserver 동적 콘텐츠 대응 🤖
+- ✅ 변환 제외 요소 처리 (script, input, textarea 등) 🤖
 
 ### Day 11-12: 루비 모드
 - ⬜ Hover 툴팁 UI (HanjaTooltip.tsx) 🤖
@@ -72,8 +71,8 @@
 - ⬜ 다크모드 대응 스타일링 🤖
 
 ### Day 13-14: 팝업 + 설정
-- ⬜ Popup UI 개선 (ON/OFF, 레벨 선택, 통계) 🤖
-- ⬜ chrome.storage 설정 저장/불러오기 🤖
+- ✅ Popup UI 개선 (ON/OFF, 레벨 선택) 🤖
+- ✅ chrome.storage 설정 저장/불러오기 🤖
 - ⬜ 확장 프로그램 내 Supabase 로그인 연동 🤖
 
 ---
@@ -127,8 +126,8 @@
 | # | 마일스톤 | 목표 | 상태 |
 |---|----------|------|------|
 | M0 | PM 사전 준비 완료 | CSV, 우리말샘, API키 | 🔄 (Google OAuth, Chrome Web Store 보류) |
-| M1 | 프로젝트 세팅 + 데이터 | hanja_words 3,000개+, JSON 사전 | 🔄 |
-| M2 | 한자 변환 작동 | 뉴스에서 한자 변환 확인 | ⬜ |
+| M1 | 프로젝트 세팅 + 데이터 | hanja_words 589,822개 ✅, JSON 사전 523,017개 ✅ | ✅ |
+| M2 | 한자 변환 작동 | 엔진 구현 완료, 크롬 테스트 대기 | 🔄 |
 | M3 | 루비 모드 작동 | Hover 시 툴팁 표시 | ⬜ |
 | M4 | 진단 테스트 완성 | 테스트→레벨 판정→결과 | ⬜ |
 | M5 | MVP 통합 완성 | 웹+확장 전체 플로우 | ⬜ |
