@@ -31,57 +31,58 @@ function injectStyles(): void {
       text-decoration: underline dotted #b8860b;
       text-underline-offset: 3px;
       cursor: help;
-      position: relative;
     }
     .hjhj-tooltip {
-      visibility: hidden;
-      opacity: 0;
-      position: absolute;
-      left: 50%;
-      background: #1a1a2e;
-      color: #eee;
+      display: none;
+      position: fixed;
+      width: 320px;
+      max-height: 360px;
+      overflow-y: auto;
       border-radius: 10px;
       padding: 10px 14px;
       font-size: 14.5px;
       line-height: 1.6;
-      white-space: nowrap;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: break-word;
       z-index: 2147483647;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
       pointer-events: auto;
-      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      /* 라이트 모드 (기본) */
+      background: #fff;
+      color: #333;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06);
     }
-    .hjhj-tooltip.hjhj-above {
-      bottom: calc(100% + 8px);
-      transform: translateX(-50%) translateY(6px);
+    .hjhj-tooltip.hjhj-dark {
+      background: #1a1a2e;
+      color: #eee;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
     }
-    .hjhj-tooltip.hjhj-below {
-      top: calc(100% + 8px);
-      transform: translateX(-50%) translateY(-6px);
+    .hjhj-tooltip.hjhj-visible {
+      display: block;
+      opacity: 1;
     }
     .hjhj-tooltip::after {
       content: '';
       position: absolute;
-      left: 50%;
+      left: var(--hjhj-arrow-left, 50%);
       transform: translateX(-50%);
       border: 7px solid transparent;
     }
     .hjhj-tooltip.hjhj-above::after {
       top: 100%;
-      border-top-color: #1a1a2e;
+      border-top-color: #fff;
     }
     .hjhj-tooltip.hjhj-below::after {
       bottom: 100%;
+      border-bottom-color: #fff;
+    }
+    .hjhj-tooltip.hjhj-dark.hjhj-above::after {
+      border-top-color: #1a1a2e;
+    }
+    .hjhj-tooltip.hjhj-dark.hjhj-below::after {
       border-bottom-color: #1a1a2e;
-    }
-    .hjhj-word:hover .hjhj-tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-    .hjhj-word:hover .hjhj-tooltip.hjhj-above {
-      transform: translateX(-50%) translateY(0);
-    }
-    .hjhj-word:hover .hjhj-tooltip.hjhj-below {
-      transform: translateX(-50%) translateY(0);
     }
     .hjhj-entry {
       padding: 5px 8px;
@@ -90,39 +91,63 @@ function injectStyles(): void {
       transition: background 0.15s;
     }
     .hjhj-entry:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    .hjhj-dark .hjhj-entry:hover {
       background: rgba(255,255,255,0.1);
     }
     .hjhj-entry.hjhj-active {
+      background: rgba(200,160,0,0.1);
+    }
+    .hjhj-dark .hjhj-entry.hjhj-active {
       background: rgba(255,215,0,0.15);
     }
     .hjhj-entry + .hjhj-entry {
-      border-top: 1px solid #333;
+      border-top: 1px solid #e5e5e5;
+    }
+    .hjhj-dark .hjhj-entry + .hjhj-entry {
+      border-top-color: #333;
     }
     .hjhj-hanja {
       font-size: 1.4em;
       font-weight: bold;
+      color: #b8860b;
+    }
+    .hjhj-dark .hjhj-hanja {
       color: #ffd700;
     }
     .hjhj-reading {
-      color: #aaa;
+      color: #666;
       margin-left: 8px;
       font-size: 0.95em;
     }
+    .hjhj-dark .hjhj-reading {
+      color: #aaa;
+    }
     .hjhj-meaning {
-      color: #ccc;
+      color: #555;
       font-size: 0.95em;
       display: block;
       margin-top: 3px;
     }
+    .hjhj-dark .hjhj-meaning {
+      color: #ccc;
+    }
     .hjhj-level {
-      color: #888;
+      color: #999;
       font-size: 0.85em;
       margin-left: 6px;
     }
+    .hjhj-dark .hjhj-level {
+      color: #888;
+    }
     .hjhj-count {
-      color: #666;
+      color: #aaa;
       font-size: 0.8em;
       margin-left: 4px;
+    }
+    .hjhj-dark .hjhj-count {
+      color: #666;
     }
     .hjhj-entry.hjhj-dim {
       opacity: 0.45;
@@ -161,6 +186,75 @@ function sortByPreference(entries: DictEntry[], prefs: Record<string, number>, u
   });
 }
 
+/** 현재 활성 툴팁 (하나만 표시) */
+let activeTooltip: HTMLElement | null = null;
+let activeWord: HTMLElement | null = null;
+
+/** 툴팁 숨기기 */
+function hideTooltip(): void {
+  if (activeTooltip) {
+    activeTooltip.classList.remove('hjhj-visible', 'hjhj-above', 'hjhj-below');
+    activeTooltip = null;
+    activeWord = null;
+  }
+}
+
+/** 툴팁 위치 계산 + 표시 */
+function showTooltip(wrapper: HTMLElement, tooltip: HTMLElement): void {
+  // 이전 툴팁 숨기기
+  hideTooltip();
+
+  activeTooltip = tooltip;
+  activeWord = wrapper;
+
+  // body에 없으면 추가
+  if (!tooltip.parentNode) {
+    document.body.appendChild(tooltip);
+  }
+
+  // 일단 보이게 해서 크기 측정
+  tooltip.style.visibility = 'hidden';
+  tooltip.style.display = 'block';
+  tooltip.style.opacity = '0';
+
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const tipRect = tooltip.getBoundingClientRect();
+  const gap = 8;
+
+  // 위/아래 판단
+  const spaceAbove = wrapperRect.top;
+  const spaceBelow = window.innerHeight - wrapperRect.bottom;
+  const placeAbove = spaceAbove >= tipRect.height + gap || spaceAbove > spaceBelow;
+
+  tooltip.classList.remove('hjhj-above', 'hjhj-below');
+  tooltip.classList.add(placeAbove ? 'hjhj-above' : 'hjhj-below');
+
+  // 세로 위치
+  const top = placeAbove
+    ? wrapperRect.top - tipRect.height - gap
+    : wrapperRect.bottom + gap;
+
+  // 가로 위치 (단어 중앙 기준, 화면 밖으로 나가지 않게 clamp)
+  const centerX = wrapperRect.left + wrapperRect.width / 2;
+  let left = centerX - tipRect.width / 2;
+  const margin = 8;
+  left = Math.max(margin, Math.min(left, window.innerWidth - tipRect.width - margin));
+
+  // 화살표 위치 (단어 중앙 기준)
+  const arrowLeft = centerX - left;
+  tooltip.style.setProperty('--hjhj-arrow-left', `${arrowLeft}px`);
+
+  tooltip.style.top = `${top}px`;
+  tooltip.style.left = `${left}px`;
+  tooltip.style.visibility = '';
+  tooltip.style.display = '';
+  tooltip.style.opacity = '';
+  tooltip.classList.add('hjhj-visible');
+}
+
+/** 현재 다크모드 설정 */
+let darkMode = false;
+
 /** 한자 <span> + 마우스 오버 툴팁 생성 */
 function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<string, number>, userLevel: number): HTMLElement {
   const sorted = sortByPreference(entries, prefs, userLevel);
@@ -173,107 +267,117 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
   const inlineText = document.createTextNode(sorted[0].hanja);
   wrapper.appendChild(inlineText);
 
-  const tooltip = document.createElement('span');
-  tooltip.className = 'hjhj-tooltip hjhj-above'; // 기본은 위로
+  // 툴팁은 body에 붙일 것 — lazy 생성
+  let tooltip: HTMLElement | null = null;
 
-  // hover 시 위/아래 공간 판단해서 방향 결정
-  wrapper.addEventListener('mouseenter', () => {
-    const rect = wrapper.getBoundingClientRect();
-    const spaceAbove = rect.top;
-    if (spaceAbove < 120) {
-      tooltip.classList.remove('hjhj-above');
-      tooltip.classList.add('hjhj-below');
-    } else {
-      tooltip.classList.remove('hjhj-below');
-      tooltip.classList.add('hjhj-above');
-    }
-  });
+  function ensureTooltip(): HTMLElement {
+    if (tooltip) return tooltip;
+    tooltip = document.createElement('div');
+    tooltip.className = darkMode ? 'hjhj-tooltip hjhj-dark' : 'hjhj-tooltip';
 
-  for (let i = 0; i < sorted.length; i++) {
-    const entry = sorted[i];
-    const row = document.createElement('div');
-    row.className = 'hjhj-entry';
-    if (i === 0) row.classList.add('hjhj-active');
-    if (entry.level < userLevel) row.classList.add('hjhj-dim');
+    for (let i = 0; i < sorted.length; i++) {
+      const entry = sorted[i];
+      const row = document.createElement('div');
+      row.className = 'hjhj-entry';
+      if (i === 0) row.classList.add('hjhj-active');
+      if (entry.level < userLevel) row.classList.add('hjhj-dim');
 
-    const hanjaSpan = document.createElement('span');
-    hanjaSpan.className = 'hjhj-hanja';
-    hanjaSpan.textContent = entry.hanja;
-    row.appendChild(hanjaSpan);
+      const hanjaSpan = document.createElement('span');
+      hanjaSpan.className = 'hjhj-hanja';
+      hanjaSpan.textContent = entry.hanja;
+      row.appendChild(hanjaSpan);
 
-    const readingSpan = document.createElement('span');
-    readingSpan.className = 'hjhj-reading';
-    if (entry.chars && entry.chars.length > 0) {
-      readingSpan.textContent = entry.chars
-        .map((c) => `${c.char}(${c.reading})`)
-        .join(' ');
-    } else {
-      readingSpan.textContent = entry.reading;
-    }
-    row.appendChild(readingSpan);
+      const readingSpan = document.createElement('span');
+      readingSpan.className = 'hjhj-reading';
+      if (entry.chars && entry.chars.length > 0) {
+        readingSpan.textContent = entry.chars
+          .map((c) => `${c.char}(${c.reading})`)
+          .join(' ');
+      } else {
+        readingSpan.textContent = entry.reading;
+      }
+      row.appendChild(readingSpan);
 
-    const levelSpan = document.createElement('span');
-    levelSpan.className = 'hjhj-level';
-    levelSpan.textContent = levelToString(entry.level);
-    row.appendChild(levelSpan);
+      const levelSpan = document.createElement('span');
+      levelSpan.className = 'hjhj-level';
+      levelSpan.textContent = levelToString(entry.level);
+      row.appendChild(levelSpan);
 
-    // 선택 횟수 표시 (1회 이상일 때만)
-    const count = prefs[entry.hanja] ?? 0;
-    if (count > 0) {
-      const countSpan = document.createElement('span');
-      countSpan.className = 'hjhj-count';
-      countSpan.textContent = `×${count}`;
-      row.appendChild(countSpan);
-    }
+      // 선택 횟수 표시 (1회 이상일 때만)
+      const count = prefs[entry.hanja] ?? 0;
+      if (count > 0) {
+        const countSpan = document.createElement('span');
+        countSpan.className = 'hjhj-count';
+        countSpan.textContent = `×${count}`;
+        row.appendChild(countSpan);
+      }
 
-    if (entry.meaning) {
-      const meaningSpan = document.createElement('span');
-      meaningSpan.className = 'hjhj-meaning';
-      meaningSpan.textContent = entry.meaning;
-      row.appendChild(meaningSpan);
-    }
+      if (entry.meaning) {
+        const meaningSpan = document.createElement('span');
+        meaningSpan.className = 'hjhj-meaning';
+        meaningSpan.textContent = entry.meaning;
+        row.appendChild(meaningSpan);
+      }
 
-    // 클릭하면 이 한자로 교체
-    if (sorted.length > 1) {
-      row.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
+      // 클릭하면 이 한자로 교체
+      if (sorted.length > 1) {
+        row.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
 
-        // 인라인 텍스트 교체
-        inlineText.textContent = entry.hanja;
+          // 인라인 텍스트 교체
+          inlineText.textContent = entry.hanja;
 
-        // active 표시 변경
-        tooltip.querySelectorAll('.hjhj-entry').forEach((el) => el.classList.remove('hjhj-active'));
-        row.classList.add('hjhj-active');
+          // active 표시 변경
+          tooltip!.querySelectorAll('.hjhj-entry').forEach((el) => el.classList.remove('hjhj-active'));
+          row.classList.add('hjhj-active');
 
-        // 선호도 저장
-        recordChoice(word, entry.hanja);
+          // 선호도 저장
+          recordChoice(word, entry.hanja);
 
-        // 카운트 표시 업데이트
-        let countEl = row.querySelector('.hjhj-count') as HTMLElement | null;
-        const newCount = (prefs[entry.hanja] ?? 0) + 1;
-        prefs[entry.hanja] = newCount;
-        if (countEl) {
-          countEl.textContent = `×${newCount}`;
-        } else {
-          countEl = document.createElement('span');
-          countEl.className = 'hjhj-count';
-          countEl.textContent = `×${newCount}`;
-          // level 뒤에 삽입
-          const levelEl = row.querySelector('.hjhj-level');
-          if (levelEl?.nextSibling) {
-            row.insertBefore(countEl, levelEl.nextSibling);
+          // 카운트 표시 업데이트
+          let countEl = row.querySelector('.hjhj-count') as HTMLElement | null;
+          const newCount = (prefs[entry.hanja] ?? 0) + 1;
+          prefs[entry.hanja] = newCount;
+          if (countEl) {
+            countEl.textContent = `×${newCount}`;
           } else {
-            row.appendChild(countEl);
+            countEl = document.createElement('span');
+            countEl.className = 'hjhj-count';
+            countEl.textContent = `×${newCount}`;
+            const levelEl = row.querySelector('.hjhj-level');
+            if (levelEl?.nextSibling) {
+              row.insertBefore(countEl, levelEl.nextSibling);
+            } else {
+              row.appendChild(countEl);
+            }
           }
-        }
-      });
+        });
+      }
+
+      tooltip.appendChild(row);
     }
 
-    tooltip.appendChild(row);
+    // 툴팁 위에서 마우스 나가면 숨기기
+    tooltip.addEventListener('mouseleave', () => {
+      hideTooltip();
+    });
+
+    return tooltip;
   }
 
-  wrapper.appendChild(tooltip);
+  // hover 시 body에 fixed 툴팁 표시
+  wrapper.addEventListener('mouseenter', () => {
+    showTooltip(wrapper, ensureTooltip());
+  });
+
+  wrapper.addEventListener('mouseleave', (e) => {
+    // 마우스가 툴팁으로 이동하는 중이면 숨기지 않음
+    const related = (e as MouseEvent).relatedTarget as Node | null;
+    if (tooltip && related && tooltip.contains(related)) return;
+    hideTooltip();
+  });
+
   return wrapper;
 }
 
@@ -335,8 +439,19 @@ function collectTextNodes(root: Node): Text[] {
   return textNodes;
 }
 
-export async function convertPage(dict: HanjaDict, userLevel: number): Promise<number> {
+/** 스크롤/리사이즈 시 툴팁 숨기기 (한 번만 등록) */
+let globalListenersAttached = false;
+function attachGlobalListeners(): void {
+  if (globalListenersAttached) return;
+  globalListenersAttached = true;
+  window.addEventListener('scroll', hideTooltip, { passive: true, capture: true });
+  window.addEventListener('resize', hideTooltip, { passive: true });
+}
+
+export async function convertPage(dict: HanjaDict, userLevel: number, isDarkMode = false): Promise<number> {
+  darkMode = isDarkMode;
   injectStyles();
+  attachGlobalListeners();
   const textNodes = collectTextNodes(document.body);
   let convertedCount = 0;
   const prefsCache = new Map<string, Record<string, number>>();

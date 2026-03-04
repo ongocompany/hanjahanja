@@ -80,27 +80,30 @@
 
 ---
 
-## Week 2.5: WSD 동음이의어 판별 모델 (★ 핵심 차별화)
+## Week 2.5: WSD + NER 모델 (★ 핵심 차별화)
 
-> **목표**: 문맥 기반으로 동음이의어 자동 판별 (76,396개 동음이의어 대상)
+> **목표**: 문맥 기반 동음이의어 판별 + 사람 이름 필터링 (멀티태스크)
 > **환경**: jinserver (i5-12400, 48GB RAM, RTX 3080 10GB)
+> **ETRI API**: ✅ 키 발급 완료, `ner` 코드로 WSD + NER 동시 수집 확인
 
 ### Step 1: 학습 데이터 수집 🤖
 - ⬜ 뉴스 코퍼스 수집 (AI Hub / 국립국어원 공개 말뭉치)
 - ⬜ 동음이의어(76,396개) 포함 문장 추출 + 필터링
-- ⬜ ETRI WiseNLU API(`wsd`)로 자동 라벨링 (5,000건/일 × ~15일)
-  - 입력: 동음이의어 포함 문장 (1만 글자 이내/회)
-  - 출력: 문맥 기반 정답 한자 매핑
+- ⬜ ETRI WiseNLU API(`ner` 코드)로 자동 라벨링 (5,000건/일 × ~15일)
+  - WSD 라벨: scode(표준국어대사전 동음이의어 코드) → 한자 매핑
+  - NER 라벨: PS_NAME(사람이름), CV_POSITION(직위) 등 → 변환 제외 대상
+  - 1만 글자/회 → 한 번에 수십 개 동음이의어 + NER 라벨 획득
 - ⬜ 학습/검증/테스트 데이터셋 분할 (8:1:1)
 
 ### Step 2: 모델 학습 (jinserver) 🤖
 - ⬜ Python 환경 구축 (PyTorch + Transformers + CUDA 13.0)
 - ⬜ 사전학습 모델 선정 (KcBERT-base / KoBERT / KR-BERT 비교)
-- ⬜ WSD 분류기 파인튜닝 (동음이의어별 다중 분류)
-  - 입력: [CLS] + 문맥 문장 + [SEP] + 대상 단어
-  - 출력: 올바른 한자 ID (softmax)
+- ⬜ 멀티태스크 파인튜닝 (WSD + NER 동시 학습)
+  - Task 1 WSD: 문맥 → 올바른 한자 ID (softmax)
+  - Task 2 NER: 토큰 → 사람이름/직위/일반 (BIO 태깅)
+  - 하나의 BERT backbone + 2개 head, 모델 크기 거의 동일
   - RTX 3080 10GB → batch 16~32, 수 시간 예상
-- ⬜ 검증 정확도 목표: 90%+ (stdict 우선순위보다 높아야 의미 있음)
+- ⬜ 검증 정확도 목표: WSD 90%+, NER 95%+
 
 ### Step 3: 모델 경량화 + 변환 🤖
 - ⬜ ONNX 포맷 변환 (torch.onnx.export)
@@ -110,9 +113,10 @@
 
 ### Step 4: 크롬 확장 통합 🤖
 - ⬜ ONNX Runtime Web 번들링 (wxt.config.ts)
-- ⬜ converter.ts에 WSD 추론 파이프라인 연결
-  - 동음이의어 발견 시 → 모델에 문맥 전달 → 정답 한자 자동 선택
-  - 모델 없는 단어는 기존 정렬(stdict 우선) 폴백
+- ⬜ converter.ts에 WSD + NER 추론 파이프라인 연결
+  - WSD: 동음이의어 → 모델이 문맥 보고 정답 한자 자동 선택
+  - NER: 사람 이름(PS_NAME) 감지 → 한자 변환 제외
+  - 폴백: 모델 없는 단어는 기존 정렬(stdict 우선)
 - ⬜ 초기 로딩 최적화 (모델 lazy load, 캐싱)
 - ⬜ 성능 A/B 테스트: 모델 ON/OFF 정확도 비교
 

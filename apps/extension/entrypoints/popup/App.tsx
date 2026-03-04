@@ -23,12 +23,14 @@ const LEVEL_OPTIONS = [
 function App() {
   const [isEnabled, setIsEnabled] = useState(true);
   const [level, setLevel] = useState(8);
+  const [darkTooltip, setDarkTooltip] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    browser.storage.local.get(["enabled", "level"]).then((result) => {
+    browser.storage.local.get(["enabled", "level", "darkTooltip"]).then((result) => {
       setIsEnabled(result.enabled ?? true);
       setLevel(result.level ?? 8);
+      setDarkTooltip(result.darkTooltip ?? false);
       setLoaded(true);
     });
   }, []);
@@ -77,6 +79,21 @@ function App() {
               </option>
             ))}
           </select>
+        </label>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            checked={darkTooltip}
+            onChange={async (e) => {
+              const next = e.target.checked;
+              setDarkTooltip(next);
+              await browser.storage.local.set({ darkTooltip: next });
+            }}
+          />
+          툴팁 다크 모드
         </label>
       </div>
 

@@ -149,3 +149,49 @@
   4. 크롬 확장 통합: ONNX Runtime Web 로컬 추론 (목표 <500ms/페이지)
 
 **현재 상태**: WSD 파이프라인 설계 완료. 다음: ETRI API 키 발급 → 학습 데이터 수집
+
+### 세션 9: 툴팁 개선 + WSD 학습 데이터 수집 시작
+
+#### 툴팁 렌더링 개선 (미완료 — 나중에 디버깅 필요)
+- `converter.ts` 툴팁을 `position: absolute` → `position: fixed` + `document.body`에 append 방식으로 전환
+  - iframe/overflow:hidden 컨테이너에 가려지는 문제 해결 의도
+  - viewport 경계 계산 (위/아래 자동 전환, 좌우 클램핑)
+  - 스크롤/리사이즈 시 자동 숨김, 단일 활성 툴팁 관리
+- 툴팁 박스 고정 너비 320px, max-height 360px, 자동 줄바꿈 (`word-break: keep-all`)
+- 라이트 모드 기본 (흰 배경 `#fff`, 어두운 텍스트 `#333`, 금색 한자 `#b8860b`)
+- 다크 모드 옵션 추가 (`.hjhj-dark`, popup에서 체크박스로 전환)
+- ⚠️ **빌드는 성공하나 실제 동작 확인 안됨** — 추후 디버깅 필요
+
+#### AI Hub 코퍼스 처리
+- 진 형이 AI Hub "한국어 성능이 개선된 초거대AI 언어모델 개발 및 데이터" 17GB tar 다운로드 → Samba로 jinserver 전송
+- 압축 해제: 16GB, 370개 JSON 파일 (구어체 SL01-14 + 문어체 WL01-12)
+- JSON 구조: `data_info[].contents` 필드에 한국어 텍스트
+
+#### 동음이의어 포함 문장 추출 (`scripts/wsd/extract_homonym_sentences.py`)
+- 1차 시도: 76K 동음이의어 × 각 문장 brute force → O(n*m) 너무 느림
+- 2차: **Aho-Corasick 알고리즘** (`ahocorasick_rs`) → O(n) 다중 패턴 매칭, 수초만에 완료
+- 결과: **500,000개 문장** 추출 (115MB) → `/home/jinwoo/wsd-data/homonym_sentences.jsonl`
+
+#### Python ML 환경 (jinserver)
+- `/home/jinwoo/wsd-env/` venv 생성 (Python 3.12)
+- PyTorch 2.10+cu126, Transformers 5.2, datasets, accelerate, ONNX, onnxruntime 설치
+- GPU 확인: RTX 3080, 9.6GB VRAM, CUDA 사용 가능 ✅
+
+#### ETRI WiseNLU API 자동 라벨링 (`scripts/wsd/label_with_etri.py`)
+- 배치 처리 (MAX_CHARS_PER_CALL=3000), resume 지원, progress 추적
+- 분석코드 `ner`로 WSD(scode) + NER(PS_NAME 등) 동시 획득
+- 일일 한도 4,500건, 0.3초 rate limit
+- 413 Payload Too Large 에러 → MAX_CHARS를 9000→3000으로 축소
+- Python stdout 버퍼링 → `PYTHONUNBUFFERED=1` + `python3 -u`로 해결
+- **백그라운드 실행 중** (PID 96062): 9,047배치 중 79완료 시점에 세션 종료
+  - 세션 종료 시 WSD 73,691개, NER 4,374개 라벨 수집 중
+  - 내일 `--resume`으로 이어서 실행 (약 2일 소요 예상)
+
+**변경 파일**:
+- `apps/extension/lib/converter.ts` — 툴팁 fixed 포지셔닝 + 라이트/다크 모드
+- `apps/extension/entrypoints/content.ts` — darkTooltip 설정 추가
+- `apps/extension/entrypoints/popup/App.tsx` — 다크 모드 체크박스
+- `scripts/wsd/extract_homonym_sentences.py` — 신규 (Aho-Corasick 동음이의어 문장 추출)
+- `scripts/wsd/label_with_etri.py` — 신규 (ETRI API WSD+NER 자동 라벨링)
+
+**현재 상태**: ETRI 라벨링 jinserver에서 백그라운드 실행 중. 다음: 라벨링 완료 확인 → 학습 데이터셋 구축 → KcBERT 파인튜닝
