@@ -54,3 +54,4 @@ scripts/data/
 !docs/reference/*.csv
 
 !.env.example
+node_modules 2/
