@@ -12,7 +12,7 @@
 - ✅ 우리말샘 오픈 API 키 발급 → `120a24d0-4598-4567-948d-653f61b460b3`
 - ✅ 국립국어원 오픈 API 키 발급 → `C822A15091C0A8A2218553923DD925D7`
 - ✅ korean-dict-nikl 사전 XML 데이터 다운로드 (opendict + stdict)
-- ⬜ ETRI 공공데이터포털 API 키 발급 (언어 분석 기술 API) 🧑
+- ✅ ETRI 공공데이터포털 API 키 발급 (언어 분석 기술 API) 🧑
 
 ### 외부 서비스 세팅 🧑
 - ✅ Supabase 프로젝트 생성 → URL, anon key, service role key 확보
@@ -49,10 +49,14 @@
 - ✅ 크롬 확장용 JSON 번들링 확인 (apps/extension/public/dict/) 🤖
 
 ### Day 7: 인증 시스템
-- ⬜ Supabase Auth 설정 (구글 + 카카오 OAuth) 🤝
+- ✅ Google OAuth 클라이언트 생성 (Chrome 앱용 + 웹 앱용) 🤝
+- ✅ Supabase Auth Google 프로바이더 설정 🤝
+- ✅ 크롬 확장 manifest key + 고정 ID 설정 (ckncdpmdnfacolnjmnhmckbpjojmfjom) 🤖
+- ⏸️ 카카오 OAuth 설정 (Google 먼저 완성 후) 🤝
 - ⬜ 웹 로그인/로그아웃 UI + 기능 🤖
 - ⬜ profiles 자동 생성 트리거 (Supabase Function) 🤖
 - ⬜ 미들웨어 인증 처리 🤖
+- ⬜ 확장 프로그램 내 Supabase 로그인 연동 🤖
 
 ---
 
@@ -87,29 +91,31 @@
 > **ETRI API**: ✅ 키 발급 완료, `ner` 코드로 WSD + NER 동시 수집 확인
 
 ### Step 1: 학습 데이터 수집 🤖
-- ⬜ 뉴스 코퍼스 수집 (AI Hub / 국립국어원 공개 말뭉치)
-- ⬜ 동음이의어(76,396개) 포함 문장 추출 + 필터링
-- ⬜ ETRI WiseNLU API(`ner` 코드)로 자동 라벨링 (5,000건/일 × ~15일)
-  - WSD 라벨: scode(표준국어대사전 동음이의어 코드) → 한자 매핑
-  - NER 라벨: PS_NAME(사람이름), CV_POSITION(직위) 등 → 변환 제외 대상
-  - 1만 글자/회 → 한 번에 수십 개 동음이의어 + NER 라벨 획득
-- ⬜ 학습/검증/테스트 데이터셋 분할 (8:1:1)
+- ✅ AI Hub 코퍼스 수집 ("한국어 초거대AI 언어모델" 17GB → 370 JSON, 16GB)
+- ✅ 동음이의어(76,188개) 포함 문장 추출 — Aho-Corasick O(n) → **50만 문장** (115MB)
+- ✅ ETRI WiseNLU API(`ner` 코드)로 자동 라벨링 완료
+  - 결과: **8,759 / 9,047 배치** (96.8%) — WSD 637만 라벨, NER 42만 라벨
+  - WSD 라벨: scode(의미 번호) 52종
+  - NER 라벨: PS_NAME(사람이름), CV_POSITION(직위) 등
+- ✅ 학습/검증/테스트 데이터셋 분할 (8:1:1) — **725 단어, 25만 샘플**
+- ✅ 데이터셋 v2 확장: min-samples-per-sense=3 → **1,673 단어, 66만 샘플**
+- ✅ 국한대백과 크롤링 (2,927 문서, 6,885 WSD 샘플) + 병합
 
 ### Step 2: 모델 학습 (jinserver) 🤖
-- ⬜ Python 환경 구축 (PyTorch + Transformers + CUDA 13.0)
-- ⬜ 사전학습 모델 선정 (KcBERT-base / KoBERT / KR-BERT 비교)
-- ⬜ 멀티태스크 파인튜닝 (WSD + NER 동시 학습)
-  - Task 1 WSD: 문맥 → 올바른 한자 ID (softmax)
-  - Task 2 NER: 토큰 → 사람이름/직위/일반 (BIO 태깅)
-  - 하나의 BERT backbone + 2개 head, 모델 크기 거의 동일
-  - RTX 3080 10GB → batch 16~32, 수 시간 예상
-- ⬜ 검증 정확도 목표: WSD 90%+, NER 95%+
+- ✅ Python 환경 구축 (PyTorch 2.10+cu126, Transformers 5.2, CUDA 12.6)
+- ✅ 사전학습 모델: **beomi/kcbert-base** (한국어 BERT, 110M 파라미터)
+- ✅ WSD v1 파인튜닝 (725개 단어별 분류 헤드) — **Test accuracy: 94.44%**
+- ✅ hash 버그 수정 완료 (hashlib.md5로 결정적 해시 전환, 재학습 완료)
+- ✅ WSD v2 파인튜닝 (1,673개 단어, 53만 train 샘플) — **val_acc 95.17%** (Epoch 4 best)
+- ⬜ NER 태스크 추가 (사람이름 필터링) — 추후 멀티태스크로 확장
 
 ### Step 3: 모델 경량화 + 변환 🤖
-- ⬜ ONNX 포맷 변환 (torch.onnx.export)
-- ⬜ 양자화 (INT8) → 모델 크기 목표: 5~20MB
+- ✅ ONNX v1 변환 (725 단어) — 인코더 416MB→INT8 105MB, 헤드 27MB
+- ✅ CPU 추론 검증: **18~20ms/단어** (ONNX Runtime)
+- ✅ ONNX v2 변환 (1,673 단어) — INT8 105MB, 헤드 62MB
+- ✅ API 서버 v2 모델로 업데이트 (heads: 1,673개, 정상 가동)
 - ⬜ ONNX Runtime Web 브라우저 추론 테스트
-- ⬜ 추론 속도 벤치마크 (목표: 페이지당 < 500ms)
+- ⬜ 추가 경량화 검토 (지식 증류, pruning 등 → 목표 25MB 이하)
 
 ### Step 4: 크롬 확장 통합 🤖
 - ⬜ ONNX Runtime Web 번들링 (wxt.config.ts)
@@ -179,7 +185,7 @@
 | M1 | 프로젝트 세팅 + 데이터 | hanja_words 589,822개, JSON 523,017 단어, source 필드 | ✅ |
 | M2 | 한자 변환 작동 | 엔진 + kuromoji-ko 형태소 분석, 크롬 테스트 완료 | ✅ |
 | M3 | 툴팁 UX 완성 | 호버 툴팁 + 클릭 전환 + 선호도 학습 + 애니메이션 | ✅ |
-| M3.5 | WSD 모델 | 동음이의어 문맥 판별 모델 학습 + ONNX 변환 + 확장 통합 | ⬜ |
+| M3.5 | WSD 모델 | 동음이의어 문맥 판별 모델 학습 + ONNX 변환 + 확장 통합 | 🔄 (v2 1,673단어 95.17%, ONNX+API 완료, 확장 통합 대기) |
 | M4 | 진단 테스트 완성 | 테스트→레벨 판정→결과 | ⬜ |
 | M5 | MVP 통합 완성 | 웹+확장 전체 플로우 | ⬜ |
 | M6 | 배포 완료 | hanjahanja.kr 라이브 | ⬜ |

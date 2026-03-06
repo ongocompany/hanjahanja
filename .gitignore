@@ -16,6 +16,9 @@ out/
 .env.local
 .env.*.local
 
+# OAuth credentials
+client_secret_*.json
+
 # IDE / Tools
 .vscode/
 .idea/
@@ -25,6 +28,8 @@ out/
 *~
 .bkit-memory.json
 .pdca-status.json
+.bkit/
+.cache/
 
 # OS
 .DS_Store

@@ -48,6 +48,27 @@ const LEVELS = [
   { value: 0, label: '특급' },
 ] as const;
 
+/** 두음법칙: 단어 첫머리에서 ㄹ→ㄴ/ㅇ, ㄴ→ㅇ 변환 */
+const DUEUM_MAP: Record<string, string> = {
+  '라': '나', '락': '낙', '란': '난', '랄': '날', '람': '남', '랍': '납',
+  '랑': '낭', '래': '내', '랭': '냉',
+  '려': '여', '력': '역', '련': '연', '렬': '열', '렴': '염', '렵': '엽',
+  '령': '영', '례': '예', '로': '노', '록': '녹', '론': '논', '롱': '농',
+  '뢰': '뇌', '료': '요', '류': '유', '륙': '육', '률': '율', '륜': '윤',
+  '릉': '능', '리': '이', '린': '인', '립': '입',
+  '녀': '여', '뇨': '요', '뉴': '유', '니': '이',
+};
+
+function applyDueum(reading: string): string {
+  if (reading.length === 0) return reading;
+  for (const [orig, changed] of Object.entries(DUEUM_MAP)) {
+    if (reading.startsWith(orig)) {
+      return changed + reading.slice(orig.length);
+    }
+  }
+  return reading;
+}
+
 const CSV_PATH = join(__dirname, 'data/hanja-words-extracted.csv');
 const OUTPUT_DIR = resolve(__dirname, '../apps/extension/public/dict');
 
@@ -158,6 +179,14 @@ function buildLevelDicts(
     const dict = levelDicts.get(levelInfo.level);
     if (!dict) { skippedNoChar++; continue; }
 
+    // chars reading이 한글 단어와 다르면 제외 (반의어/관련어 혼입 방지)
+    // 두음법칙 적용: 勞組 → "로조" → "노조" ✓
+    const charsReading = levelInfo.details.map(c => c.reading).join('');
+    if (charsReading !== word.korean && applyDueum(charsReading) !== word.korean) {
+      skippedNoChar++;
+      continue;
+    }
+
     const entry: DictEntry = {
       hanja: word.hanja,
       reading: word.korean,
@@ -172,6 +201,31 @@ function buildLevelDicts(
     }
     dict[word.korean].push(entry);
     totalEntries++;
+  }
+
+  // 한자 글자별 출현빈도 계산 (전체 사전에서 각 글자가 몇 개 단어에 쓰이는지)
+  const charFreq = new Map<string, number>();
+  for (const dict of levelDicts.values()) {
+    for (const entries of Object.values(dict)) {
+      for (const entry of entries) {
+        for (const ch of [...entry.hanja]) {
+          charFreq.set(ch, (charFreq.get(ch) ?? 0) + 1);
+        }
+      }
+    }
+  }
+
+  // 동음이의어 정렬: 구성 한자 빈도 합산이 높은 엔트리 우선 (흔한 한자 = 흔한 뜻)
+  for (const dict of levelDicts.values()) {
+    for (const [key, entries] of Object.entries(dict)) {
+      if (entries.length > 1) {
+        dict[key] = entries.sort((a, b) => {
+          const freqA = [...a.hanja].reduce((sum, ch) => sum + (charFreq.get(ch) ?? 0), 0);
+          const freqB = [...b.hanja].reduce((sum, ch) => sum + (charFreq.get(ch) ?? 0), 0);
+          return freqB - freqA; // 빈도 높은 순
+        });
+      }
+    }
   }
 
   let homonymCount = 0;

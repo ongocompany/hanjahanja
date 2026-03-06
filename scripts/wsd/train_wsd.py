@@ -27,6 +27,7 @@ Usage:
 """
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -115,8 +116,9 @@ class WSDModel(nn.Module):
 
     @staticmethod
     def _word_key(word: str) -> str:
-        """단어를 ModuleDict 키로 변환 (영숫자만 허용)"""
-        return f"w_{hash(word) % (10**8):08d}"
+        """단어를 ModuleDict 키로 변환 (결정적 해시, 영숫자만 허용)"""
+        h = hashlib.md5(word.encode("utf-8")).hexdigest()[:8]
+        return f"w_{h}"
 
     def forward(self, input_ids, attention_mask, token_type_ids, words):
         """

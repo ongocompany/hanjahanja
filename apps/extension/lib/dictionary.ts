@@ -64,4 +64,31 @@ export async function loadDict(): Promise<HanjaDict> {
 
 export function clearCache(): void {
   cachedDict = null;
+  cachedHomonymFreq = null;
+}
+
+// ─── 동음이의어 빈도 데이터 ───
+
+/** { [reading: string]: { [hanja: string]: number } } */
+export type HomonymFreq = Record<string, Record<string, number>>;
+
+let cachedHomonymFreq: HomonymFreq | null = null;
+
+export async function loadHomonymFreq(): Promise<HomonymFreq> {
+  if (cachedHomonymFreq) return cachedHomonymFreq;
+
+  try {
+    const url = chrome.runtime.getURL('dict/homonym-freq.json');
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`[한자한자] 빈도 데이터 로드 실패: ${res.status}`);
+      return {};
+    }
+    cachedHomonymFreq = await res.json();
+    console.log(`[한자한자] 빈도 데이터 로드: ${Object.keys(cachedHomonymFreq!).length}개 단어`);
+    return cachedHomonymFreq!;
+  } catch (e) {
+    console.warn('[한자한자] 빈도 데이터 로드 에러:', e);
+    return {};
+  }
 }

@@ -195,3 +195,80 @@
 - `scripts/wsd/label_with_etri.py` — 신규 (ETRI API WSD+NER 자동 라벨링)
 
 **현재 상태**: ETRI 라벨링 jinserver에서 백그라운드 실행 중. 다음: 라벨링 완료 확인 → 학습 데이터셋 구축 → KcBERT 파인튜닝
+
+## 2025-03-05
+
+### 세션 10: WSD 모델 학습 + 기술문서 정리
+
+#### ETRI 라벨링 재시작
+- 어제 일일 한도(4,500건)로 4,500/9,047 배치에서 자동 중단됨
+- `--resume`으로 재시작 → 현재 6,050/9,047 (66.9%) 진행 중
+- 오늘 안에 완료 예상
+
+#### 학습 데이터셋 구축
+- ETRI WSD 라벨에서 동음이의어 교차 매칭 분석
+  - 매칭 단어: 15,727개 (94만 건)
+  - 2개+ scode(다의어): 2,511개
+- `scripts/wsd/build_dataset.py` 구현
+  - 필터: 2개+ 의미, 의미당 5개+ 샘플 → **725개 동음이의어**
+  - Train 202,800 / Val 24,972 / Test 24,972 (총 252,744 샘플)
+
+#### KcBERT WSD 파인튜닝
+- `scripts/wsd/train_wsd.py` 구현
+  - beomi/kcbert-base + 725개 단어별 분류 헤드
+  - 입력: `[CLS] 문장 [SEP] 타겟단어 [SEP]` → scode 예측
+- jinserver에서 학습 실행 중 (RTX 3080, VRAM 5.9GB)
+  - **Epoch 1/5: train_acc=89.8%, val_acc=93.4%** ← 첫 epoch부터 좋은 성능
+  - 5 epoch 완료까지 약 1시간 예상
+
+#### ONNX 변환 스크립트
+- `scripts/wsd/export_onnx.py` 작성
+  - 인코더 ONNX 변환 + INT8 양자화
+  - 분류 헤드 JSON 분리 (JS에서 행렬곱)
+
+#### 기술문서 정리
+- `docs/reference/wsd-pipeline.md` 작성
+  - 전체 파이프라인 문서화 (출처, API, 데이터 크기, 산출물 등)
+
+#### 이슈
+- GitHub 계정 suspended → push 실패 (커밋은 로컬에 보존)
+- 미해결: ETRI scode → 한자 매핑 테이블 구축 필요
+
+**변경 파일**:
+- `scripts/wsd/build_dataset.py` — 신규 (학습 데이터셋 구축)
+- `scripts/wsd/train_wsd.py` — 신규 (KcBERT WSD 파인튜닝)
+- `scripts/wsd/export_onnx.py` — 신규 (ONNX 변환)
+- `docs/reference/wsd-pipeline.md` — 신규 (기술문서)
+
+**현재 상태**: 모델 학습 완료 (test_acc 94.44%), ONNX 변환 완료, ETRI 라벨링 96.8%. GitHub push 완료
+
+### 세션 11: ONNX 변환 + ETRI 라벨링 완료 확인
+
+#### hash 버그 수정 재학습 결과
+- hashlib.md5 결정적 해시로 수정 후 재학습 완료
+- **Test accuracy: 94.44%** (val_acc 94.31%, Epoch 4 best)
+- 이전 학습(94.45%)과 거의 동일한 성능 확인
+
+#### ONNX 변환 완료
+- `onnxscript` 의존성 추가 설치 (PyTorch 2.10 요구)
+- 산출물:
+  - `wsd_encoder.onnx` + `.data`: 416MB (FP32 원본)
+  - `wsd_encoder_int8.onnx`: **105MB** (INT8 양자화)
+  - `wsd_heads.json`: 27MB (725 단어 분류 헤드)
+  - `tokenizer/`: HuggingFace 토크나이저
+- CPU 추론 검증: **18~20ms/단어** (ONNX Runtime)
+- INT8 모델 105MB는 목표(25MB) 초과 → 추가 경량화 필요
+
+#### ETRI 라벨링 완료
+- **8,759 / 9,047 배치** 처리 (96.8%)
+- WSD 라벨: 6,377,076개 / NER 라벨: 425,510개
+
+#### 이슈
+- Tailscale SSH 인증 만료 → 재인증 후 해결
+- ONNX INT8 105MB: 크롬 확장 목표(25MB) 초과, 추가 경량화 검토 필요
+
+**변경 파일**:
+- `docs/checklist.md` — ONNX 변환 완료, ETRI 라벨링 완료 반영
+- `docs/worklog.md` — 세션 11 기록
+
+**현재 상태**: WSD 모델 학습+ONNX 변환 완료, 다음 단계는 ONNX 경량화 또는 크롬 확장 통합

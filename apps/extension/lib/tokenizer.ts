@@ -25,15 +25,32 @@ export async function initMecab(): Promise<void> {
   console.log('[한자한자] 형태소 분석기 초기화 완료');
 }
 
+/** 두음법칙: 단어 첫머리에서 ㄹ→ㄴ/ㅇ, ㄴ→ㅇ */
+const DUEUM: Record<string, string> = {
+  '라': '나', '락': '낙', '란': '난', '랄': '날', '람': '남', '랍': '납',
+  '랑': '낭', '래': '내', '랭': '냉',
+  '려': '여', '력': '역', '련': '연', '렬': '열', '렴': '염', '렵': '엽',
+  '령': '영', '례': '예', '로': '노', '록': '녹', '론': '논', '롱': '농',
+  '뢰': '뇌', '료': '요', '류': '유', '륙': '육', '률': '율', '륜': '윤',
+  '릉': '능', '리': '이', '린': '인', '립': '입',
+  '녀': '여', '뇨': '요', '뉴': '유', '니': '이',
+};
+function applyDueum(r: string): string {
+  for (const [o, c] of Object.entries(DUEUM)) {
+    if (r.startsWith(o)) return c + r.slice(o.length);
+  }
+  return r;
+}
+
 /**
  * 한자 읽기 검증: 개별 한자의 읽기를 합친 것이 원래 단어와 같은지 확인
  * "경제" → 經(경)+濟(제) = "경제" ✓
- * "이번" → 今(금)+番(번) = "금번" ≠ "이번" ✗
+ * "노동조합" → 勞(로)+動(동)+組(조)+合(합) = "로동조합" → 두음법칙 → "노동조합" ✓
  */
 function isValidHanjaReading(word: string, entry: DictEntry): boolean {
   if (!entry.chars || entry.chars.length === 0) return true;
   const charsReading = entry.chars.map((c) => c.reading).join('');
-  return charsReading === word;
+  return charsReading === word || applyDueum(charsReading) === word;
 }
 
 /**
