@@ -2,6 +2,7 @@ import type { DictEntry, HanjaDict, HomonymFreq } from './dictionary';
 import { findHanjaWords } from './tokenizer';
 import { recordChoice, getWordPrefs } from './preference';
 import { predictHanjaBatch, hasWSDHead } from './wsd';
+import { trackExposure, trackClick } from './tracker';
 
 const SKIP_TAGS = new Set([
   'SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'OBJECT', 'EMBED',
@@ -44,6 +45,8 @@ const NATIVE_KOREAN_BLOCKLIST = new Set([
   '사이', '여보', '나라', '아이', '소리', '나이',
   '자리', '무리', '누리', '노래', '이루', '어리',
   '가리', '도리', '수리', '구리', '부리',
+  '모습', '거리',
+  '사내', '재미', '나중', '사랑',
 
   // ── 자동 생성 (stdict 고유어 × 한자사전 3급이하) ──
   '가사리', '갈매', '감다', '개암', '개울', '건지', '고마리', '곤두',
@@ -56,6 +59,22 @@ const NATIVE_KOREAN_BLOCKLIST = new Set([
   '이응', '자게', '자두', '장도리', '장만', '정엽', '지가리', '지화리',
   '차랑', '초고리', '초고지', '추근', '칠봉', '팔랑', '피륙', '회창',
 ]);
+
+/**
+ * 접미사로 자주 쓰이는 단어: 앞 글자에 바로 붙어있으면(공백 없음) 변환 건너뜀
+ * 예: "먹을거리" → 거리는 접미사(-거리), "거리를 두다" → 거리는 距離
+ */
+const SUFFIX_WORDS = new Set<string>([
+  // 거리 → 블록리스트로 이동 (오변환 > 미변환)
+  // 자리 → 이미 블록리스트에 있음
+  // 향후 접미사/명사 양용 단어 추가용
+]);
+
+/** 한글 음절 범위 체크 */
+function isKorean(ch: string): boolean {
+  const code = ch.charCodeAt(0);
+  return code >= 0xAC00 && code <= 0xD7A3;
+}
 
 /** 두음법칙: 단어 첫머리에서 ㄹ→ㄴ/ㅇ, ㄴ→ㅇ */
 const DUEUM: Record<string, string> = {
@@ -96,17 +115,28 @@ function injectStyles(): void {
       text-underline-offset: 3px;
       cursor: default;
     }
+    .hjhj-word.hjhj-on-dark {
+      text-decoration-color: #ffd54f;
+    }
     .hjhj-word-confident {
       text-decoration: underline dotted #2e7d32;
       text-underline-offset: 3px;
       cursor: help;
       color: #1b5e20;
     }
+    .hjhj-word-confident.hjhj-on-dark {
+      text-decoration-color: #81c784;
+      color: #a5d6a7;
+    }
     .hjhj-word-ambiguous {
       text-decoration: underline dotted #e65100;
       text-underline-offset: 3px;
       cursor: help;
       color: #bf360c;
+    }
+    .hjhj-word-ambiguous.hjhj-on-dark {
+      text-decoration-color: #ffb74d;
+      color: #ffcc80;
     }
     .hjhj-tooltip {
       display: none;
@@ -245,7 +275,7 @@ function shouldSkipNode(node: Node): boolean {
   return false;
 }
 
-/** 선호도 기반으로 엔트리 정렬 (WSD 추천 > 선택 횟수 > 빈도 점수 > 급수 범위 내 > 급수 쉬운 순) */
+/** 선호도 기반으로 엔트리 정렬 (WSD 추천 > 선택 횟수 > 빈도 점수) */
 function sortByPreference(entries: DictEntry[], prefs: Record<string, number>, userLevel: number, freqMap?: Record<string, number>, wsdHanja?: string | null): DictEntry[] {
   return [...entries].sort((a, b) => {
     // WSD 모델 추천 한자 — 단, 사용자 급수 범위 내일 때만 우선
@@ -264,12 +294,8 @@ function sortByPreference(entries: DictEntry[], prefs: Record<string, number>, u
       const freqB = freqMap[b.hanja] ?? 0;
       if (freqA !== freqB) return freqB - freqA;
     }
-    // 급수 범위 내 엔트리 우선
-    const inRangeA = a.level >= userLevel ? 1 : 0;
-    const inRangeB = b.level >= userLevel ? 1 : 0;
-    if (inRangeA !== inRangeB) return inRangeB - inRangeA;
-    // 급수 높은(=더 흔한 한자) 순
-    return b.level - a.level;
+    // 급수는 정렬 기준에서 제외 (급수 ≠ 사용빈도)
+    return 0;
   });
 }
 
@@ -342,8 +368,30 @@ function showTooltip(wrapper: HTMLElement, tooltip: HTMLElement): void {
 /** 현재 다크모드 설정 */
 let darkMode = false;
 
+/** 부모 요소의 배경이 어두운지 감지 */
+function isOnDarkBackground(el: Element): boolean {
+  let current: Element | null = el;
+  while (current && current !== document.documentElement) {
+    const bg = getComputedStyle(current).backgroundColor;
+    if (bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)') {
+      // rgb(r, g, b) 또는 rgba(r, g, b, a) 파싱
+      const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        // 상대 밝기 계산 (ITU-R BT.601)
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance < 0.4;
+      }
+    }
+    current = current.parentElement;
+  }
+  return false;
+}
+
 /** 한자 <span> + 마우스 오버 툴팁 생성 */
-function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<string, number>, userLevel: number, freqMap?: Record<string, number>, wsdHanja?: string | null): HTMLElement {
+function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<string, number>, userLevel: number, freqMap?: Record<string, number>, wsdHanja?: string | null, onDark?: boolean): HTMLElement {
   const sorted = sortByPreference(entries, prefs, userLevel, freqMap, wsdHanja);
 
   // 신뢰도 분류: 단독 / 녹색(>50%) / 주황색(≤50%)
@@ -359,12 +407,15 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
   }
 
   const wrapper = document.createElement('span');
-  wrapper.className = cssClass;
+  wrapper.className = onDark ? `${cssClass} hjhj-on-dark` : cssClass;
   wrapper.setAttribute(HANJAHANJA_ATTR, 'converted');
 
   // 인라인 한자 텍스트 (선호도 1위)
   const inlineText = document.createTextNode(sorted[0].hanja);
   wrapper.appendChild(inlineText);
+
+  // 노출 추적 (메모리 버퍼에 누적, 주기적 flush)
+  trackExposure(word, sorted[0].hanja);
 
   // 툴팁은 body에 붙일 것 — lazy 생성
   let tooltip: HTMLElement | null = null;
@@ -431,8 +482,11 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
           tooltip!.querySelectorAll('.hjhj-entry').forEach((el) => el.classList.remove('hjhj-active'));
           row.classList.add('hjhj-active');
 
-          // 선호도 저장
+          // 선호도 저장 + 클릭 추적
           recordChoice(word, entry.hanja);
+          // 문맥: 가장 가까운 부모 요소의 텍스트 (문장 추출)
+          const parentText = wrapper.closest('p, div, li, td, h1, h2, h3, h4, h5, h6')?.textContent?.trim()?.slice(0, 200);
+          trackClick(word, entry.hanja, parentText);
 
           // 카운트 표시 업데이트
           let countEl = row.querySelector('.hjhj-count') as HTMLElement | null;
@@ -508,8 +562,28 @@ async function convertTextNode(textNode: Text, dict: HanjaDict, prefsCache: Map<
   );
   if (levelFiltered.length === 0) return;
 
+  // 빈도 필터: 실사용 빈도가 극히 낮은 단어 변환 제외
+  // 줄임말(과방→果房), 고어, 사실상 안 쓰이는 한자어 등 걸러냄
+  // 빈도 데이터 없는 단어(단일 의미)는 그대로 통과
+  const MIN_CONVERT_FREQ = 7;
+  const freqFiltered = levelFiltered.filter(m => {
+    const freqMap = homonymFreq[m.word];
+    if (!freqMap) return true; // 빈도 데이터 없으면 통과 (단일 의미 단어)
+    const maxFreq = Math.max(...Object.values(freqMap));
+    return maxFreq >= MIN_CONVERT_FREQ;
+  });
+
+  // 접미사 필터: "먹을거리"처럼 앞 한글에 바로 붙은 접미사형 단어 제외
+  const suffixFiltered = freqFiltered.filter(m => {
+    if (!SUFFIX_WORDS.has(m.word)) return true;
+    if (m.position === 0) return true; // 문장 맨 앞이면 접미사 아님
+    const prevChar = text[m.position - 1];
+    return !isKorean(prevChar); // 앞에 한글이면 접미사 → 제외
+  });
+  if (suffixFiltered.length === 0) return;
+
   // 필요한 단어들의 선호도를 배치 로드
-  for (const match of levelFiltered) {
+  for (const match of suffixFiltered) {
     if (!prefsCache.has(match.word)) {
       prefsCache.set(match.word, await getWordPrefs(match.word));
     }
@@ -517,7 +591,7 @@ async function convertTextNode(textNode: Text, dict: HanjaDict, prefsCache: Map<
 
   // WSD 예측: 동음이의어(엔트리 2개+)를 배치로 API 호출
   const wsdWords: string[] = [];
-  for (const match of levelFiltered) {
+  for (const match of suffixFiltered) {
     if (match.entries.length >= 2 && hasWSDHead(match.word) && !wsdWords.includes(match.word)) {
       wsdWords.push(match.word);
     }
@@ -535,10 +609,13 @@ async function convertTextNode(textNode: Text, dict: HanjaDict, prefsCache: Map<
     console.log(`[한자한자 WSD] 배치 결과: ${debugEntries.join(', ') || '(빈 결과)'}`);
   }
 
+  // 부모 요소의 배경 밝기 감지 (텍스트 노드의 부모는 이미 DOM에 있음)
+  const parentIsDark = textNode.parentElement ? isOnDarkBackground(textNode.parentElement) : false;
+
   const fragment = document.createDocumentFragment();
   let lastIndex = 0;
 
-  for (const match of levelFiltered) {
+  for (const match of suffixFiltered) {
     if (match.position > lastIndex) {
       fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.position)));
     }
@@ -546,7 +623,7 @@ async function convertTextNode(textNode: Text, dict: HanjaDict, prefsCache: Map<
     const prefs = prefsCache.get(match.word) ?? {};
     const freqMap = homonymFreq[match.word];
     const wsdHanja = wsdResults.get(match.word) ?? null;
-    fragment.appendChild(createHanjaElement(match.word, match.entries, prefs, userLevel, freqMap, wsdHanja));
+    fragment.appendChild(createHanjaElement(match.word, match.entries, prefs, userLevel, freqMap, wsdHanja, parentIsDark));
     lastIndex = match.position + match.word.length;
   }
 
