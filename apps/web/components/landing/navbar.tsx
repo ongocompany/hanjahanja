@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
+import { LogoutButton } from "./logout-button";
 
-export function Navbar() {
+export async function Navbar() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-b border-warm-brown/5">
       <div className="mx-auto max-w-5xl flex items-center justify-between px-6 py-3">
@@ -24,13 +29,17 @@ export function Navbar() {
           >
             한자한자 소개
           </Link>
-          <Button
-            asChild
-            size="sm"
-            className="bg-tan hover:bg-tan-dark text-cream rounded-lg"
-          >
-            <Link href="/signup">회원가입</Link>
-          </Button>
+          {user ? (
+            <LogoutButton email={user.email} />
+          ) : (
+            <Button
+              asChild
+              size="sm"
+              className="bg-tan hover:bg-tan-dark text-cream rounded-lg"
+            >
+              <Link href="/signup">회원가입</Link>
+            </Button>
+          )}
         </nav>
       </div>
     </header>

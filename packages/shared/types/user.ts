@@ -41,3 +41,39 @@ export interface DiagnosticResult {
   score: Record<string, number>; // 급수별 정답률
   takenAt: string;
 }
+
+/** 노출 이력 (날짜별 집계) */
+export interface ExposureRecord {
+  koreanWord: string;
+  hanja: string;
+  exposureCount: number;
+  exposureDate: string; // YYYY-MM-DD
+}
+
+/** 클릭 이력 (개별 이벤트) */
+export interface ClickRecord {
+  koreanWord: string;
+  hanja: string;
+  contextSentence?: string;
+  sourceUrl?: string;
+  clickedAt: string;
+}
+
+/** 사자성어 */
+export interface Idiom {
+  idiom: string;
+  reading: string;
+  meaning: string;
+  characters: string[];
+  level?: number;
+}
+
+/** 일일 퀴즈 문제 */
+export interface DailyQuiz {
+  type: "exposure" | "click";
+  koreanWord: string;
+  hanja: string;
+  correctAnswer: string;
+  options: string[]; // 4지선다
+  contextSentence?: string;
+}
