@@ -32,13 +32,21 @@ export async function Navbar() {
           {user ? (
             <LogoutButton email={user.email} />
           ) : (
-            <Button
-              asChild
-              size="sm"
-              className="bg-tan hover:bg-tan-dark text-cream rounded-lg"
-            >
-              <Link href="/signup">회원가입</Link>
-            </Button>
+            <>
+              <Link
+                href="/login"
+                className="text-sm font-medium text-warm-brown-light hover:text-warm-brown transition-colors"
+              >
+                로그인
+              </Link>
+              <Button
+                asChild
+                size="sm"
+                className="bg-tan hover:bg-tan-dark text-cream rounded-lg"
+              >
+                <Link href="/signup">회원가입</Link>
+              </Button>
+            </>
           )}
         </nav>
       </div>
