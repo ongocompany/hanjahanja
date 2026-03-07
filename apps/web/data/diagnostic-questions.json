@@ -1,0 +1,76 @@
+[
+  {
+    "_comment": "=== 8급 (10문제: 독음5, 훈음4, 반의어1) ===",
+    "_note": "8급 배정한자 50자 — 가장 기본적인 한자"
+  },
+  {"id":"8-r-01","level":8,"type":"reading","question":"學校","answer":"학교","choices":["학교","학생","교실","학년"]},
+  {"id":"8-r-02","level":8,"type":"reading","question":"兄弟","answer":"형제","choices":["형제","부모","남녀","선생"],"sentence":"우리 兄弟는 사이가 좋다."},
+  {"id":"8-r-03","level":8,"type":"reading","question":"國民","answer":"국민","choices":["국민","국군","국외","군민"],"sentence":"모든 國民은 법 앞에 평등하다."},
+  {"id":"8-r-04","level":8,"type":"reading","question":"大門","answer":"대문","choices":["대문","대학","교문","중문"]},
+  {"id":"8-r-05","level":8,"type":"reading","question":"父母","answer":"부모","choices":["부모","형제","남녀","학생"],"sentence":"父母님께 감사 인사를 드렸다."},
+  {"id":"8-h-01","level":8,"type":"huneum","question":"山","answer":"메 산","choices":["메 산","물 수","불 화","나무 목"]},
+  {"id":"8-h-02","level":8,"type":"huneum","question":"金","answer":"쇠 금","choices":["쇠 금","흙 토","물 수","불 화"]},
+  {"id":"8-h-03","level":8,"type":"huneum","question":"母","answer":"어미 모","choices":["어미 모","아비 부","형 형","아우 제"]},
+  {"id":"8-h-04","level":8,"type":"huneum","question":"靑","answer":"푸를 청","choices":["푸를 청","흰 백","클 대","작을 소"]},
+  {"id":"8-a-01","level":8,"type":"antonym","question":"大","answer":"小","choices":["小","中","長","外"]},
+
+  {
+    "_comment": "=== 7급 (10문제: 독음5, 훈음4, 반의어1) ===",
+    "_note": "7급 배정한자 150자 — 일상 기초"
+  },
+  {"id":"7-r-01","level":7,"type":"reading","question":"敎育","answer":"교육","choices":["교육","체육","교과","보육"],"sentence":"우리나라 敎育 제도가 크게 바뀌었다."},
+  {"id":"7-r-02","level":7,"type":"reading","question":"自然","answer":"자연","choices":["자연","자유","천연","자전"]},
+  {"id":"7-r-03","level":7,"type":"reading","question":"國語","answer":"국어","choices":["국어","국가","국내","외국"],"sentence":"오늘 國語 시간에 받아쓰기를 했다."},
+  {"id":"7-r-04","level":7,"type":"reading","question":"入學","answer":"입학","choices":["입학","입장","진학","퇴학"]},
+  {"id":"7-r-05","level":7,"type":"reading","question":"工場","answer":"공장","choices":["공장","공부","시장","광장"],"sentence":"이 마을에 새 工場이 들어섰다."},
+  {"id":"7-h-01","level":7,"type":"huneum","question":"江","answer":"강 강","choices":["강 강","물 수","내 천","바다 해"]},
+  {"id":"7-h-02","level":7,"type":"huneum","question":"命","answer":"목숨 명","choices":["목숨 명","이름 명","날 생","해 년"]},
+  {"id":"7-h-03","level":7,"type":"huneum","question":"歌","answer":"노래 가","choices":["노래 가","집 가","아름다울 미","기쁠 희"]},
+  {"id":"7-h-04","level":7,"type":"huneum","question":"力","answer":"힘 력","choices":["힘 력","칼 도","활 궁","쇠 금"]},
+  {"id":"7-a-01","level":7,"type":"antonym","question":"男","answer":"女","choices":["女","子","人","民"]},
+
+  {
+    "_comment": "=== 6급 (10문제: 독음4, 훈음3, 반의어1, 뜻풀이2) ===",
+    "_note": "6급 배정한자 300자 — 실제 6급II 기출 기반"
+  },
+  {"id":"6-r-01","level":6,"type":"reading","question":"平等","answer":"평등","choices":["평등","평화","평일","평면"],"sentence":"모든 사람은 平等한 권리를 가진다."},
+  {"id":"6-r-02","level":6,"type":"reading","question":"注意","answer":"주의","choices":["주의","주인","의견","주장"]},
+  {"id":"6-r-03","level":6,"type":"reading","question":"登場","answer":"등장","choices":["등장","등산","등록","등교"],"sentence":"새로운 인물이 登場하면서 이야기가 달라졌다."},
+  {"id":"6-r-04","level":6,"type":"reading","question":"事業","answer":"사업","choices":["사업","사건","사회","산업"]},
+  {"id":"6-h-01","level":6,"type":"huneum","question":"光","answer":"빛 광","choices":["빛 광","밝을 명","불 화","볕 양"]},
+  {"id":"6-h-02","level":6,"type":"huneum","question":"幸","answer":"다행 행","choices":["다행 행","즐길 락","기쁠 희","착할 선"]},
+  {"id":"6-h-03","level":6,"type":"huneum","question":"集","answer":"모을 집","choices":["모을 집","나눌 분","흩을 산","놓을 방"]},
+  {"id":"6-a-01","level":6,"type":"antonym","question":"强","answer":"弱","choices":["弱","大","重","長"]},
+  {"id":"6-m-01","level":6,"type":"meaning","question":"弱小","answer":"약하고 작음","choices":["약하고 작음","크고 강함","작고 빠름","가볍고 작음"]},
+  {"id":"6-m-02","level":6,"type":"meaning","question":"不便","answer":"편하지 아니함","choices":["편하지 아니함","편리하고 좋음","같지 아니함","올바르지 못함"]},
+
+  {
+    "_comment": "=== 5급 (10문제: 독음4, 훈음3, 반의어1, 뜻풀이2) ===",
+    "_note": "5급 배정한자 500자"
+  },
+  {"id":"5-r-01","level":5,"type":"reading","question":"文化","answer":"문화","choices":["문화","문자","문학","변화"],"sentence":"한국 文化가 세계적으로 주목받고 있다."},
+  {"id":"5-r-02","level":5,"type":"reading","question":"道德","answer":"도덕","choices":["도덕","도로","덕망","인덕"]},
+  {"id":"5-r-03","level":5,"type":"reading","question":"筆記","answer":"필기","choices":["필기","필수","일기","암기"],"sentence":"시험 준비를 위해 筆記를 꼼꼼히 했다."},
+  {"id":"5-r-04","level":5,"type":"reading","question":"讀書","answer":"독서","choices":["독서","독자","도서","독립"]},
+  {"id":"5-h-01","level":5,"type":"huneum","question":"德","answer":"큰 덕","choices":["큰 덕","길 도","옳을 의","어질 인"]},
+  {"id":"5-h-02","level":5,"type":"huneum","question":"禮","answer":"예도 례","choices":["예도 례","법 법","어질 인","착할 선"]},
+  {"id":"5-h-03","level":5,"type":"huneum","question":"義","answer":"옳을 의","choices":["옳을 의","어질 인","믿을 신","큰 덕"]},
+  {"id":"5-a-01","level":5,"type":"antonym","question":"善","answer":"惡","choices":["惡","正","美","德"]},
+  {"id":"5-m-01","level":5,"type":"meaning","question":"感動","answer":"느끼어 마음이 움직임","choices":["느끼어 마음이 움직임","마음이 편안함","기운이 넘침","정신이 맑음"]},
+  {"id":"5-m-02","level":5,"type":"meaning","question":"平和","answer":"평온하고 화목함","choices":["평온하고 화목함","공평하고 올바름","고요하고 깨끗함","밝고 환함"]},
+
+  {
+    "_comment": "=== 4급 (10문제: 독음4, 훈음3, 반의어1, 사자성어1, 뜻풀이1) ===",
+    "_note": "4급 배정한자 1000자 — 실제 4급II 기출 기반"
+  },
+  {"id":"4-r-01","level":4,"type":"reading","question":"廣告","answer":"광고","choices":["광고","광장","경고","광대"]},
+  {"id":"4-r-02","level":4,"type":"reading","question":"災難","answer":"재난","choices":["재난","재산","재능","재판"],"sentence":"갑작스러운 災難에 대비하여 훈련을 실시했다."},
+  {"id":"4-r-03","level":4,"type":"reading","question":"經驗","answer":"경험","choices":["경험","경기","실험","경제"],"sentence":"다양한 經驗을 쌓는 것이 중요하다."},
+  {"id":"4-r-04","level":4,"type":"reading","question":"決定","answer":"결정","choices":["결정","결과","결석","확정"]},
+  {"id":"4-h-01","level":4,"type":"huneum","question":"橋","answer":"다리 교","choices":["다리 교","문 문","집 가","길 로"]},
+  {"id":"4-h-02","level":4,"type":"huneum","question":"假","answer":"거짓 가","choices":["거짓 가","참 진","바를 정","옳을 의"]},
+  {"id":"4-h-03","level":4,"type":"huneum","question":"壓","answer":"누를 압","choices":["누를 압","밀 추","당길 인","잡을 포"]},
+  {"id":"4-a-01","level":4,"type":"antonym","question":"勝","answer":"敗","choices":["敗","失","落","退"]},
+  {"id":"4-i-01","level":4,"type":"idiom","question":"燈火可( )","hint":"등불을 가까이할 만함","answer":"親","choices":["親","近","明","愛"]},
+  {"id":"4-m-01","level":4,"type":"meaning","question":"尊重","answer":"높이어 소중히 여김","choices":["높이어 소중히 여김","가볍게 여김","깊이 생각함","공경하여 받듦"]}
+]
