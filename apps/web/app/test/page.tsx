@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense, useState, useCallback, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import {
   createInitialState,
   startTest,
@@ -9,16 +9,16 @@ import {
   getCurrentQuestion,
   type DiagnosticState,
 } from '@/lib/diagnostic';
-import { TestIntro } from '@/components/test/test-intro';
 import { QuestionCard } from '@/components/test/question-card';
 import { ResultCard } from '@/components/test/result-card';
 
 function TestContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [state, setState] = useState<DiagnosticState>(createInitialState);
   const [initialized, setInitialized] = useState(false);
 
-  // URL ?level=8 파라미터로 바로 시작
+  // URL ?level=8 파라미터로 바로 시작, 없으면 메인으로
   useEffect(() => {
     if (initialized) return;
     const levelParam = searchParams.get('level');
@@ -26,29 +26,27 @@ function TestContent() {
       const level = parseFloat(levelParam);
       if (!isNaN(level)) {
         setState(startTest(createInitialState(), [level]));
+      } else {
+        router.push('/');
       }
+    } else {
+      router.push('/');
     }
     setInitialized(true);
-  }, [searchParams, initialized]);
-
-  const handleStart = useCallback((level: number) => {
-    setState((prev) => startTest(prev, [level]));
-  }, []);
+  }, [searchParams, initialized, router]);
 
   const handleAnswer = useCallback((correct: boolean) => {
     setState((prev) => processAnswer(prev, correct));
   }, []);
 
   const handleBack = useCallback(() => {
-    setState(createInitialState());
-  }, []);
+    router.push('/');
+  }, [router]);
 
   const currentQuestion = getCurrentQuestion(state);
 
   return (
     <>
-      {state.phase === 'intro' && <TestIntro onStart={handleStart} />}
-
       {state.phase === 'quiz' && currentQuestion && (
         <QuestionCard
           question={currentQuestion}
