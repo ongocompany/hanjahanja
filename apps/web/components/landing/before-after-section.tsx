@@ -62,7 +62,7 @@ export function BeforeAfterSection() {
     <section className="bg-moss py-14 px-6">
       <div className="mx-auto max-w-4xl">
         <h2 className="text-center text-2xl font-bold sm:text-3xl">
-          이렇게 바뀝니다
+          네이버 뉴스에 한자가?
         </h2>
         <p className="mt-2 text-center text-warm-brown-light text-base">
           내 급수에 맞춰, 아는 만큼만 보여줍니다

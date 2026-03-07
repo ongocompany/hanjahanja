@@ -1,5 +1,25 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+// 문제가 있는 급수만 활성화
+const ACTIVE_LEVELS = new Set([8, 7, 6, 5, 4]);
+
+const LEVELS: { label: string; value: number }[][] = [
+  [
+    { label: "8급", value: 8 },
+    { label: "준7급", value: 7.5 },
+    { label: "7급", value: 7 },
+    { label: "준6급", value: 6.5 },
+    { label: "6급", value: 6 },
+  ],
+  [
+    { label: "준5급", value: 5.5 },
+    { label: "5급", value: 5 },
+    { label: "준4급", value: 4.5 },
+    { label: "4급", value: 4 },
+    { label: "3급", value: 3 },
+  ],
+];
 
 export function QuizCtaSection() {
   return (
@@ -19,42 +39,48 @@ export function QuizCtaSection() {
               무료 진단 테스트
             </p>
             <h2 className="mt-1 text-2xl font-bold sm:text-3xl lg:text-4xl">
-              내 진짜 문해력은{" "}
-              <span className="text-tan-dark">몇 급</span>?
+              나의 <span className="text-tan-dark">한자실력</span>은?
             </h2>
           </div>
         </div>
 
         <p className="mt-4 text-base text-warm-brown-light leading-relaxed">
-          2분이면 충분합니다. 내 한자 실력을 진단하고, 딱 맞는 급수부터 시작하세요.
+          급수를 선택하고 10문제를 풀어보세요. 내 실력을 바로 확인할 수 있습니다.
         </p>
 
-        {/* 급수 프리뷰 */}
-        <div className="mt-6 flex justify-center gap-3">
-          {["8급", "6급", "4급", "2급", "특급"].map((lvl, i) => (
-            <div
-              key={lvl}
-              className="flex h-12 w-12 items-center justify-center rounded-xl font-bold text-sm shadow-sm"
-              style={{
-                backgroundColor: i === 0 ? "#D4A373" : "#FAEDCD",
-                color: i === 0 ? "#FEFAE0" : "#6B5744",
-                opacity: 1 - i * 0.12,
-              }}
-            >
-              {lvl}
+        {/* 급수 선택 (2줄) */}
+        <div className="mt-6 space-y-2">
+          {LEVELS.map((row, ri) => (
+            <div key={ri} className="flex justify-center gap-2">
+              {row.map((lvl) => {
+                const active = ACTIVE_LEVELS.has(lvl.value);
+                if (active) {
+                  return (
+                    <Link
+                      key={lvl.label}
+                      href={`/test?level=${lvl.value}`}
+                      className="flex h-11 w-14 items-center justify-center rounded-xl font-bold text-xs shadow-sm transition-all hover:scale-105 hover:shadow-md cursor-pointer bg-[#FAEDCD] text-[#6B5744] hover:bg-tan hover:text-cream"
+                    >
+                      {lvl.label}
+                    </Link>
+                  );
+                }
+                return (
+                  <div
+                    key={lvl.label}
+                    className="flex h-11 w-14 items-center justify-center rounded-xl font-bold text-xs shadow-sm bg-[#FAEDCD]/50 text-[#6B5744]/40"
+                    title="준비 중"
+                  >
+                    {lvl.label}
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
 
-        <Button
-          size="lg"
-          className="mt-8 bg-tan hover:bg-tan-dark text-cream px-10 py-5 text-base font-semibold rounded-xl shadow-lg"
-        >
-          지금 테스트 시작하기
-        </Button>
-
-        <p className="mt-3 text-sm text-warm-brown-light">
-          로그인 없이 바로 시작 · 결과 SNS 공유 가능
+        <p className="mt-5 text-sm text-warm-brown-light">
+          로그인 없이 바로 시작 · 급수별 약 2분 소요
         </p>
       </div>
     </section>
