@@ -437,3 +437,39 @@
 - `gemini_batches.json` — 남은 1,999단어 배치 입력
 
 **현재 상태**: Gemini 생성 jinserver에서 백그라운드 실행 중. 완료 후 → 로컬 Claude 결과와 병합 → train.jsonl에 추가 → 재학습
+
+### 세션 16: 웹 서비스 개선 (가입/로그인/테스트)
+
+#### 회원가입 + 로그인 구현
+- `apps/web/lib/supabase/middleware.ts` — Supabase 세션 쿠키 갱신 유틸
+- `apps/web/middleware.ts` — 모든 요청에서 세션 갱신
+- `apps/web/lib/auth/actions.ts` — signup, login, logout 서버 액션
+- `apps/web/app/auth/callback/route.ts` — 이메일 확인 콜백
+- `apps/web/app/signup/page.tsx` — 회원가입 폼 (닉네임/이메일/비밀번호)
+- `apps/web/app/login/page.tsx` — 로그인 폼
+- `apps/web/components/landing/logout-button.tsx` — 로그아웃 버튼 (클라이언트 컴포넌트)
+
+#### 비밀번호 규칙 강화
+- 10자 이상, 대문자 1개+, 소문자 1개+, 특수문자 1개+
+- 클라이언트 유효성 검사 + 힌트 텍스트
+
+#### 이용약관/동의 체크박스
+- 이용약관, 개인정보 수집·이용 동의, 제3자 정보제공 동의
+- 전체동의 체크박스 + 개별 토글 + 보기/접기 내용
+
+#### 네비바 개선
+- 로그인 링크 추가 (비로그인: 로그인 + 회원가입 버튼)
+- 로그인 상태: 이메일 표시 + 로그아웃 버튼
+
+#### 개발 서버 환경 구성
+- 개발 포트 3500번으로 변경 (`-p 3500 -H 0.0.0.0`)
+- jinserver에서 개발서버 운영 (SSH 직접 관리)
+- `allowedDevOrigins` 호스트명만 지정 (프로토콜/포트 제거)
+- `apps/web/.env.local` 심볼릭 링크 생성
+
+#### 진단 테스트 수정
+- 누락 파일 커밋 (app/test/page.tsx, lib/diagnostic.ts, components/test/, data/diagnostic-questions.json)
+- "그만하기" 클릭 시 메인 페이지로 이동 (인트로 화면 제거)
+- `/test` 직접 접속 시 level 파라미터 없으면 메인으로 리다이렉트
+
+**현재 상태**: 회원가입/로그인 완성, 테스트 페이지 수정 완료. 다음: 합성 데이터 생성 완료 확인 → WSD v3 재학습

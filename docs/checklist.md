@@ -53,9 +53,9 @@
 - ✅ Supabase Auth Google 프로바이더 설정 🤝
 - ✅ 크롬 확장 manifest key + 고정 ID 설정 (ckncdpmdnfacolnjmnhmckbpjojmfjom) 🤖
 - ⏸️ 카카오 OAuth 설정 (Google 먼저 완성 후) 🤝
-- ⬜ 웹 로그인/로그아웃 UI + 기능 🤖
-- ⬜ profiles 자동 생성 트리거 (Supabase Function) 🤖
-- ⬜ 미들웨어 인증 처리 🤖
+- ✅ 웹 로그인/로그아웃 UI + 기능 (이메일/비밀번호, 약관동의) 🤖
+- ✅ profiles 자동 생성 트리거 (Supabase handle_new_user 트리거 기존 설정) 🤖
+- ✅ 미들웨어 인증 처리 (Supabase SSR 세션 갱신) 🤖
 - ⬜ 확장 프로그램 내 Supabase 로그인 연동 🤖
 
 ---
