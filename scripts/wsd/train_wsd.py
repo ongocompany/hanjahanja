@@ -1,26 +1,30 @@
 #!/usr/bin/env python3
 """
-KcBERT 기반 WSD (동음이의어 판별) 파인튜닝
+한국어 BERT 기반 WSD (동음이의어 판별) 파인튜닝
 
-모델: beomi/kcbert-base (한국어 BERT)
+지원 모델:
+  - beomi/kcbert-base (한국어 BERT, token_type_ids 사용)
+  - klue/roberta-base (KLUE RoBERTa, token_type_ids 미사용)
+  - klue/roberta-large (KLUE RoBERTa Large)
+
 태스크: 문장 + 타겟단어 → scode 분류
-
 입력 형식: [CLS] 문장 [SEP] 타겟단어 [SEP]
 출력: 단어별 scode 분류 (per-word head)
 
 구조:
-  - KcBERT encoder (shared)
-  - 단어별 분류 헤드 (각 단어마다 별도 Linear)
+  - 인코더 (shared) + 단어별 분류 헤드 (각 단어마다 별도 Linear)
   → 학습 시 해당 단어의 헤드만 업데이트
 
 RTX 3080 (10GB VRAM) 기준:
-  - batch_size=32, max_len=128 → ~4GB VRAM
-  - 3 epoch × 10만 샘플 → ~20분
+  - kcbert-base: batch=32 → ~4GB VRAM
+  - klue/roberta-base: batch=32 → ~4GB VRAM
+  - klue/roberta-large: batch=8~16 → ~8-9GB VRAM
 
 Usage:
     python train_wsd.py \
         --dataset-dir /home/jinwoo/wsd-data/dataset \
         --output-dir /home/jinwoo/wsd-data/model \
+        --model-name klue/roberta-base \
         --epochs 5 \
         --batch-size 32 \
         --lr 2e-5
@@ -37,10 +41,17 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from transformers import (
+    AutoConfig,
     AutoTokenizer,
     AutoModel,
     get_linear_schedule_with_warmup,
 )
+
+
+def model_uses_token_type_ids(model_name: str) -> bool:
+    """모델이 token_type_ids를 사용하는지 확인 (BERT=True, RoBERTa=False)"""
+    config = AutoConfig.from_pretrained(model_name)
+    return getattr(config, "type_vocab_size", 0) > 1
 
 
 # === 데이터셋 ===
@@ -48,10 +59,11 @@ from transformers import (
 class WSDDataset(Dataset):
     """WSD 학습용 데이터셋"""
 
-    def __init__(self, jsonl_path: str, tokenizer, label_map: dict, max_len: int = 128):
+    def __init__(self, jsonl_path: str, tokenizer, label_map: dict, max_len: int = 128, use_token_type_ids: bool = True):
         self.tokenizer = tokenizer
         self.label_map = label_map
         self.max_len = max_len
+        self.use_token_type_ids = use_token_type_ids
         self.samples = []
 
         with open(jsonl_path, "r", encoding="utf-8") as f:
@@ -78,13 +90,21 @@ class WSDDataset(Dataset):
             return_tensors="pt",
         )
 
-        return {
+        result = {
             "input_ids": encoding["input_ids"].squeeze(0),
             "attention_mask": encoding["attention_mask"].squeeze(0),
-            "token_type_ids": encoding.get("token_type_ids", torch.zeros(self.max_len, dtype=torch.long)).squeeze(0),
             "word": word,
             "label": torch.tensor(label, dtype=torch.long),
         }
+
+        # BERT: token_type_ids 사용, RoBERTa: 미사용
+        if self.use_token_type_ids:
+            result["token_type_ids"] = encoding.get(
+                "token_type_ids",
+                torch.zeros(self.max_len, dtype=torch.long)
+            ).squeeze(0)
+
+        return result
 
 
 # === 모델 ===
@@ -120,16 +140,16 @@ class WSDModel(nn.Module):
         h = hashlib.md5(word.encode("utf-8")).hexdigest()[:8]
         return f"w_{h}"
 
-    def forward(self, input_ids, attention_mask, token_type_ids, words):
+    def forward(self, input_ids, attention_mask, words, token_type_ids=None):
         """
         words: list[str] — 배치 내 각 샘플의 타겟 단어
+        token_type_ids: BERT 계열만 사용, RoBERTa는 None
         반환: (logits_list, indices_per_head)
         """
-        outputs = self.encoder(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=token_type_ids,
-        )
+        kwargs = {"input_ids": input_ids, "attention_mask": attention_mask}
+        if token_type_ids is not None:
+            kwargs["token_type_ids"] = token_type_ids
+        outputs = self.encoder(**kwargs)
         cls_output = self.dropout(outputs.last_hidden_state[:, 0, :])  # [CLS]
 
         # 단어별로 그룹핑하여 각 헤드에 통과
@@ -162,11 +182,13 @@ def train_epoch(model, dataloader, optimizer, scheduler, device):
     for batch in dataloader:
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
-        token_type_ids = batch["token_type_ids"].to(device)
+        token_type_ids = batch.get("token_type_ids")
+        if token_type_ids is not None:
+            token_type_ids = token_type_ids.to(device)
         labels = batch["label"].to(device)
         words = batch["word"]
 
-        logits_list = model(input_ids, attention_mask, token_type_ids, words)
+        logits_list = model(input_ids, attention_mask, words, token_type_ids)
 
         # 단어별 헤드의 loss 합산
         loss = torch.tensor(0.0, device=device, requires_grad=True)
@@ -209,11 +231,13 @@ def evaluate(model, dataloader, device):
     for batch in dataloader:
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
-        token_type_ids = batch["token_type_ids"].to(device)
+        token_type_ids = batch.get("token_type_ids")
+        if token_type_ids is not None:
+            token_type_ids = token_type_ids.to(device)
         labels = batch["label"].to(device)
         words = batch["word"]
 
-        logits_list = model(input_ids, attention_mask, token_type_ids, words)
+        logits_list = model(input_ids, attention_mask, words, token_type_ids)
 
         for key, indices, head_logits in logits_list:
             idx_tensor = torch.tensor(indices, device=device)
@@ -230,7 +254,7 @@ def main():
     parser = argparse.ArgumentParser(description="KcBERT WSD 파인튜닝")
     parser.add_argument("--dataset-dir", required=True, help="데이터셋 디렉토리")
     parser.add_argument("--output-dir", required=True, help="모델 출력 디렉토리")
-    parser.add_argument("--model-name", default="beomi/kcbert-base", help="사전학습 모델")
+    parser.add_argument("--model-name", default="klue/roberta-base", help="사전학습 모델 (klue/roberta-base, klue/roberta-large, beomi/kcbert-base)")
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=2e-5)
@@ -249,15 +273,16 @@ def main():
         label_map = json.load(f)
     print(f"단어 수: {len(label_map)}, 최대 의미 수: {max(len(v) for v in label_map.values())}")
 
-    # 토크나이저
-    print(f"토크나이저 로드: {args.model_name}")
+    # 토크나이저 + token_type_ids 지원 여부
+    use_tti = model_uses_token_type_ids(args.model_name)
+    print(f"토크나이저 로드: {args.model_name} (token_type_ids={'사용' if use_tti else '미사용'})")
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     # 데이터셋
     print("데이터셋 로드...")
-    train_ds = WSDDataset(os.path.join(args.dataset_dir, "train.jsonl"), tokenizer, label_map, args.max_len)
-    val_ds = WSDDataset(os.path.join(args.dataset_dir, "val.jsonl"), tokenizer, label_map, args.max_len)
-    test_ds = WSDDataset(os.path.join(args.dataset_dir, "test.jsonl"), tokenizer, label_map, args.max_len)
+    train_ds = WSDDataset(os.path.join(args.dataset_dir, "train.jsonl"), tokenizer, label_map, args.max_len, use_tti)
+    val_ds = WSDDataset(os.path.join(args.dataset_dir, "val.jsonl"), tokenizer, label_map, args.max_len, use_tti)
+    test_ds = WSDDataset(os.path.join(args.dataset_dir, "test.jsonl"), tokenizer, label_map, args.max_len, use_tti)
     print(f"  Train: {len(train_ds)} / Val: {len(val_ds)} / Test: {len(test_ds)}")
 
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=2)

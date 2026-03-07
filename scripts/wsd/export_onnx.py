@@ -2,8 +2,10 @@
 """
 학습된 WSD 모델 → ONNX 변환 + INT8 양자화
 
+지원: KcBERT (token_type_ids 사용) + KLUE-RoBERTa (token_type_ids 미사용)
+
 출력:
-  - wsd_encoder.onnx  (KcBERT 인코더, ~100MB → INT8 ~25MB)
+  - wsd_encoder.onnx  (인코더, ~100MB → INT8 ~25MB)
   - wsd_heads.json    (단어별 분류 헤드 가중치, ~1MB)
 
 크롬 확장에서 ONNX Runtime Web으로 로드:
@@ -24,11 +26,11 @@ import numpy as np
 import torch
 from transformers import AutoTokenizer, AutoModel
 
-from train_wsd import WSDModel
+from train_wsd import WSDModel, model_uses_token_type_ids
 
 
-def export_encoder_onnx(model: WSDModel, tokenizer, output_path: str, max_len: int = 128):
-    """KcBERT 인코더를 ONNX로 변환"""
+def export_encoder_onnx(model: WSDModel, tokenizer, output_path: str, max_len: int = 128, use_token_type_ids: bool = True):
+    """인코더를 ONNX로 변환 (BERT/RoBERTa 자동 대응)"""
     model.eval()
     device = next(model.parameters()).device
 
@@ -41,41 +43,73 @@ def export_encoder_onnx(model: WSDModel, tokenizer, output_path: str, max_len: i
         truncation=True,
         return_tensors="pt",
     )
-    dummy_input = {
-        "input_ids": dummy["input_ids"].to(device),
-        "attention_mask": dummy["attention_mask"].to(device),
-        "token_type_ids": dummy.get("token_type_ids", torch.zeros(1, max_len, dtype=torch.long)).to(device),
-    }
 
     # 인코더만 추출하는 래퍼
-    class EncoderWrapper(torch.nn.Module):
-        def __init__(self, encoder):
-            super().__init__()
-            self.encoder = encoder
+    if use_token_type_ids:
+        # BERT 계열: token_type_ids 포함
+        class EncoderWrapper(torch.nn.Module):
+            def __init__(self, encoder):
+                super().__init__()
+                self.encoder = encoder
 
-        def forward(self, input_ids, attention_mask, token_type_ids):
-            outputs = self.encoder(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-                token_type_ids=token_type_ids,
-            )
-            return outputs.last_hidden_state[:, 0, :]  # [CLS] 벡터만
+            def forward(self, input_ids, attention_mask, token_type_ids):
+                outputs = self.encoder(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                    token_type_ids=token_type_ids,
+                )
+                return outputs.last_hidden_state[:, 0, :]
 
-    wrapper = EncoderWrapper(model.encoder).to(device)
-    wrapper.eval()
+        wrapper = EncoderWrapper(model.encoder).to(device)
+        wrapper.eval()
 
-    torch.onnx.export(
-        wrapper,
-        (dummy_input["input_ids"], dummy_input["attention_mask"], dummy_input["token_type_ids"]),
-        output_path,
-        input_names=["input_ids", "attention_mask", "token_type_ids"],
-        output_names=["cls_output"],
-        dynamic_axes={
+        dummy_args = (
+            dummy["input_ids"].to(device),
+            dummy["attention_mask"].to(device),
+            dummy.get("token_type_ids", torch.zeros(1, max_len, dtype=torch.long)).to(device),
+        )
+        input_names = ["input_ids", "attention_mask", "token_type_ids"]
+        dynamic_axes = {
             "input_ids": {0: "batch"},
             "attention_mask": {0: "batch"},
             "token_type_ids": {0: "batch"},
             "cls_output": {0: "batch"},
-        },
+        }
+    else:
+        # RoBERTa 계열: token_type_ids 없음
+        class EncoderWrapperNoTTI(torch.nn.Module):
+            def __init__(self, encoder):
+                super().__init__()
+                self.encoder = encoder
+
+            def forward(self, input_ids, attention_mask):
+                outputs = self.encoder(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                )
+                return outputs.last_hidden_state[:, 0, :]
+
+        wrapper = EncoderWrapperNoTTI(model.encoder).to(device)
+        wrapper.eval()
+
+        dummy_args = (
+            dummy["input_ids"].to(device),
+            dummy["attention_mask"].to(device),
+        )
+        input_names = ["input_ids", "attention_mask"]
+        dynamic_axes = {
+            "input_ids": {0: "batch"},
+            "attention_mask": {0: "batch"},
+            "cls_output": {0: "batch"},
+        }
+
+    torch.onnx.export(
+        wrapper,
+        dummy_args,
+        output_path,
+        input_names=input_names,
+        output_names=["cls_output"],
+        dynamic_axes=dynamic_axes,
         opset_version=14,
         do_constant_folding=True,
     )
@@ -142,10 +176,14 @@ def main():
 
     os.makedirs(args.output_dir, exist_ok=True)
 
+    # token_type_ids 지원 여부
+    use_tti = model_uses_token_type_ids(model_name)
+    print(f"  token_type_ids: {'사용' if use_tti else '미사용 (RoBERTa)'}")
+
     # 1. ONNX 인코더 변환
     onnx_path = os.path.join(args.output_dir, "wsd_encoder.onnx")
     print("\n1. ONNX 인코더 변환...")
-    export_encoder_onnx(model, tokenizer, onnx_path, max_len)
+    export_encoder_onnx(model, tokenizer, onnx_path, max_len, use_tti)
 
     # 2. INT8 양자화
     quant_path = os.path.join(args.output_dir, "wsd_encoder_int8.onnx")

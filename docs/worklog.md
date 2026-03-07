@@ -272,3 +272,168 @@
 - `docs/worklog.md` — 세션 11 기록
 
 **현재 상태**: WSD 모델 학습+ONNX 변환 완료, 다음 단계는 ONNX 경량화 또는 크롬 확장 통합
+
+## 2026-03-07
+
+### 세션 12: WSD 품질 문제 진단 + 빈도 기반 안전장치 구현
+
+#### 문제 발견
+- "의원" → "蟻援"(개미 원조) 변환 발생 — 출시 차단 이슈
+- 형이 직접 테스트에서 발견: "신동욱 蟻援" 같은 황당한 변환
+
+#### 근본 원인 분석
+- **훈련 데이터 라벨링 오류**: 의원 scode 05(蟻援)에 93개 샘플 존재
+  - 93개 전부 "국회의원", "하원 의원" 등 議員 문맥인데 蟻援으로 잘못 라벨링
+  - 이로 인해 모델이 **confidence 0.99**로 蟻援을 예측 (높은 확신으로 틀림)
+- scode_hanja_map에 99,702개 scode 중 대다수가 고어/미사용 한자
+- 훈련 데이터 총 1,068,432 샘플, 9,868 단어
+
+#### 해결: API 서버 빈도 기반 안전장치 (api_server.py v2)
+- `homonym-freq.json` (23,125 단어) 빈도 데이터를 API 서버에 로드
+- **강제 오버라이드**: 예측된 한자 빈도가 극히 낮고(≤5) 대안 빈도가 10배 이상이면, confidence와 무관하게 최빈 한자로 교체
+  - 예: 蟻援(freq=3) → 議員(freq=7402) 강제 교체
+- **약한 오버라이드**: confidence < 0.7이고 빈도 비율 < 10%이면 교체
+- 기존 v1 백업 보존: `api_server_v1_backup.py`
+
+#### 테스트 결과 (전부 정확)
+| 입력 | 예측 | 상태 |
+|------|------|------|
+| 나경원 의원 | 議員 | ✅ (안전장치 발동) |
+| 신동욱 의원 | 議員 | ✅ |
+| 민주당 의원 반박 | 議員, 反駁 | ✅ (안전장치 발동) |
+| 동네 의원 (의료) | 醫員 | ✅ |
+| 부부 | 夫婦 | ✅ |
+| 경제 | 經濟 | ✅ |
+| 지진 | 地震 | ✅ |
+| 사기(범죄) | 詐欺 | ✅ |
+| 사기(군대) | 士氣 | ✅ |
+
+#### 서버 파일 변경 (jinserver:/home/jinwoo/wsd-data/)
+- `api_server.py` — v2 (빈도 안전장치 추가)
+- `api_server_v1_backup.py` — v1 백업
+- `onnx/homonym_freq.json` — 빈도 데이터 (확장에서 복사)
+
+**현재 상태**: WSD 품질 핵심 문제 해결, API 서버 배포 완료. 재학습 없이 빈도 기반 안전장치로 해결.
+
+### 세션 13: WSD 변환 품질 개선 + 대규모 테스트 + 모델 교체 준비
+
+#### 변환 품질 개선
+- 고유어 블록리스트 추가: 사내, 재미, 나중, 사랑 (순우리말 오변환 방지)
+- 급수 기반 정렬 제거: `sortByPreference()`에서 level 비교 삭제 (형 요청 — "레벨이 높은데 오히려 더 자주쓰이는 한자가많아")
+- 합성어→合成魚 버그 수정: 빈도 동일(3:3) + 비결정적 dict 로딩 순서 + 급수 tiebreaker가 원인
+- 통사 블록리스트 추가: WSD 미지원 동음이의어 카테고리 신설 (7개 동음이의어, WSD 헤드 없음)
+- 커밋: `25836ea`, `81212f9`
+
+#### 대규모 WSD 정확도 테스트
+- **수동 테스트 (102케이스)**: 73.5% 정확도 (문맥 무시 패턴 다수 발견)
+- **전체 WSD 헤드 테스트 (7,587단어)**: 중립 문장 5개씩 테스트
+  - 항상 같은 답: 7,109개 (93.7%) → **실질적으로 빈도 룩업과 동일**
+  - 문맥 따라 다름: 478개 (6.3%) → WSD가 실제 작동하는 단어
+- **오답 분석 (3,759단어)**: 모델 답 ≠ 빈도 1위(2,339개) + 빈도 유사(2,878개) 합집합
+  - 일상 빈출 단어 다수 포함: 관리, 사회, 시장, 인상, 인도, 보석
+- 코퍼스 오염 발견: 직시→直時(북한어, freq=7) — 북한 문학 포함 코퍼스
+
+#### WSD 국제 사례 조사
+- 일본어 IME (Mozc 등): 사전→N-gram→사용자적응→신경망 순 발전, 핵심은 **하이브리드 구조**
+- 중국어 Pinyin→Hanzi: 우리 문제와 구조적으로 동일, Lattice+Viterbi 탐색
+- ChineseBERT (ACL 2021): 글자 모양+발음을 임베딩에 추가 → 동음이의어 해소 향상
+- GlossBERT: 사전 정의 매칭으로 라벨 데이터 없이 WSD 가능 — **가장 유망한 단기 해결책**
+- 합성 데이터: LLM-as-Annotator 패턴, Hard Negative Mining, 비용 $100-150 예상
+- 보고서: `docs/reference/WSD-국제연구조사.md`
+
+#### WSD 모델 KLUE-RoBERTa 교체 준비
+- KcBERT(댓글 도메인) → KLUE-RoBERTa(다양한 62GB 코퍼스)로 교체 결정
+- 수정 파일:
+  - `scripts/wsd/train_wsd.py` — RoBERTa token_type_ids 미사용 대응, 기본값 klue/roberta-base
+  - `scripts/wsd/export_onnx.py` — ONNX 변환 시 token_type_ids 분기
+  - `scripts/wsd/api_server.py` — 토크나이저 교체 + ONNX 입력 자동 감지
+- 신규 파일:
+  - `scripts/wsd/generate_synthetic_data.py` — Gemini 2.5 Flash로 합성 데이터 생성 (드라이런/전체 실행/resume 지원)
+  - `docs/reference/WSD-국제연구조사.md` — 일본/중국/한국/합성데이터 조사 보고서
+
+**변경 파일**:
+- `apps/extension/lib/converter.ts` — 블록리스트 추가, 급수정렬 제거
+- `scripts/wsd/train_wsd.py` — KLUE-RoBERTa 호환
+- `scripts/wsd/export_onnx.py` — KLUE-RoBERTa 호환
+- `scripts/wsd/api_server.py` — 토크나이저 교체
+- `scripts/wsd/generate_synthetic_data.py` — 신규 (Gemini 합성 데이터)
+- `docs/reference/WSD-국제연구조사.md` — 신규 (조사 보고서)
+- `docs/reference/LLM모델을활용한동음이의어학습데이터생성계획` — 형이 작성 (Gemini 대화)
+
+**현재 상태**: KLUE-RoBERTa 교체 코드 준비 완료, jinserver에서 학습 실행 필요. 합성 데이터 생성 스크립트 준비 완료.
+
+### 세션 14: KLUE-RoBERTa 학습 + ONNX 변환 + API 서버 교체
+
+#### KLUE-RoBERTa 학습 완료
+- jinserver에서 SSH로 직접 학습 실행 (RTX 3080, ~10분/epoch)
+- **결과 비교:**
+
+| 모델 | Best Val Acc | Test Acc |
+|------|------------|----------|
+| beomi/kcbert-base | 94.31% | 94.44% |
+| klue/roberta-base | **94.68%** | **94.81%** |
+| **차이** | **+0.37%p** | **+0.37%p** |
+
+- Epoch 4에서 best model 저장 (val_acc=94.68%)
+
+#### ONNX 변환 + 배포
+- `export_onnx.py` 실행 → onnx-klue/ 산출물 생성
+  - wsd_encoder.onnx + .data: 420MB (FP32)
+  - wsd_encoder_int8.onnx: 107MB (INT8)
+  - wsd_heads.json: 26MB (이전 649MB → 26MB로 대폭 축소)
+- onnx/ 프로덕션 디렉토리에 복사 → API 서버 재시작
+- API 서버: klue/roberta-base 토크나이저 + token_type_ids 미사용 자동 감지 확인
+
+#### 정확도 테스트
+- 수동 테스트 16케이스: 11/16 = 68.8%
+  - ✅ 자신/自身, 소재/素材, 인상(2개), 선정, 전선/電線, 중심, 방어, 자원(2개), 자체
+  - ❌ 자신감→自信 미인식(自身 편향), 소재→所在 미인식, 지점→支店 미인식, 전선→前線 vs 戰線 혼동
+- **분석**: 모델 교체만으로는 +0.37%p 개선에 그침. 소수 의미 편향 문제는 합성 데이터 추가가 필요
+
+**현재 상태**: KLUE-RoBERTa 배포 완료. 다음 단계는 Gemini 합성 데이터 생성 드라이런.
+
+### 세션 15: WSD 합성 데이터 대량 생성
+
+#### 목표
+- 소수 의미(minority sense) 편향 해소를 위한 합성 학습 데이터 생성
+- 대상: 2,237개 동음이의어 중 학습 데이터 불균형 단어
+- 생성 기준: c < 10 → 30문장, c 10-29 → 20문장, c 30-99 → 10문장, c ≥ 100 → SKIP
+
+#### 타겟 단어 추출 (jinserver 데이터 기반)
+- `dataset_v4/label_map.json` (단어→scode→label 매핑)
+- `onnx/wsd_scode_hanja_map.json` (scode→한자 매핑)
+- `scode_definitions.json` (114만 뜻풀이)
+- `dataset_v4/train.jsonl` (학습 데이터 빈도 카운트)
+- 필터: train_count > 0 + distinct_hanja ≥ 2 → **2,237개 단어**
+- 불균형 분포: 극심(50:1+) 288개, 심함(10:1~50:1) 548개, 중간(3:1~10:1) 1,401개
+
+#### Claude 에이전트 생성 (Round 1~4)
+- Gemini API 쿼터 제한으로 방향 전환 → Claude 에이전트 직접 생성
+- 배치 크기 최적화: 20단어(토큰 초과) → 10단어(간헐적 초과) → **5단어(안정)**
+- 10개 에이전트 병렬 실행 × 4라운드
+- **결과: 238단어 완료, 15,707 문장 생성**
+- 출력 위치: `/tmp/wsd_synthetic/` (output_*.jsonl, r2~r4/)
+- ⚠️ Claude 토큰 소모량이 과다 → 4시간 사용 리밋 발생
+
+#### Gemini 자동 생성 스크립트 (나머지 1,999단어)
+- flash-lite deprecated → **gemini-2.5-flash-lite** 사용
+- `generate_gemini.py` 작성 → jinserver 배포
+- 테스트 실행: 2배치(10단어) → 366문장 정상 생성
+- **nohup 백그라운드 실행 중** (PID 288081, 400배치, 약 13시간 예상)
+- 서버 경로: `~/wsd-data/synthetic/`
+- 진행 확인: `ls ~/wsd-data/synthetic/gemini_output/ | wc -l`
+
+#### 서버 파일 변경 (jinserver:/home/jinwoo/wsd-data/synthetic/)
+- `generate_gemini.py` — 신규 (Gemini 배치 생성 스크립트)
+- `gemini_batches.json` — 400배치 × 5단어 입력 데이터
+- `gemini_output/batch_XXXX.jsonl` — 출력 (생성 중)
+
+#### 로컬 파일 (/tmp/wsd_synthetic/)
+- `output_*.jsonl` — R1 (20단어/배치, 5,944줄)
+- `r2/output_*.jsonl` — R2 (10단어/배치, 4,668줄)
+- `r3/output_*.jsonl` — R3 (5단어/배치, 2,284줄)
+- `r4/output_*.jsonl` — R4 (5단어/배치, 2,811줄)
+- `wsd_targets.json` — 전체 2,237개 타겟 단어 데이터
+- `gemini_batches.json` — 남은 1,999단어 배치 입력
+
+**현재 상태**: Gemini 생성 jinserver에서 백그라운드 실행 중. 완료 후 → 로컬 Claude 결과와 병합 → train.jsonl에 추가 → 재학습

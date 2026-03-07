@@ -34,10 +34,41 @@ export default defineBackground(() => {
     contexts: ["selection"],
   });
 
-  browser.contextMenus.onClicked.addListener((info, tab) => {
+  browser.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "add-to-vocabulary" && info.selectionText) {
-      // TODO: 선택된 텍스트를 단어장에 저장하는 로직
-      console.log("단어장 저장 요청:", info.selectionText);
+      const selectedText = info.selectionText.trim();
+      console.log("단어장 저장 요청:", selectedText);
+
+      if (tab?.id) {
+        try {
+          // content script에 한자 정보 요청
+          const response = await browser.tabs.sendMessage(tab.id, {
+            type: 'get-hanja-info',
+            text: selectedText,
+          });
+
+          if (response?.found) {
+            // 로컬 단어장에 저장
+            const result = await browser.storage.local.get('localVocabulary');
+            const vocab = (result.localVocabulary as Array<Record<string, unknown>>) ?? [];
+            vocab.push({
+              word: response.word,
+              hanja: response.hanja,
+              meaning: response.meaning ?? '',
+              contextSentence: response.context ?? '',
+              sourceUrl: tab.url ?? '',
+              sourceTitle: tab.title ?? '',
+              savedAt: new Date().toISOString(),
+            });
+            await browser.storage.local.set({ localVocabulary: vocab });
+            console.log(`단어장 저장 완료: ${response.word} → ${response.hanja}`);
+          } else {
+            console.log("한자 정보를 찾을 수 없음:", selectedText);
+          }
+        } catch (e) {
+          console.log("content script 통신 실패:", e);
+        }
+      }
     }
   });
 });

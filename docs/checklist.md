@@ -100,6 +100,9 @@
 - ✅ 학습/검증/테스트 데이터셋 분할 (8:1:1) — **725 단어, 25만 샘플**
 - ✅ 데이터셋 v2 확장: min-samples-per-sense=3 → **1,673 단어, 66만 샘플**
 - ✅ 국한대백과 크롤링 (2,927 문서, 6,885 WSD 샘플) + 병합
+- 🔄 합성 데이터 생성 (소수 의미 불균형 해소) — **2,237개 단어 대상**
+  - ✅ Claude 에이전트: 238단어 / 15,707문장
+  - 🔄 Gemini 2.5-flash-lite: 1,999단어 / 400배치 jinserver 실행 중
 
 ### Step 2: 모델 학습 (jinserver) 🤖
 - ✅ Python 환경 구축 (PyTorch 2.10+cu126, Transformers 5.2, CUDA 12.6)
@@ -107,6 +110,10 @@
 - ✅ WSD v1 파인튜닝 (725개 단어별 분류 헤드) — **Test accuracy: 94.44%**
 - ✅ hash 버그 수정 완료 (hashlib.md5로 결정적 해시 전환, 재학습 완료)
 - ✅ WSD v2 파인튜닝 (1,673개 단어, 53만 train 샘플) — **val_acc 95.17%** (Epoch 4 best)
+- ✅ **KLUE-RoBERTa 교체** (klue/roberta-base) — **val_acc 94.68%, test_acc 94.81%**
+- ✅ WSD 품질 안전장치: 빈도 기반 강제/약한 오버라이드 (蟻援→議員 등)
+- ✅ 고유어 블록리스트 + 통사 블록리스트 추가
+- ⬜ 합성 데이터 병합 후 **v3 재학습** (진행 예정)
 - ⬜ NER 태스크 추가 (사람이름 필터링) — 추후 멀티태스크로 확장
 
 ### Step 3: 모델 경량화 + 변환 🤖
@@ -114,20 +121,21 @@
 - ✅ CPU 추론 검증: **18~20ms/단어** (ONNX Runtime)
 - ✅ ONNX v2 변환 (1,673 단어) — INT8 105MB, 헤드 62MB
 - ✅ API 서버 v2 모델로 업데이트 (heads: 1,673개, 정상 가동)
+- ✅ **ONNX v3 변환** (KLUE-RoBERTa) — INT8 107MB, 헤드 26MB, API 서버 교체 완료
 - ⬜ ONNX Runtime Web 브라우저 추론 테스트
 - ⬜ 추가 경량화 검토 (지식 증류, pruning 등 → 목표 25MB 이하)
 
-### Step 4: 크롬 확장 통합 🤖
-- ⬜ ONNX Runtime Web 번들링 (wxt.config.ts)
-- ⬜ converter.ts에 WSD + NER 추론 파이프라인 연결
-  - WSD: 동음이의어 → 모델이 문맥 보고 정답 한자 자동 선택
-  - NER: 사람 이름(PS_NAME) 감지 → 한자 변환 제외
-  - 폴백: 모델 없는 단어는 기존 정렬(stdict 우선)
+### Step 4: 크롬 확장 WSD 통합 🤖
+- ✅ background.ts WSD API 프록시 (Mixed Content 우회)
+- ✅ wsd.ts API 클라이언트 (헬스체크 + 예측 요청)
+- ✅ converter.ts WSD 연동 (동음이의어 자동 판별 → 정답 한자 선택)
+- ✅ 폴백: WSD 미지원 단어는 기존 정렬(stdict 우선) 유지
+- ⬜ ONNX Runtime Web 번들링 (현재 서버 API 방식 → 브라우저 로컬 추론 전환)
+- ⬜ NER: 사람 이름(PS_NAME) 감지 → 한자 변환 제외
 - ⬜ 초기 로딩 최적화 (모델 lazy load, 캐싱)
-- ⬜ 성능 A/B 테스트: 모델 ON/OFF 정확도 비교
 
 ### 대안/폴백 전략
-- **ETRI API 사전 랭킹**: 모델 학습 전 중간 단계로, API 결과를 JSON 사전에 우선순위로 박아두기
+- ✅ **빈도 기반 안전장치**: 예측 한자 빈도 ≤5 + 대안 10배 이상 → 강제 교체
 - **규칙 기반 보완**: 고빈도 동음이의어(상위 100개)는 동시출현 패턴으로 수동 규칙 추가
 - **사용자 피드백 루프**: 클릭 선호도 데이터가 쌓이면 → 모델 재학습 데이터로 활용
 
@@ -136,11 +144,12 @@
 ## Week 3: 웹 서비스 개발
 
 ### Day 15-16: 랜딩 페이지
-- ⬜ shadcn/ui 설치 + 기본 컴포넌트 세팅 🤖
-- ⬜ Hero 섹션 (메인 카피 + CTA) 🤖
-- ⬜ Before/After 데모 섹션 🤖
-- ⬜ 기능 소개 + 사용 방법 섹션 🤖
-- ⬜ Footer 🤖
+- ✅ shadcn/ui 설치 + 기본 컴포넌트 세팅 (button, card, badge) 🤖
+- ✅ Hero 섹션 (메인 카피 + CTA) — hero-section.tsx 🤖
+- ✅ Before/After 데모 섹션 — before-after-section.tsx 🤖
+- ✅ 기능 소개 + 사용 방법 섹션 — features-section.tsx, quiz-cta-section.tsx 🤖
+- ✅ Footer — footer.tsx 🤖
+- ✅ Navbar — navbar.tsx 🤖
 - ⬜ 반응형 디자인 + SEO 메타 태그 🤖
 
 ### Day 17-19: 진단 테스트
@@ -160,8 +169,8 @@
 ## Week 4: 연동 + 배포 + QA
 
 ### Day 22-23: 크롬 확장 ↔ 웹 연동
-- ⬜ 우클릭 메뉴 단어장 저장 기능 🤖
-- ⬜ 문맥(문장) 자동 캡처 로직 🤖
+- ✅ 우클릭 메뉴 단어장 저장 기능 (background.ts 컨텍스트 메뉴) 🤖
+- ✅ 문맥(문장) 자동 캡처 로직 (content script → background 메시지) 🤖
 - ⬜ 저장 성공 토스트 알림 🤖
 
 ### Day 24-25: 배포
@@ -185,7 +194,7 @@
 | M1 | 프로젝트 세팅 + 데이터 | hanja_words 589,822개, JSON 523,017 단어, source 필드 | ✅ |
 | M2 | 한자 변환 작동 | 엔진 + kuromoji-ko 형태소 분석, 크롬 테스트 완료 | ✅ |
 | M3 | 툴팁 UX 완성 | 호버 툴팁 + 클릭 전환 + 선호도 학습 + 애니메이션 | ✅ |
-| M3.5 | WSD 모델 | 동음이의어 문맥 판별 모델 학습 + ONNX 변환 + 확장 통합 | 🔄 (v2 1,673단어 95.17%, ONNX+API 완료, 확장 통합 대기) |
+| M3.5 | WSD 모델 | 동음이의어 문맥 판별 모델 학습 + ONNX 변환 + 확장 통합 | 🔄 (KLUE-RoBERTa 94.81%, 합성데이터 생성 중, 재학습 예정) |
 | M4 | 진단 테스트 완성 | 테스트→레벨 판정→결과 | ⬜ |
 | M5 | MVP 통합 완성 | 웹+확장 전체 플로우 | ⬜ |
 | M6 | 배포 완료 | hanjahanja.kr 라이브 | ⬜ |
