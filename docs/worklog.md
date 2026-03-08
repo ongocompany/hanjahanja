@@ -514,3 +514,69 @@
 - `docs/handoff-session17.md` — 신규
 
 **현재 상태**: WSD v3 배포 완료 (95.81%), 확장 버그 수정 완료. 클로즈 베타 준비 단계 진입
+
+### 세션 18: 소개 페이지 + OAuth 점검 + Supabase MCP 설정
+
+#### 소개 페이지 (/about) 구현
+- `apps/web/app/about/page.tsx` — 플레이스홀더 → 풀 콘텐츠 구현
+- `docs/한자한자소개페이지구성안.md` 290라인~ 카피 기반, guide 페이지 톤앤매너 맞춤
+- 8개 섹션: Hero, Problem, How it works(4단계), Strength(2x2 그리드), Technology, Personalization, Audience, CTA
+- 캐릭터 이미지 활용 (whiteboard.svg, exhausted.svg, thinking.png, studying.png, curiosity.svg, yeah.png)
+- jinserver 개발서버에 scp 전송 → 반영 확인
+
+#### OAuth 코드 현황 점검
+- **네이버**: 완전 구현 (커스텀 OAuth flow, API route + callback, env 변수 있음)
+- **구글/카카오**: UI 버튼 + signInWithOAuth 코드 완성, Supabase 대시보드 프로바이더 설정만 남음
+- 관련 파일: social-login-buttons.tsx, actions.ts, auth/callback/route.ts, api/auth/naver/
+
+#### Supabase MCP 전역 설정
+- `~/.claude/.mcp.json` 생성 — @supabase/mcp-server-supabase 설정
+- Personal Access Token 발급 완료
+- Claude Code 재시작 후 사용 가능
+
+**변경 파일**:
+- `apps/web/app/about/page.tsx` — 소개 페이지 풀 구현
+- `~/.claude/.mcp.json` — 신규 (Supabase MCP 전역 설정)
+
+**현재 상태**: 소개 페이지 완성, OAuth 코드 준비 완료. 재시작 후 Supabase MCP로 OAuth 프로바이더 설정 예정
+
+### 세션 19: OAuth 연동 + 도메인 변경 + Supabase 동기화 + 확장 개선
+
+#### OAuth 설정 완료
+- Supabase 대시보드에서 Google, Kakao OAuth 프로바이더 수동 설정
+- 도메인 hanjahanja.kr → hanjahanja.co.kr 전체 변경 (layout.tsx, CLAUDE.md, nginx.conf)
+
+#### 웹 → 확장 로그인 동기화
+- `apps/web/app/auth/extension-sync/page.tsx` — 신규. 로그인 후 세션 데이터를 DOM에 렌더링
+- `apps/extension/entrypoints/extension-sync.content.ts` — 신규. sync 페이지에서 세션 읽어 background로 전달
+- `apps/extension/entrypoints/background.ts` — `save-session` 메시지 리스너 추가
+- `apps/web/app/login/page.tsx` — `next` 파라미터 지원 (로그인 후 리다이렉트)
+- `apps/web/lib/auth/actions.ts` — `login()`, `socialLogin()`에 `next` 파라미터 전달
+- `apps/web/components/auth/social-login-buttons.tsx` — `next` prop 추가
+- `apps/web/app/auth/callback/route.ts` — 0.0.0.0 바인딩 문제 수정 (host 헤더 사용)
+- 확장 팝업 로그인 버튼 → 웹 로그인 페이지로 이동하는 방식으로 변경
+
+#### Supabase 노출/클릭 동기화
+- `user_exposures`, `user_clicks` 테이블 생성 (003_personalization.sql)
+- `apps/extension/.env` 생성 — Supabase URL/키 추가 (기존 누락으로 동기화 불가였음)
+- `apps/extension/lib/tracker.ts` — flush 주기 5분→30초, `flushExposures` export
+- `apps/extension/entrypoints/content.ts` — `flush-tracker` 메시지 핸들러 추가
+- `apps/extension/entrypoints/popup/App.tsx` — sync 전 flush 요청, 로그인 필수로 통계 표시
+
+#### 확장 UX 개선
+- 호버 추적 추가 (mouseenter 시 trackClick, 페이지당 단어별 1회)
+- 동음이의어 선택 클릭에서 trackClick 제거 (선호도만 저장)
+- 툴팁 ×count 표시 제거
+- `<a>` 태그 안 한자어 클릭 시 링크 동작 우선 (메뉴 전환 차단 해결)
+- 단어장 저장: 한자 텍스트 선택 시 역조회 지원 (data-word 속성)
+- 문맥 추출에서 CSS/코드 텍스트 필터링
+
+#### 체크리스트 업데이트
+- 마이페이지 단어장 세부 항목 추가 (목록, 삭제, 연습문제, 학습 통계)
+
+**변경 파일**:
+- `apps/extension/` — converter.ts, content.ts, background.ts, tracker.ts, popup/App.tsx, extension-sync.content.ts(신규), .env(신규)
+- `apps/web/` — login/page.tsx, auth/callback/route.ts, auth/extension-sync/page.tsx(신규), lib/auth/actions.ts, components/auth/social-login-buttons.tsx, layout.tsx
+- `docs/checklist.md`, `docs/worklog.md`, `CLAUDE.md`, `nginx.conf`, `.gitignore`
+
+**현재 상태**: OAuth 동작, 웹→확장 세션 동기화 구현, Supabase 노출/클릭 동기화 완성. 마이페이지 단어장 웹 UI 미구현

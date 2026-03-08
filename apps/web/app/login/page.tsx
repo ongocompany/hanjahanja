@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { login } from "@/lib/auth/actions";
@@ -9,6 +10,8 @@ import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") || "/";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -16,6 +19,7 @@ export default function LoginPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
+    formData.set("next", next);
 
     const result = await login(formData);
 
@@ -100,7 +104,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <SocialLoginButtons />
+          <SocialLoginButtons next={next} />
 
           <p className="mt-6 text-center text-sm text-warm-brown-light">
             계정이 없나요?{" "}

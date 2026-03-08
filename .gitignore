@@ -2,6 +2,9 @@
 node_modules/
 .pnpm-store/
 
+# MCP config (contains access tokens)
+.mcp.json
+
 # Build outputs
 .next/
 .output/

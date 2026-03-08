@@ -1,6 +1,6 @@
 # 한자한자 (hanjahanja)
 
-한자어를 자동으로 한자로 변환하는 크롬 확장 + 웹 서비스 (hanjahanja.kr)
+한자어를 자동으로 한자로 변환하는 크롬 확장 + 웹 서비스 (hanjahanja.co.kr)
 
 ## AI 페르소나
 

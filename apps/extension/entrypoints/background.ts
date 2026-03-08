@@ -3,6 +3,22 @@ const WSD_API_URL = 'http://100.68.25.79:8079';
 export default defineBackground(() => {
   console.log("한자한자 Background Script 로드됨");
 
+  // 웹 로그인 → 확장 세션 동기화
+  browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    if (message.type === 'save-session') {
+      browser.storage.local.set({ supabaseSession: message.session })
+        .then(() => {
+          console.log('[한자한자] 웹 로그인 세션 저장 완료:', message.session.user?.email);
+          sendResponse({ ok: true });
+        })
+        .catch((err) => {
+          console.error('[한자한자] 세션 저장 실패:', err);
+          sendResponse({ ok: false });
+        });
+      return true;
+    }
+  });
+
   // WSD API 프록시 — content script의 Mixed Content 우회
   browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.type === 'wsd-health') {

@@ -268,7 +268,7 @@ function IdiomBar() {
 }
 
 // ─── 탭: 오늘의 한자 ───
-function TodayTab() {
+function TodayTab({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [quizSection, setQuizSection] = useState<"exposure" | "click">("exposure");
   const [currentQ, setCurrentQ] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -278,13 +278,14 @@ function TodayTab() {
   const [todayStats, setTodayStats] = useState({ exposureCount: 0, uniqueWords: 0, clickCount: 0 });
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     browser.storage.local.get([STORAGE_KEYS.todayExposures, STORAGE_KEYS.todayClicks]).then((result) => {
       const exposures = (result[STORAGE_KEYS.todayExposures] as Record<string, number>) ?? {};
       const clicks = (result[STORAGE_KEYS.todayClicks] as Array<Record<string, unknown>>) ?? [];
       const totalExposure = Object.values(exposures).reduce((sum, c) => sum + c, 0);
       setTodayStats({ exposureCount: totalExposure, uniqueWords: Object.keys(exposures).length, clickCount: clicks.length });
     });
-  }, []);
+  }, [isLoggedIn]);
 
   const questions = quizSection === "exposure" ? MOCK_QUIZ_EXPOSURE : MOCK_QUIZ_CLICK;
   const q = questions[currentQ];
@@ -312,6 +313,14 @@ function TodayTab() {
   };
 
   const switchSection = (s: "exposure" | "click") => { setQuizSection(s); resetQuiz(); };
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{ ...S.card, textAlign: "center", padding: "20px 12px" }}>
+        <div style={{ fontSize: 13, color: C.warmBrownLight, marginBottom: 8 }}>로그인하면 학습 기록을 확인할 수 있어요</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -418,7 +427,7 @@ function TodayTab() {
 }
 
 // ─── 탭: 어제의 한자 ───
-function YesterdayTab() {
+function YesterdayTab({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [rankType, setRankType] = useState<"exposure" | "click">("exposure");
   const [exposureRank, setExposureRank] = useState<HanjaRank[]>([]);
   const [clickRank, setClickRank] = useState<HanjaRank[]>([]);
@@ -426,6 +435,7 @@ function YesterdayTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isLoggedIn) { setLoading(false); return; }
     browser.storage.local.get([STORAGE_KEYS.yesterdayExposures, STORAGE_KEYS.yesterdayClicks, 'localVocabulary']).then((result) => {
       const exposures = (result[STORAGE_KEYS.yesterdayExposures] as Record<string, number>) ?? {};
       const clicks = (result[STORAGE_KEYS.yesterdayClicks] as Array<Record<string, unknown>>) ?? [];
@@ -440,6 +450,14 @@ function YesterdayTab() {
       setLoading(false);
     });
   }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{ ...S.card, textAlign: "center", padding: "20px 12px" }}>
+        <div style={{ fontSize: 13, color: C.warmBrownLight }}>로그인하면 학습 기록을 확인할 수 있어요</div>
+      </div>
+    );
+  }
 
   if (loading) return <div style={{ textAlign: "center", padding: 40, color: C.warmBrownLight }}>불러오는 중...</div>;
 
@@ -507,7 +525,7 @@ function YesterdayTab() {
           </div>
         ))}
         {vocab.length > 3 && (
-          <button onClick={() => window.open("https://hanjahanja.kr/mypage/vocab", "_blank")}
+          <button onClick={() => window.open("https://hanjahanja.co.kr/mypage/vocab", "_blank")}
             style={{ ...S.btn("outline"), width: "100%", marginTop: 10, fontSize: 12 }}>
             단어장 더 보기 →
           </button>
@@ -547,9 +565,9 @@ function AboutTab() {
       <div style={S.card}>
         <div style={S.cardTitle}><span>🔗</span> 한자한자 채널</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <a href="https://hanjahanja.kr" target="_blank" rel="noreferrer"
+          <a href="https://hanjahanja.co.kr" target="_blank" rel="noreferrer"
             style={{ ...S.btn("outline"), textDecoration: "none", textAlign: "center", display: "block" }}>
-            🌐 hanjahanja.kr
+            🌐 hanjahanja.co.kr
           </a>
           <a href="https://instagram.com/hanjahanja.kr" target="_blank" rel="noreferrer"
             style={{ ...S.btn("outline"), textDecoration: "none", textAlign: "center", display: "block" }}>
@@ -655,7 +673,7 @@ function SettingsTab({
             <div style={{ fontSize: 13, color: C.warmBrown, textAlign: "center", padding: "4px 0" }}>
               {userEmail}
             </div>
-            <a href="https://hanjahanja.kr/mypage" target="_blank" rel="noreferrer"
+            <a href="https://hanjahanja.co.kr/mypage" target="_blank" rel="noreferrer"
               style={{ ...S.btn("outline"), textDecoration: "none", textAlign: "center", display: "block" }}>
               마이페이지 →
             </a>
@@ -663,22 +681,11 @@ function SettingsTab({
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <input type="email" placeholder="이메일" value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-              style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, background: C.white }} />
-            <input type="password" placeholder="비밀번호" value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-              style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, background: C.white }} />
-            {loginError && (
-              <div style={{ fontSize: 12, color: C.wrong, textAlign: "center" }}>{loginError}</div>
-            )}
-            <button onClick={handleLogin} disabled={loginLoading}
-              style={{ ...S.btn("primary"), opacity: loginLoading ? 0.6 : 1 }}>
-              {loginLoading ? "로그인 중..." : "로그인"}
+            <button onClick={() => window.open("http://jinserver:3500/login?next=/auth/extension-sync", "_blank")}
+              style={{ ...S.btn("primary"), fontSize: 15, padding: "10px 0" }}>
+              로그인
             </button>
-            <button onClick={() => window.open("https://hanjahanja.kr/signup", "_blank")}
+            <button onClick={() => window.open("http://jinserver:3500/signup", "_blank")}
               style={{ ...S.btn("ghost"), fontSize: 12, textAlign: "center" }}>
               아직 계정이 없으신가요? 회원가입 →
             </button>
@@ -714,8 +721,14 @@ function App() {
       if (session?.user) {
         setIsLoggedIn(true);
         setUserEmail(session.user.email ?? "");
-        // 세션 있으면 데이터 동기화
-        syncAll().catch(() => {});
+        // 활성 탭의 content script에 flush 요청 후 동기화
+        browser.tabs?.query({ active: true, currentWindow: true }).then((tabs) => {
+          if (tabs[0]?.id) {
+            browser.tabs.sendMessage(tabs[0].id, { type: 'flush-tracker' }).catch(() => {});
+          }
+        }).catch(() => {});
+        // flush 완료 기다린 후 동기화 (약간의 딜레이)
+        setTimeout(() => syncAll().catch(() => {}), 300);
       }
     }).catch((err) => {
       console.warn('[한자한자] 세션 로드 실패:', err);
@@ -773,8 +786,8 @@ function App() {
 
       {/* 콘텐츠 영역 */}
       <div style={S.content}>
-        {activeTab === "today" && <TodayTab />}
-        {activeTab === "yesterday" && <YesterdayTab />}
+        {activeTab === "today" && <TodayTab isLoggedIn={isLoggedIn} />}
+        {activeTab === "yesterday" && <YesterdayTab isLoggedIn={isLoggedIn} />}
         {activeTab === "about" && <AboutTab />}
         {activeTab === "settings" && (
           <SettingsTab isLoggedIn={isLoggedIn} userEmail={userEmail} level={level} darkTooltip={darkTooltip}

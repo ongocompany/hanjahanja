@@ -2,7 +2,7 @@
 
 import { socialLogin } from "@/lib/auth/actions";
 
-export function SocialLoginButtons() {
+export function SocialLoginButtons({ next }: { next?: string } = {}) {
   return (
     <div className="space-y-3">
       <div className="relative my-6">
@@ -18,7 +18,7 @@ export function SocialLoginButtons() {
         {/* Google */}
         <button
           type="button"
-          onClick={() => socialLogin("google")}
+          onClick={() => socialLogin("google", next)}
           className="flex items-center justify-center w-12 h-12 rounded-full bg-white border-2 border-vanilla hover:border-tan transition-colors cursor-pointer"
           title="Google로 로그인"
         >
@@ -33,7 +33,7 @@ export function SocialLoginButtons() {
         {/* Kakao */}
         <button
           type="button"
-          onClick={() => socialLogin("kakao")}
+          onClick={() => socialLogin("kakao", next)}
           className="flex items-center justify-center w-12 h-12 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
           style={{ backgroundColor: "#FEE500" }}
           title="카카오로 로그인"
@@ -45,7 +45,7 @@ export function SocialLoginButtons() {
 
         {/* Naver — Supabase 미지원이라 자체 API 라우트 사용 */}
         <a
-          href="/api/auth/naver"
+          href={next ? `/api/auth/naver?next=${encodeURIComponent(next)}` : "/api/auth/naver"}
           className="flex items-center justify-center w-12 h-12 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
           style={{ backgroundColor: "#03C75A" }}
           title="네이버로 로그인"

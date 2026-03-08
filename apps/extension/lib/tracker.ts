@@ -11,7 +11,7 @@ const CLICK_KEY = 'todayClicks';
 const YESTERDAY_EXPOSURE_KEY = 'yesterdayExposures';
 const YESTERDAY_CLICK_KEY = 'yesterdayClicks';
 const DATE_KEY = 'trackingDate';
-const FLUSH_INTERVAL_MS = 5 * 60 * 1000; // 5분
+const FLUSH_INTERVAL_MS = 30 * 1000; // 30초
 
 /** 노출 버퍼: "경제|經濟" → count */
 const exposureBuffer = new Map<string, number>();
@@ -108,6 +108,9 @@ export async function getYesterdayClicks(): Promise<Array<Record<string, unknown
   const result = await browser.storage.local.get(YESTERDAY_CLICK_KEY);
   return (result[YESTERDAY_CLICK_KEY] as Array<Record<string, unknown>>) ?? [];
 }
+
+/** 외부에서 flush 트리거 (팝업 sync 전 호출용) */
+export { flushExposures };
 
 /** 초기화: 날짜 체크 + 주기적 flush 시작 */
 export async function initTracker(): Promise<void> {

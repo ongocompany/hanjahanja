@@ -445,6 +445,7 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
   const wrapper = document.createElement('span');
   wrapper.className = onDark ? `${cssClass} hjhj-on-dark` : cssClass;
   wrapper.setAttribute(HANJAHANJA_ATTR, 'converted');
+  wrapper.setAttribute('data-word', word);
 
   // 인라인 한자 텍스트 (선호도 1위)
   const inlineText = document.createTextNode(sorted[0].hanja);
@@ -452,6 +453,9 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
 
   // 노출 추적 (메모리 버퍼에 누적, 주기적 flush)
   trackExposure(word, sorted[0].hanja);
+
+  // 호버 추적 중복 방지 (페이지 세션 내 1회만)
+  let hoverTracked = false;
 
   // 툴팁은 body에 붙일 것 — lazy 생성
   let tooltip: HTMLElement | null = null;
@@ -489,15 +493,6 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
       levelSpan.textContent = levelToString(entry.level);
       row.appendChild(levelSpan);
 
-      // 선택 횟수 표시 (1회 이상일 때만)
-      const count = prefs[entry.hanja] ?? 0;
-      if (count > 0) {
-        const countSpan = document.createElement('span');
-        countSpan.className = 'hjhj-count';
-        countSpan.textContent = `×${count}`;
-        row.appendChild(countSpan);
-      }
-
       if (entry.meaning) {
         const meaningSpan = document.createElement('span');
         meaningSpan.className = 'hjhj-meaning';
@@ -518,29 +513,8 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
           tooltip!.querySelectorAll('.hjhj-entry').forEach((el) => el.classList.remove('hjhj-active'));
           row.classList.add('hjhj-active');
 
-          // 선호도 저장 + 클릭 추적
+          // 선호도 저장 (동음이의어 선택은 클릭 추적 불필요)
           recordChoice(word, entry.hanja);
-          // 문맥: 가장 가까운 부모 요소의 텍스트 (문장 추출)
-          const parentText = wrapper.closest('p, div, li, td, h1, h2, h3, h4, h5, h6')?.textContent?.trim()?.slice(0, 200);
-          trackClick(word, entry.hanja, parentText);
-
-          // 카운트 표시 업데이트
-          let countEl = row.querySelector('.hjhj-count') as HTMLElement | null;
-          const newCount = (prefs[entry.hanja] ?? 0) + 1;
-          prefs[entry.hanja] = newCount;
-          if (countEl) {
-            countEl.textContent = `×${newCount}`;
-          } else {
-            countEl = document.createElement('span');
-            countEl.className = 'hjhj-count';
-            countEl.textContent = `×${newCount}`;
-            const levelEl = row.querySelector('.hjhj-level');
-            if (levelEl?.nextSibling) {
-              row.insertBefore(countEl, levelEl.nextSibling);
-            } else {
-              row.appendChild(countEl);
-            }
-          }
         });
       }
 
@@ -560,10 +534,15 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
     return tooltip;
   }
 
-  // hover 시 body에 fixed 툴팁 표시
+  // hover 시 body에 fixed 툴팁 표시 + 호버 추적 (페이지당 1회)
   wrapper.addEventListener('mouseenter', () => {
     cancelHideTimer();
     showTooltip(wrapper, ensureTooltip());
+    if (!hoverTracked) {
+      hoverTracked = true;
+      const parentText = wrapper.closest('p, div, li, td, h1, h2, h3, h4, h5, h6')?.textContent?.trim()?.slice(0, 200);
+      trackClick(word, sorted[0].hanja, parentText);
+    }
   });
 
   wrapper.addEventListener('mouseleave', (e) => {
@@ -573,8 +552,9 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
     hideTooltip();
   });
 
-  // 클릭하면 툴팁 고정/해제
+  // 클릭하면 툴팁 고정/해제 (링크 안이면 링크 동작 우선)
   wrapper.addEventListener('click', (e) => {
+    if (wrapper.closest('a')) return; // 링크 안의 한자어는 클릭 통과
     e.preventDefault();
     e.stopPropagation();
     if (pinnedTooltip && activeWord === wrapper) {

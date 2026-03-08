@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const SITE_URL = "https://hanjahanja.kr";
+const SITE_URL = "https://hanjahanja.co.kr";
 const SITE_NAME = "한자한자";
 const TITLE = "한자한자 - 매일 읽으면서 한자 실력이 느는 크롬 확장";
 const DESCRIPTION =
