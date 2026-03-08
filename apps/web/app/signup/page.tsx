@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { signup } from "@/lib/auth/actions";
+import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 
 const TERMS = [
   {
@@ -322,15 +323,18 @@ export default function SignupPage() {
           )}
 
           {!success && (
-            <p className="mt-6 text-center text-sm text-warm-brown-light">
-              이미 계정이 있나요?{" "}
-              <Link
-                href="/login"
-                className="font-semibold text-tan-dark hover:underline"
-              >
-                로그인
-              </Link>
-            </p>
+            <>
+              <SocialLoginButtons />
+              <p className="mt-6 text-center text-sm text-warm-brown-light">
+                이미 계정이 있나요?{" "}
+                <Link
+                  href="/login"
+                  className="font-semibold text-tan-dark hover:underline"
+                >
+                  로그인
+                </Link>
+              </p>
+            </>
           )}
         </div>
     </main>

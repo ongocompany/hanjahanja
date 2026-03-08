@@ -39,25 +39,30 @@ export function getSupabase(): SupabaseClient | null {
 
 /** 저장된 세션 로드 */
 export async function loadSession(): Promise<Session | null> {
-  const result = await chrome.storage.local.get(SESSION_KEY);
-  const session = result[SESSION_KEY] as Session | undefined;
-  if (!session) return null;
+  try {
+    const result = await browser.storage.local.get(SESSION_KEY);
+    const session = result[SESSION_KEY] as Session | undefined;
+    if (!session) return null;
 
-  // 세션을 Supabase 클라이언트에 설정
-  const client = getSupabase();
-  if (client && session.access_token) {
-    await client.auth.setSession({
-      access_token: session.access_token,
-      refresh_token: session.refresh_token,
-    });
+    // 세션을 Supabase 클라이언트에 설정
+    const client = getSupabase();
+    if (client && session.access_token) {
+      await client.auth.setSession({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token,
+      });
+    }
+
+    return session;
+  } catch (err) {
+    console.warn('[한자한자] 세션 로드 실패:', err);
+    return null;
   }
-
-  return session;
 }
 
 /** 세션 저장 */
 export async function saveSession(session: Session): Promise<void> {
-  await chrome.storage.local.set({ [SESSION_KEY]: session });
+  await browser.storage.local.set({ [SESSION_KEY]: session });
 }
 
 /** 세션 삭제 (로그아웃) */
@@ -66,7 +71,7 @@ export async function clearSession(): Promise<void> {
   if (client) {
     await client.auth.signOut();
   }
-  await chrome.storage.local.remove(SESSION_KEY);
+  await browser.storage.local.remove(SESSION_KEY);
 }
 
 /** 현재 유저 ID (로그인 안 됐으면 null) */
@@ -97,7 +102,7 @@ async function refreshSession(): Promise<boolean> {
   const client = getSupabase();
   if (!client) return false;
 
-  const stored = await chrome.storage.local.get(SESSION_KEY);
+  const stored = await browser.storage.local.get(SESSION_KEY);
   const session = stored[SESSION_KEY] as Session | undefined;
   if (!session?.refresh_token) return false;
 

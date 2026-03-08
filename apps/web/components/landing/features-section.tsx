@@ -38,9 +38,9 @@ const FEATURES = [
 
 export function FeaturesSection() {
   return (
-    <section className="bg-cream py-16 px-6">
+    <section className="bg-cream py-12 px-6 sm:py-16">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-center text-2xl font-bold sm:text-3xl">
+        <h2 className="text-center text-xl font-bold sm:text-2xl lg:text-3xl">
           뉴스보고 게시판 보는 시간이 내 한자 공부 시간이 됩니다
         </h2>
         <p className="mt-2 text-center text-warm-brown-light text-base">
@@ -53,7 +53,7 @@ export function FeaturesSection() {
               key={feature.title}
               className="border-0 bg-white/80 shadow-sm hover:shadow-md transition-shadow rounded-2xl"
             >
-              <CardContent className="flex items-center gap-4 p-5">
+              <CardContent className="flex flex-col items-center text-center sm:flex-row sm:text-left gap-4 p-5">
                 <Image
                   src={feature.image}
                   alt={feature.imageAlt}

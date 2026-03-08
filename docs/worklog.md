@@ -473,3 +473,44 @@
 - `/test` 직접 접속 시 level 파라미터 없으면 메인으로 리다이렉트
 
 **현재 상태**: 회원가입/로그인 완성, 테스트 페이지 수정 완료. 다음: 합성 데이터 생성 완료 확인 → WSD v3 재학습
+
+## 2026-03-08
+
+### 세션 17: WSD 데이터 정제 + 재학습 + 확장 버그 수정
+
+#### 확장 팝업 빈 화면 수정
+- `loadSession()`에 `.catch()` 없어서 에러 시 로딩 상태 무한 대기
+- `.catch()` + `.finally(() => setLoaded(true))` 추가로 해결
+- `chrome.storage.local` → `browser.storage.local` (WXT 호환) 변경
+
+#### 한 글자 단어 변환 차단
+- `converter.ts`에 `m.word.length >= 2` 필터 추가
+- 한 글자는 문맥 판별 어렵고 오변환 위험 높아 전면 차단
+
+#### WSD 수동 리뷰 + 데이터 정제
+- `scripts/wsd-reviewer.html` 구현 — 759개 동음이의어 리뷰 웹 UI
+- 형이 321개 단어 수동 리뷰 → 불필요한 의미(고어/미사용) 제거
+- 서버에서 label_map 정리: 759→561 단어 (0-1개 의미만 남은 단어 제거)
+- 데이터셋 필터: train 43,908→29,616 / val 4,979→3,363 / test 4,979→3,363
+- label 인덱스 재매핑 (3,969건)
+
+#### WSD v3 모델 학습 + 배포
+- beomi/kcbert-base, 5 epochs, batch=32
+- **val_acc=96.25%, test_acc=95.81%** (v2 대비 +1.4%p)
+- ONNX INT8 변환 (109.2MB) + wsd_heads.json (22MB, 561 단어)
+- API 서버 배포 완료, 정확도 확인 (경기→京畿, 국장→局長, 지사→知事, 경선→競選)
+
+#### 툴팁 클릭 고정 UX 수정
+- `showTooltip()`에서 `hideTooltipNow()` 호출 시 `pinnedTooltip = false` 리셋 되는 버그
+- 고정 상태에서 hover로 풀리지 않도록 보호 로직 추가
+- 다른 단어 클릭 시 기존 고정 해제 후 새 단어 고정
+
+**변경 파일**:
+- `apps/extension/entrypoints/popup/App.tsx` — loadSession 에러 처리
+- `apps/extension/lib/auth.ts` — browser.storage 변경
+- `apps/extension/lib/sync.ts` — browser.storage 변경
+- `apps/extension/lib/converter.ts` — 한글자 차단 + 툴팁 고정 수정
+- `scripts/wsd-reviewer.html` — 신규 (리뷰 웹 UI)
+- `docs/handoff-session17.md` — 신규
+
+**현재 상태**: WSD v3 배포 완료 (95.81%), 확장 버그 수정 완료. 클로즈 베타 준비 단계 진입

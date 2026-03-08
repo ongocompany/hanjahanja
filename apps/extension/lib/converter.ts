@@ -47,6 +47,8 @@ const NATIVE_KOREAN_BLOCKLIST = new Set([
   '가리', '도리', '수리', '구리', '부리',
   '모습', '거리',
   '사내', '재미', '나중', '사랑',
+  // ── 고유어 지명 (한자 변환 금지) ──
+  '서울',  // 暑鬱 — 현대에서 절대 한자로 쓰지 않음
   // ── WSD 미지원 동음이의어 (학습 데이터 확보 후 제거 예정) ──
   '통사',  // 統辭(구문론) vs 通史(역사) vs 通事(통역) — 빈도 데이터 부정확
 
@@ -265,6 +267,15 @@ function injectStyles(): void {
     }
   `;
   document.head.appendChild(style);
+
+  // 바깥 클릭 시 고정된 툴팁 해제
+  document.addEventListener('click', (e) => {
+    if (!activeTooltip || !pinnedTooltip) return;
+    const target = e.target as Node;
+    if (activeTooltip.contains(target)) return;
+    if (activeWord?.contains(target)) return;
+    hideTooltipNow();
+  });
 }
 
 function shouldSkipNode(node: Node): boolean {
@@ -304,20 +315,43 @@ function sortByPreference(entries: DictEntry[], prefs: Record<string, number>, u
 /** 현재 활성 툴팁 (하나만 표시) */
 let activeTooltip: HTMLElement | null = null;
 let activeWord: HTMLElement | null = null;
+let hideTimer: ReturnType<typeof setTimeout> | null = null;
+let pinnedTooltip = false;
 
-/** 툴팁 숨기기 */
-function hideTooltip(): void {
+/** 숨기기 타이머 취소 */
+function cancelHideTimer(): void {
+  if (hideTimer) {
+    clearTimeout(hideTimer);
+    hideTimer = null;
+  }
+}
+
+/** 툴팁 즉시 숨기기 */
+function hideTooltipNow(): void {
+  cancelHideTimer();
   if (activeTooltip) {
     activeTooltip.classList.remove('hjhj-visible', 'hjhj-above', 'hjhj-below');
     activeTooltip = null;
     activeWord = null;
+    pinnedTooltip = false;
   }
+}
+
+/** 툴팁 숨기기 (200ms 딜레이, 고정 시 무시) */
+function hideTooltip(): void {
+  if (pinnedTooltip) return;
+  cancelHideTimer();
+  hideTimer = setTimeout(hideTooltipNow, 200);
 }
 
 /** 툴팁 위치 계산 + 표시 */
 function showTooltip(wrapper: HTMLElement, tooltip: HTMLElement): void {
-  // 이전 툴팁 숨기기
-  hideTooltip();
+  // 고정된 툴팁이 있고 같은 단어면 위치만 갱신
+  if (pinnedTooltip && activeWord === wrapper) return;
+  // 고정된 툴팁이 있고 다른 단어면 무시 (고정 유지)
+  if (pinnedTooltip && activeWord !== wrapper) return;
+  // 이전 툴팁 즉시 숨기기 (딜레이 없이)
+  hideTooltipNow();
 
   activeTooltip = tooltip;
   activeWord = wrapper;
@@ -513,6 +547,11 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
       tooltip.appendChild(row);
     }
 
+    // 툴팁에 마우스 들어오면 숨기기 취소
+    tooltip.addEventListener('mouseenter', () => {
+      cancelHideTimer();
+    });
+
     // 툴팁 위에서 마우스 나가면 숨기기
     tooltip.addEventListener('mouseleave', () => {
       hideTooltip();
@@ -523,6 +562,7 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
 
   // hover 시 body에 fixed 툴팁 표시
   wrapper.addEventListener('mouseenter', () => {
+    cancelHideTimer();
     showTooltip(wrapper, ensureTooltip());
   });
 
@@ -531,6 +571,22 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
     const related = (e as MouseEvent).relatedTarget as Node | null;
     if (tooltip && related && tooltip.contains(related)) return;
     hideTooltip();
+  });
+
+  // 클릭하면 툴팁 고정/해제
+  wrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (pinnedTooltip && activeWord === wrapper) {
+      // 같은 단어 클릭 → 고정 해제
+      hideTooltipNow();
+    } else {
+      // 다른 단어 or 고정 안 된 상태 → 강제로 고정
+      const wasPinned = pinnedTooltip;
+      if (wasPinned) hideTooltipNow(); // 기존 고정 해제
+      showTooltip(wrapper, ensureTooltip());
+      pinnedTooltip = true;
+    }
   });
 
   return wrapper;
@@ -557,9 +613,12 @@ async function convertTextNode(textNode: Text, dict: HanjaDict, prefsCache: Map<
   // 순우리말 차단: 한자어가 아닌 순한글 단어 제외
   const nativeFiltered = matches.filter(m => !NATIVE_KOREAN_BLOCKLIST.has(m.word));
 
+  // 한 글자 단어 차단: 문맥 판별이 어렵고 오변환 위험이 높음
+  const lengthFiltered = nativeFiltered.filter(m => m.word.length >= 2);
+
   // 급수 필터: 최소 하나의 엔트리가 userLevel 범위 내인 단어만 변환
   // (급수 숫자 높을수록 쉬움: 8급=가장쉬움, 특급(0)=가장어려움 → entry.level >= userLevel이면 범위 내)
-  const levelFiltered = nativeFiltered.filter(m =>
+  const levelFiltered = lengthFiltered.filter(m =>
     m.entries.some(e => e.level >= userLevel)
   );
   if (levelFiltered.length === 0) return;

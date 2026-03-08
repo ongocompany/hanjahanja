@@ -23,22 +23,22 @@ const LEVELS: { label: string; value: number }[][] = [
 
 export function QuizCtaSection() {
   return (
-    <section className="relative bg-gradient-to-b from-vanilla to-tan/30 py-16 px-6">
+    <section className="relative bg-gradient-to-b from-vanilla to-tan/30 py-12 px-6 sm:py-16">
       <div className="mx-auto max-w-3xl text-center">
         {/* 캐릭터 + 타이틀 */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-3 sm:gap-4">
           <Image
             src="/images/thinking.png"
             alt="고민하는 책벌레"
             width={100}
             height={94}
-            className="drop-shadow-md"
+            className="drop-shadow-md w-[70px] sm:w-[100px] h-auto"
           />
           <div className="text-left">
             <p className="text-xs font-semibold uppercase tracking-widest text-tan-dark">
               무료 진단 테스트
             </p>
-            <h2 className="mt-1 text-2xl font-bold sm:text-3xl lg:text-4xl">
+            <h2 className="mt-1 text-xl font-bold sm:text-3xl lg:text-4xl">
               나의 <span className="text-tan-dark">한자실력</span>은?
             </h2>
           </div>

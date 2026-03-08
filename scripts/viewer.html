@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한자한자 — 사전 데이터 뷰어</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; background: #f8f9fa; color: #333; }
+
+  .header { background: #1a1a2e; color: #fff; padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .header .stats { font-size: 13px; color: #adb5bd; margin-left: auto; }
+
+  .controls { background: #fff; border-bottom: 1px solid #dee2e6; padding: 16px 32px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .controls select, .controls input { height: 38px; padding: 0 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; }
+  .controls input[type=search] { width: 280px; }
+  .controls select { min-width: 120px; }
+  .controls button { height: 38px; padding: 0 16px; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  .controls button:hover { background: #16213e; }
+  .controls .page-info { margin-left: auto; font-size: 13px; color: #868e96; }
+
+  .table-wrap { padding: 16px 32px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  th { background: #f1f3f5; text-align: left; padding: 10px 14px; font-size: 13px; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6; white-space: nowrap; }
+  td { padding: 10px 14px; font-size: 14px; border-bottom: 1px solid #f1f3f5; }
+  tr:hover td { background: #f8f9ff; }
+
+  .hanja { font-size: 18px; font-weight: 700; color: #c0392b; letter-spacing: 2px; }
+  .korean { font-weight: 600; }
+  .meaning { color: #555; font-size: 13px; max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .level-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .level-8 { background: #d4edda; color: #155724; }
+  .level-7 { background: #cce5ff; color: #004085; }
+  .level-6 { background: #e2d9f3; color: #4a148c; }
+  .level-5 { background: #fff3cd; color: #856404; }
+  .level-4 { background: #ffeeba; color: #856404; }
+  .level-3 { background: #f8d7da; color: #721c24; }
+  .level-2 { background: #f5c6cb; color: #721c24; }
+  .level-1 { background: #d6d6d6; color: #333; }
+  .level-0 { background: #333; color: #fff; }
+
+  .char-detail { display: inline-flex; gap: 2px; }
+  .char-box { text-align: center; padding: 2px 6px; background: #f8f9fa; border-radius: 4px; font-size: 12px; line-height: 1.4; border: 1px solid #e9ecef; }
+  .char-box .ch { font-size: 16px; font-weight: 700; color: #c0392b; }
+  .char-box .rd { color: #495057; }
+
+  .pagination { display: flex; gap: 6px; justify-content: center; padding: 16px; }
+  .pagination button { width: 36px; height: 36px; border: 1px solid #dee2e6; background: #fff; border-radius: 6px; cursor: pointer; font-size: 14px; }
+  .pagination button.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+  .pagination button:disabled { opacity: 0.4; cursor: default; }
+
+  .source { font-size: 11px; color: #adb5bd; }
+  .loading { text-align: center; padding: 60px; color: #868e96; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>한자한자 사전 뷰어</h1>
+  <div class="stats" id="stats">로딩 중...</div>
+</div>
+
+<div class="controls">
+  <select id="levelFilter">
+    <option value="">전체 급수</option>
+    <option value="8">8급</option>
+    <option value="7.5">준7급</option>
+    <option value="7">7급</option>
+    <option value="6.5">준6급</option>
+    <option value="6">6급</option>
+    <option value="5.5">준5급</option>
+    <option value="5">5급</option>
+    <option value="4.5">준4급</option>
+    <option value="4">4급</option>
+    <option value="3.5">준3급</option>
+    <option value="3">3급</option>
+    <option value="2.5">준2급</option>
+    <option value="2">2급</option>
+    <option value="1.5">준1급</option>
+    <option value="1">1급</option>
+    <option value="0.5">준특급</option>
+    <option value="0">특급</option>
+  </select>
+
+  <select id="posFilter">
+    <option value="">전체 품사</option>
+    <option value="명사">명사</option>
+    <option value="동사">동사</option>
+    <option value="형용사">형용사</option>
+    <option value="부사">부사</option>
+    <option value="관형사">관형사</option>
+  </select>
+
+  <input type="search" id="searchInput" placeholder="한글 또는 한자로 검색..." />
+  <button onclick="doSearch()">검색</button>
+  <button onclick="resetFilters()" style="background:#868e96">초기화</button>
+
+  <div class="page-info" id="pageInfo"></div>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>한글</th>
+        <th>한자</th>
+        <th>한자 분해</th>
+        <th>급수</th>
+        <th>뜻</th>
+        <th>출처</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr><td colspan="7" class="loading">데이터 로딩 중...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination" id="pagination"></div>
+
+<script>
+const SUPABASE_URL = 'https://xkydanckftfjnykkakqu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_6R6ogALPUB73U5udWL67Yg_WxmfnHN1';
+const PAGE_SIZE = 50;
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let currentPage = 0;
+let totalCount = 0;
+
+function getLevelClass(level) {
+  if (level >= 8) return 'level-8';
+  if (level >= 7) return 'level-7';
+  if (level >= 6) return 'level-6';
+  if (level >= 5) return 'level-5';
+  if (level >= 4) return 'level-4';
+  if (level >= 3) return 'level-3';
+  if (level >= 2) return 'level-2';
+  if (level >= 1) return 'level-1';
+  return 'level-0';
+}
+
+function renderCharDetails(details) {
+  if (!details || !Array.isArray(details)) return '';
+  return '<div class="char-detail">' + details.map(d =>
+    `<div class="char-box"><div class="ch">${d.char}</div><div class="rd">${d.reading}(${d.meaning})</div></div>`
+  ).join('') + '</div>';
+}
+
+function buildQuery() {
+  let q = sb.from('hanja_words').select('*', { count: 'exact' });
+
+  const level = document.getElementById('levelFilter').value;
+  const search = document.getElementById('searchInput').value.trim();
+
+  if (level) q = q.eq('word_level', parseFloat(level));
+  if (search) {
+    // 한자 문자인지 확인
+    const isHanja = /[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]/.test(search);
+    if (isHanja) {
+      q = q.ilike('hanja', `%${search}%`);
+    } else {
+      q = q.ilike('korean_word', `%${search}%`);
+    }
+  }
+
+  return q;
+}
+
+async function loadData() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '<tr><td colspan="7" class="loading">로딩 중...</td></tr>';
+
+  const from = currentPage * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  let q = buildQuery();
+  q = q.order('word_level', { ascending: false })
+       .order('korean_word', { ascending: true })
+       .range(from, to);
+
+  const { data, count, error } = await q;
+
+  if (error) {
+    tbody.innerHTML = `<tr><td colspan="7" class="loading">오류: ${error.message}</td></tr>`;
+    return;
+  }
+
+  totalCount = count;
+  document.getElementById('stats').textContent = `총 ${totalCount.toLocaleString()}개`;
+  document.getElementById('pageInfo').textContent =
+    `${from + 1}–${Math.min(from + PAGE_SIZE, totalCount)} / ${totalCount.toLocaleString()}개`;
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading">결과 없음</td></tr>';
+    renderPagination();
+    return;
+  }
+
+  tbody.innerHTML = data.map((row, i) => `
+    <tr>
+      <td style="color:#adb5bd;font-size:12px">${from + i + 1}</td>
+      <td class="korean">${row.korean_word}</td>
+      <td class="hanja">${row.hanja}</td>
+      <td>${renderCharDetails(row.char_details)}</td>
+      <td><span class="level-badge ${getLevelClass(row.word_level)}">${row.word_level_label}</span></td>
+      <td class="meaning" title="${(row.meaning || '').replace(/"/g, '&quot;')}">${row.meaning || '-'}</td>
+      <td class="source">${row.source}</td>
+    </tr>
+  `).join('');
+
+  renderPagination();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  const container = document.getElementById('pagination');
+
+  if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+  let html = '';
+  html += `<button ${currentPage === 0 ? 'disabled' : ''} onclick="goPage(0)">«</button>`;
+  html += `<button ${currentPage === 0 ? 'disabled' : ''} onclick="goPage(${currentPage - 1})">‹</button>`;
+
+  let start = Math.max(0, currentPage - 3);
+  let end = Math.min(totalPages - 1, currentPage + 3);
+
+  for (let p = start; p <= end; p++) {
+    html += `<button class="${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p + 1}</button>`;
+  }
+
+  html += `<button ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="goPage(${currentPage + 1})">›</button>`;
+  html += `<button ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="goPage(${totalPages - 1})">»</button>`;
+
+  container.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; loadData(); window.scrollTo(0, 0); }
+
+function doSearch() { currentPage = 0; loadData(); }
+
+function resetFilters() {
+  document.getElementById('levelFilter').value = '';
+  document.getElementById('posFilter').value = '';
+  document.getElementById('searchInput').value = '';
+  currentPage = 0;
+  loadData();
+}
+
+document.getElementById('searchInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doSearch();
+});
+document.getElementById('levelFilter').addEventListener('change', doSearch);
+document.getElementById('posFilter').addEventListener('change', doSearch);
+
+loadData();
+</script>
+</body>
+</html>

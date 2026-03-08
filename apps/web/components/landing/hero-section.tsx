@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-cream">
-      <div className="mx-auto max-w-5xl px-6 pt-28 pb-24">
-        <div className="flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
+      <div className="mx-auto max-w-5xl px-6 pt-24 pb-16 sm:pt-28 sm:pb-24">
+        <div className="flex flex-col items-center gap-6 sm:flex-row sm:gap-12">
           {/* 캐릭터 — 왼쪽 */}
           <div className="shrink-0">
             <Image
@@ -15,13 +15,13 @@ export function HeroSection() {
               width={240}
               height={276}
               priority
-              className="drop-shadow-lg"
+              className="drop-shadow-lg w-[160px] sm:w-[200px] lg:w-[240px] h-auto"
             />
           </div>
 
           {/* 텍스트 — 오른쪽 */}
           <div className="text-center sm:text-left">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl leading-tight">
+            <h1 className="text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl leading-tight">
               늘 보던 뉴스,
               <br />
               <span className="text-tan-dark">당신만을 위한 완벽한 한자교재</span>로
@@ -29,7 +29,7 @@ export function HeroSection() {
               바꾸세요.
             </h1>
 
-            <p className="mt-4 max-w-lg text-base text-warm-brown-light sm:text-lg leading-relaxed">
+            <p className="mt-3 max-w-lg text-sm text-warm-brown-light sm:text-base lg:text-lg leading-relaxed">
               한자 실력 왜 이리 안 늘까요? 수없이 써보고 외우고 또 써봐도
               그때 뿐. 원인은 단순합니다.{" "}
               <strong className="text-warm-brown">
@@ -54,17 +54,17 @@ export function HeroSection() {
             </div>
 
             {/* CTA 버튼 */}
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
               <Button
                 size="lg"
-                className="bg-tan hover:bg-tan-dark text-cream px-8 py-5 text-base font-semibold rounded-xl shadow-lg"
+                className="w-full sm:w-auto bg-tan hover:bg-tan-dark text-cream px-8 py-5 text-base font-semibold rounded-xl shadow-lg"
               >
                 크롬에 추가하기
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="border-tan text-tan-dark hover:bg-vanilla px-8 py-5 text-base font-semibold rounded-xl"
+                className="w-full sm:w-auto border-tan text-tan-dark hover:bg-vanilla px-8 py-5 text-base font-semibold rounded-xl"
               >
                 내 한자 실력 테스트
               </Button>

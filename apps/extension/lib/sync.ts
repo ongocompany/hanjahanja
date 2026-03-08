@@ -18,7 +18,7 @@ export async function syncExposures(): Promise<number> {
   const client = getSupabase();
   if (!client) return 0;
 
-  const result = await chrome.storage.local.get('todayExposures');
+  const result = await browser.storage.local.get('todayExposures');
   const exposures = (result.todayExposures as Record<string, number>) ?? {};
   const entries = Object.entries(exposures);
   if (entries.length === 0) return 0;
@@ -60,7 +60,7 @@ export async function syncClicks(): Promise<number> {
   const client = getSupabase();
   if (!client) return 0;
 
-  const result = await chrome.storage.local.get(['todayClicks', 'lastClickSyncIndex']);
+  const result = await browser.storage.local.get(['todayClicks', 'lastClickSyncIndex']);
   const clicks = (result.todayClicks as Array<Record<string, unknown>>) ?? [];
   const lastIndex = (result.lastClickSyncIndex as number) ?? 0;
 
@@ -80,7 +80,7 @@ export async function syncClicks(): Promise<number> {
 
   if (!error) {
     // 동기화 완료된 인덱스 기록
-    await chrome.storage.local.set({ lastClickSyncIndex: clicks.length });
+    await browser.storage.local.set({ lastClickSyncIndex: clicks.length });
     console.log(`[한자한자 Sync] 클릭 ${rows.length}건 동기화`);
     return rows.length;
   }

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSD 의미 리뷰어 - 제거할 의미 선택</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Pretendard', sans-serif; background: #f0f2f5; color: #333; }
+
+.header {
+  background: #1a1a2e; color: #fff; padding: 16px 24px;
+  display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100;
+}
+.header h1 { font-size: 18px; font-weight: 700; }
+.header .stats { font-size: 13px; color: #adb5bd; }
+.header .actions { margin-left: auto; display: flex; gap: 8px; }
+.header button {
+  padding: 6px 14px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 600;
+}
+.btn-export { background: #38b000; color: #fff; }
+.btn-export:hover { background: #2d9600; }
+.btn-clear { background: #e63946; color: #fff; }
+.btn-clear:hover { background: #c1121f; }
+.btn-load { background: #457b9d; color: #fff; }
+.btn-load:hover { background: #3a6d8c; }
+
+.controls {
+  background: #fff; border-bottom: 1px solid #dee2e6; padding: 12px 24px;
+  display: flex; gap: 12px; align-items: center; position: sticky; top: 56px; z-index: 99;
+}
+.controls input[type=search] {
+  height: 36px; padding: 0 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; width: 240px;
+}
+.controls select {
+  height: 36px; padding: 0 8px; border: 1px solid #ced4da; border-radius: 6px; font-size: 13px;
+}
+.controls .filter-info { margin-left: auto; font-size: 12px; color: #868e96; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 16px 24px; }
+
+.word-card {
+  background: #fff; border-radius: 8px; margin-bottom: 8px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.word-card.has-removal { border-color: #e63946; }
+
+.word-header {
+  display: flex; align-items: center; padding: 10px 16px; gap: 12px; cursor: pointer;
+  user-select: none;
+}
+.word-header:hover { background: #f8f9fa; }
+.word-name { font-size: 18px; font-weight: 700; }
+.word-meta { font-size: 12px; color: #868e96; }
+.word-meta .freq { color: #1971c2; font-weight: 600; }
+.word-meta .train { color: #2f9e44; }
+.removal-badge {
+  background: #e63946; color: #fff; font-size: 11px; padding: 2px 8px;
+  border-radius: 10px; font-weight: 600; margin-left: auto;
+}
+
+.senses { padding: 0 16px 12px; }
+.sense-row {
+  display: flex; align-items: center; gap: 12px; padding: 8px 12px; margin: 4px 0;
+  border-radius: 6px; cursor: pointer; transition: all 0.15s;
+}
+.sense-row:hover { background: #f1f3f5; }
+.sense-row.marked-remove {
+  background: #fff5f5; text-decoration: line-through; opacity: 0.6;
+}
+.sense-hanja { font-size: 20px; font-weight: 700; color: #c0392b; min-width: 60px; }
+.sense-scode { font-size: 11px; color: #868e96; min-width: 40px; }
+.sense-freq {
+  font-size: 12px; min-width: 80px; text-align: right;
+}
+.sense-freq .num { font-weight: 700; color: #1971c2; }
+.sense-train { font-size: 12px; min-width: 80px; text-align: right; }
+.sense-train .num { font-weight: 600; color: #2f9e44; }
+.sense-bar { flex: 1; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; min-width: 100px; }
+.sense-bar-fill { height: 100%; border-radius: 4px; }
+.bar-freq { background: #339af0; }
+.bar-train { background: #51cf66; }
+.sense-action {
+  font-size: 20px; min-width: 30px; text-align: center; color: #ced4da;
+  transition: color 0.15s;
+}
+.sense-row:hover .sense-action { color: #e63946; }
+.sense-row.marked-remove .sense-action { color: #e63946; }
+
+.bar-container { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 100px; }
+
+/* toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; background: #333; color: #fff;
+  padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 200;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* import modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #fff; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%;
+}
+.modal h3 { margin-bottom: 12px; }
+.modal textarea {
+  width: 100%; height: 200px; border: 1px solid #ced4da; border-radius: 6px;
+  padding: 12px; font-family: monospace; font-size: 12px; margin-bottom: 12px;
+}
+.modal .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.modal button {
+  padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>WSD 의미 리뷰어</h1>
+  <div class="stats" id="stats">로딩 중...</div>
+  <div class="actions">
+    <button class="btn-load" onclick="showImportModal()">불러오기</button>
+    <button class="btn-clear" onclick="clearAll()">초기화</button>
+    <button class="btn-export" onclick="exportJSON()">내보내기 (JSON)</button>
+  </div>
+</div>
+
+<div class="controls">
+  <input type="search" id="search" placeholder="단어 검색..." />
+  <select id="filterMode">
+    <option value="all">전체</option>
+    <option value="has-removal">제거 표시된 것만</option>
+    <option value="multi-sense">3개 이상 의미</option>
+    <option value="low-freq">빈도 0 의미 포함</option>
+  </select>
+  <div class="filter-info" id="filterInfo"></div>
+</div>
+
+<div class="container" id="container"></div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <h3>제거 목록 불러오기</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:8px">내보내기한 JSON을 붙여넣으세요.</p>
+    <textarea id="importText" placeholder='{"의원": ["07"], "동포": ["03"]}'></textarea>
+    <div class="modal-actions">
+      <button onclick="closeImportModal()" style="background:#e9ecef">취소</button>
+      <button onclick="doImport()" style="background:#1a1a2e;color:#fff">적용</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// reviewer_data.json will be loaded via fetch or embedded
+let DATA = [];
+let removals = {}; // { word: Set<scode> }
+
+// Load from localStorage
+function loadState() {
+  try {
+    const saved = localStorage.getItem('wsd_reviewer_removals');
+    if (saved) {
+      const obj = JSON.parse(saved);
+      for (const [w, scodes] of Object.entries(obj)) {
+        removals[w] = new Set(scodes);
+      }
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  const obj = {};
+  for (const [w, s] of Object.entries(removals)) {
+    if (s.size > 0) obj[w] = [...s];
+  }
+  localStorage.setItem('wsd_reviewer_removals', JSON.stringify(obj));
+}
+
+function toggleRemoval(word, scode) {
+  if (!removals[word]) removals[word] = new Set();
+  if (removals[word].has(scode)) {
+    removals[word].delete(scode);
+    if (removals[word].size === 0) delete removals[word];
+  } else {
+    removals[word].add(scode);
+  }
+  saveState();
+  renderList();
+}
+
+function getFilteredData() {
+  const search = document.getElementById('search').value.trim().toLowerCase();
+  const mode = document.getElementById('filterMode').value;
+
+  return DATA.filter(item => {
+    if (search && !item.word.includes(search) && !item.senses.some(s => s.hanja.includes(search))) {
+      return false;
+    }
+    if (mode === 'has-removal') return removals[item.word] && removals[item.word].size > 0;
+    if (mode === 'multi-sense') return item.senses.length >= 3;
+    if (mode === 'low-freq') return item.senses.some(s => s.freq_cnt === 0);
+    return true;
+  });
+}
+
+function renderList() {
+  const filtered = getFilteredData();
+  const container = document.getElementById('container');
+
+  const totalRemovals = Object.values(removals).reduce((sum, s) => sum + s.size, 0);
+  const wordsWithRemovals = Object.keys(removals).filter(w => removals[w].size > 0).length;
+  document.getElementById('stats').textContent =
+    `${DATA.length}개 단어 | 제거 표시: ${totalRemovals}개 의미 (${wordsWithRemovals}개 단어)`;
+  document.getElementById('filterInfo').textContent = `${filtered.length}개 표시 중`;
+
+  container.innerHTML = filtered.map(item => {
+    const hasRemoval = removals[item.word] && removals[item.word].size > 0;
+    const maxFreq = Math.max(...item.senses.map(s => s.freq_cnt), 1);
+    const maxTrain = Math.max(...item.senses.map(s => s.train_cnt), 1);
+
+    const sensesHtml = item.senses.map(s => {
+      const isRemoved = removals[item.word] && removals[item.word].has(s.scode);
+      const freqPct = (s.freq_cnt / maxFreq * 100).toFixed(0);
+      const trainPct = (s.train_cnt / maxTrain * 100).toFixed(0);
+
+      return `<div class="sense-row ${isRemoved ? 'marked-remove' : ''}"
+                   onclick="toggleRemoval('${item.word}', '${s.scode}')">
+        <span class="sense-scode">${s.scode}</span>
+        <span class="sense-hanja">${s.hanja}</span>
+        <span class="sense-freq">빈도 <span class="num">${s.freq_cnt.toLocaleString()}</span></span>
+        <span class="sense-train">학습 <span class="num">${s.train_cnt}</span></span>
+        <div class="bar-container">
+          <div class="sense-bar"><div class="sense-bar-fill bar-freq" style="width:${freqPct}%"></div></div>
+          <div class="sense-bar"><div class="sense-bar-fill bar-train" style="width:${trainPct}%"></div></div>
+        </div>
+        <span class="sense-action">${isRemoved ? '&#10006;' : '&#9676;'}</span>
+      </div>`;
+    }).join('');
+
+    const removalCount = hasRemoval ? removals[item.word].size : 0;
+
+    return `<div class="word-card ${hasRemoval ? 'has-removal' : ''}">
+      <div class="word-header" onclick="this.parentElement.querySelector('.senses').classList.toggle('collapsed')">
+        <span class="word-name">${item.word}</span>
+        <span class="word-meta">
+          의미 ${item.senses.length}개 |
+          빈도합 <span class="freq">${item.freq_total.toLocaleString()}</span> |
+          학습합 <span class="train">${item.train_total}</span>
+        </span>
+        ${hasRemoval ? `<span class="removal-badge">${removalCount}개 제거</span>` : ''}
+      </div>
+      <div class="senses">${sensesHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function exportJSON() {
+  const obj = {};
+  for (const [w, s] of Object.entries(removals)) {
+    if (s.size > 0) obj[w] = [...s];
+  }
+  const totalSenses = Object.values(obj).reduce((sum, arr) => sum + arr.length, 0);
+
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'remove_senses.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`${Object.keys(obj).length}개 단어, ${totalSenses}개 의미 내보내기 완료`);
+}
+
+function clearAll() {
+  if (!confirm('모든 제거 표시를 초기화할까요?')) return;
+  removals = {};
+  saveState();
+  renderList();
+  showToast('초기화 완료');
+}
+
+function showImportModal() {
+  document.getElementById('importModal').classList.add('show');
+}
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('show');
+}
+function doImport() {
+  try {
+    const obj = JSON.parse(document.getElementById('importText').value);
+    for (const [w, scodes] of Object.entries(obj)) {
+      removals[w] = new Set(scodes);
+    }
+    saveState();
+    renderList();
+    closeImportModal();
+    showToast('불러오기 완료');
+  } catch(e) {
+    alert('JSON 파싱 오류: ' + e.message);
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Events
+document.getElementById('search').addEventListener('input', renderList);
+document.getElementById('filterMode').addEventListener('change', renderList);
+
+// Load data
+loadState();
+fetch('reviewer_data.json')
+  .then(r => { if (!r.ok) throw new Error('reviewer_data.json not found'); return r.json(); })
+  .then(data => { DATA = data; renderList(); })
+  .catch(err => {
+    // Try loading from same directory or show error
+    document.getElementById('container').innerHTML =
+      `<div style="text-align:center;padding:60px;color:#e63946">
+        <h2>reviewer_data.json 파일을 찾을 수 없습니다</h2>
+        <p style="margin-top:8px;color:#666">이 HTML 파일과 같은 폴더에 reviewer_data.json 을 넣어주세요.</p>
+      </div>`;
+  });
+</script>
+</body>
+</html>

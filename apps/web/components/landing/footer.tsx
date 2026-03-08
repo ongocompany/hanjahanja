@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
-    <footer className="bg-sage py-12 px-6">
+    <footer className="bg-sage py-10 px-6 sm:py-12">
       <div className="mx-auto max-w-5xl">
-        <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+        <div className="flex flex-col items-center gap-5 sm:flex-row sm:justify-between">
           {/* 로고 + 캐릭터 */}
           <div className="flex items-center gap-3">
             <Image
@@ -23,7 +23,7 @@ export function Footer() {
           </div>
 
           {/* CTA 버튼 */}
-          <div className="flex gap-3">
+          <div className="flex flex-col w-full sm:w-auto sm:flex-row gap-3">
             <Button className="bg-tan hover:bg-tan-dark text-cream font-semibold rounded-xl px-6">
               크롬 확장프로그램 추가하기
             </Button>

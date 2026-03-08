@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { getSupabase, loadSession, saveSession, clearSession } from "../../lib/auth";
+import { syncAll } from "../../lib/sync";
+import type { Session } from "@supabase/supabase-js";
 
 // ─── 타입 ───
 type TabId = "today" | "yesterday" | "about" | "settings";
@@ -568,16 +571,29 @@ function AboutTab() {
 
 // ─── 탭: 설정 ───
 function SettingsTab({
-  isLoggedIn, level, darkTooltip, blockedSites, currentUrl,
+  isLoggedIn, userEmail, level, darkTooltip, blockedSites, currentUrl,
   onChangeLevel, onToggleDark, onToggleBlock, onToggleCurrentSite, onLogin, onLogout,
 }: {
-  isLoggedIn: boolean; level: number; darkTooltip: boolean;
+  isLoggedIn: boolean; userEmail: string; level: number; darkTooltip: boolean;
   blockedSites: string[]; currentUrl: string;
   onChangeLevel: (v: number) => void; onToggleDark: () => void;
   onToggleBlock: (site: string) => void; onToggleCurrentSite: () => void;
-  onLogin: () => void; onLogout: () => void;
+  onLogin: (email: string, password: string) => Promise<string | null>; onLogout: () => void;
 }) {
   const [newBlock, setNewBlock] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!loginEmail || !loginPassword) { setLoginError("이메일과 비밀번호를 입력하세요"); return; }
+    setLoginLoading(true); setLoginError("");
+    const error = await onLogin(loginEmail, loginPassword);
+    setLoginLoading(false);
+    if (error) setLoginError(error);
+    else { setLoginEmail(""); setLoginPassword(""); }
+  };
   const currentHost = (() => { try { return new URL(currentUrl).hostname; } catch { return ""; } })();
   const isCurrentBlocked = blockedSites.includes(currentHost);
 
@@ -636,14 +652,37 @@ function SettingsTab({
         <div style={{ ...S.cardTitle, marginBottom: 8 }}>👤 계정</div>
         {isLoggedIn ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 13, color: C.warmBrown, textAlign: "center", padding: "4px 0" }}>
+              {userEmail}
+            </div>
             <a href="https://hanjahanja.kr/mypage" target="_blank" rel="noreferrer"
               style={{ ...S.btn("outline"), textDecoration: "none", textAlign: "center", display: "block" }}>
-              계정 정보 확인 →
+              마이페이지 →
             </a>
             <button onClick={onLogout} style={{ ...S.btn("ghost"), color: C.wrong }}>로그아웃</button>
           </div>
         ) : (
-          <button onClick={onLogin} style={S.btn("primary")}>로그인 / 회원가입</button>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <input type="email" placeholder="이메일" value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+              style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, background: C.white }} />
+            <input type="password" placeholder="비밀번호" value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+              style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, background: C.white }} />
+            {loginError && (
+              <div style={{ fontSize: 12, color: C.wrong, textAlign: "center" }}>{loginError}</div>
+            )}
+            <button onClick={handleLogin} disabled={loginLoading}
+              style={{ ...S.btn("primary"), opacity: loginLoading ? 0.6 : 1 }}>
+              {loginLoading ? "로그인 중..." : "로그인"}
+            </button>
+            <button onClick={() => window.open("https://hanjahanja.kr/signup", "_blank")}
+              style={{ ...S.btn("ghost"), fontSize: 12, textAlign: "center" }}>
+              아직 계정이 없으신가요? 회원가입 →
+            </button>
+          </div>
         )}
       </div>
     </>
@@ -658,16 +697,29 @@ function App() {
   const [darkTooltip, setDarkTooltip] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const [blockedSites, setBlockedSites] = useState<string[]>([]);
   const [currentUrl, setCurrentUrl] = useState("");
 
   useEffect(() => {
-    browser.storage.local.get(["enabled", "level", "darkTooltip", "blockedSites", "supabaseSession"]).then((result) => {
+    // 설정 로드
+    browser.storage.local.get(["enabled", "level", "darkTooltip", "blockedSites"]).then((result) => {
       setIsEnabled(result.enabled ?? true);
       setLevel(result.level ?? 8);
       setDarkTooltip(result.darkTooltip ?? false);
       setBlockedSites(result.blockedSites ?? []);
-      if (result.supabaseSession?.access_token) setIsLoggedIn(true);
+    });
+    // Supabase 세션 로드
+    loadSession().then((session) => {
+      if (session?.user) {
+        setIsLoggedIn(true);
+        setUserEmail(session.user.email ?? "");
+        // 세션 있으면 데이터 동기화
+        syncAll().catch(() => {});
+      }
+    }).catch((err) => {
+      console.warn('[한자한자] 세션 로드 실패:', err);
+    }).finally(() => {
       setLoaded(true);
     });
     try {
@@ -685,6 +737,26 @@ function App() {
     setBlockedSites(updated); await browser.storage.local.set({ blockedSites: updated });
   };
   const toggleCurrentSite = () => { try { toggleBlock(new URL(currentUrl).hostname); } catch { /* noop */ } };
+
+  const handleLogin = async (email: string, password: string): Promise<string | null> => {
+    const client = getSupabase();
+    if (!client) return "Supabase 연결 실패";
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) return error.message;
+    if (data.session) {
+      await saveSession(data.session);
+      setIsLoggedIn(true);
+      setUserEmail(data.session.user.email ?? "");
+      syncAll().catch(() => {});
+    }
+    return null;
+  };
+
+  const handleLogout = async () => {
+    await clearSession();
+    setIsLoggedIn(false);
+    setUserEmail("");
+  };
 
   if (!loaded) return null;
 
@@ -705,12 +777,11 @@ function App() {
         {activeTab === "yesterday" && <YesterdayTab />}
         {activeTab === "about" && <AboutTab />}
         {activeTab === "settings" && (
-          <SettingsTab isLoggedIn={isLoggedIn} level={level} darkTooltip={darkTooltip}
+          <SettingsTab isLoggedIn={isLoggedIn} userEmail={userEmail} level={level} darkTooltip={darkTooltip}
             blockedSites={blockedSites} currentUrl={currentUrl}
             onChangeLevel={changeLevel} onToggleDark={toggleDark}
             onToggleBlock={toggleBlock} onToggleCurrentSite={toggleCurrentSite}
-            onLogin={() => window.open("https://hanjahanja.kr/login", "_blank")}
-            onLogout={() => setIsLoggedIn(false)} />
+            onLogin={handleLogin} onLogout={handleLogout} />
         )}
       </div>
 
