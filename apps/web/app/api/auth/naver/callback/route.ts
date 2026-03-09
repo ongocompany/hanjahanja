@@ -56,21 +56,21 @@ export async function GET(request: NextRequest) {
 
     const { email, name, profile_image } = profileData.response;
 
-    // 3. Supabase admin으로 사용자 생성/조회
+    // 3. Supabase admin으로 사용자 생성 (이미 있으면 무시)
     const admin = createAdminClient();
-    const { data: existingUsers } = await admin.auth.admin.listUsers();
-    const existingUser = existingUsers?.users?.find((u) => u.email === email);
+    const { error: createError } = await admin.auth.admin.createUser({
+      email,
+      email_confirm: true,
+      user_metadata: {
+        full_name: name || "",
+        avatar_url: profile_image || "",
+        provider: "naver",
+      },
+    });
 
-    if (!existingUser) {
-      await admin.auth.admin.createUser({
-        email,
-        email_confirm: true,
-        user_metadata: {
-          full_name: name || "",
-          avatar_url: profile_image || "",
-          provider: "naver",
-        },
-      });
+    // 이미 존재하는 유저는 무시 (duplicate 에러)
+    if (createError && !createError.message.includes("already been registered")) {
+      return NextResponse.redirect(`${origin}/login?error=user_create_failed`);
     }
 
     // 4. magic link 토큰 생성 → 세션 발급

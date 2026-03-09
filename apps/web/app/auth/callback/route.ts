@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+function sanitizeRedirect(next: string): string {
+  // 상대 경로만 허용, 외부 URL 차단
+  if (!next.startsWith("/") || next.startsWith("//")) return "/";
+  return next;
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/";
+  const next = sanitizeRedirect(searchParams.get("next") ?? "/");
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3500";
 

@@ -85,7 +85,10 @@ export async function deleteVocab(
   return {};
 }
 
-// 프로필 업데이트 (닉네임, 급수, 전화번호)
+// 프로필 업데이트 (닉네임, 급수, 전화번호만 허용)
+const ALLOWED_PROFILE_FIELDS = ["nickname", "current_level", "phone"] as const;
+type ProfileUpdates = Partial<Record<typeof ALLOWED_PROFILE_FIELDS[number], string | number>>;
+
 export async function updateProfile(
   updates: { nickname?: string; current_level?: number; phone?: string }
 ): Promise<{ error?: string }> {
@@ -96,9 +99,21 @@ export async function updateProfile(
 
   if (!user) return { error: "로그인이 필요합니다" };
 
+  // 허용된 필드만 필터링
+  const safeUpdates: ProfileUpdates = {};
+  for (const key of ALLOWED_PROFILE_FIELDS) {
+    if (key in updates && updates[key] !== undefined) {
+      safeUpdates[key] = updates[key];
+    }
+  }
+
+  if (Object.keys(safeUpdates).length === 0) {
+    return { error: "변경할 항목이 없습니다" };
+  }
+
   const { error } = await supabase
     .from("profiles")
-    .update(updates)
+    .update(safeUpdates)
     .eq("id", user.id);
 
   if (error) return { error: error.message };
