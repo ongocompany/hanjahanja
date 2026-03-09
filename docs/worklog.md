@@ -658,3 +658,47 @@
 - `docs/checklist.md` — OAuth, 마이페이지 단어장 항목 완료 처리
 
 **현재 상태**: VPS 프로덕션 배포 완료 (hanjahanja.co.kr), 크롬 웹스토어 심사 대기 중
+
+### 세션 22: 법적 페이지 + 전화번호 수집 + 크롬 웹스토어 제출 + VPS 배포 수정
+
+#### 법적 페이지 생성
+- `apps/web/app/privacy/page.tsx` — 개인정보처리방침 (수집항목, 목적, 보유기간, 제3자 제공, 파기, 사용자 권리)
+- `apps/web/app/terms/page.tsx` — 이용약관 12조 (서비스 설명, 회원, 의무, 요금, 지적재산권 등)
+- 프로젝트 디자인 톤 (cream/vanilla/warm-brown) 적용
+
+#### 전화번호 수집 기능
+- `supabase/migrations/006_add_phone_to_profiles.sql` — profiles 테이블에 phone 컬럼 추가
+- `apps/web/app/auth/complete-profile/page.tsx` — 소셜로그인 후 전화번호 입력 페이지 (Suspense 래핑)
+- `apps/web/app/auth/callback/route.ts` — 전화번호 미입력 시 complete-profile로 리다이렉트
+- `apps/web/components/mypage/settings-panel.tsx` — 전화번호 수정 UI 추가
+- `apps/web/app/signup/page.tsx` — 개인정보 동의 항목에 전화번호 추가
+
+#### OAuth 리다이렉트 버그 수정
+- **문제**: hanjahanja.co.kr에서 로그인하면 localhost로 리다이렉트됨
+- **원인**: `headers().get("origin")` 방식이 프로덕션에서 빈 값 반환
+- **해결**: `process.env.NEXT_PUBLIC_SITE_URL` 사용으로 전면 교체
+  - `apps/web/lib/auth/actions.ts` — socialLogin() baseUrl 변경
+  - `apps/web/app/auth/callback/route.ts` — origin 변경
+- **Supabase Site URL**: jinserver → `https://hanjahanja.co.kr`로 변경 (대시보드)
+
+#### 크롬 웹스토어 제출
+- 등록정보 탭: 설명, 스크린샷, URL 입력
+- 개인정보보호 탭: 데이터 수집 항목, 권한 사유 설명
+- 배포 탭: 비공개 (클로즈 베타) 설정
+- **제출 완료, 검토 대기 중**
+
+#### VPS 배포 이슈 해결
+- **이미지 400 에러**: `sharp` 패키지 VPS에 설치 (`pnpm add -w sharp`)
+- **CSS/JS 404 에러**: Next.js standalone 모드에서 `.next/static`과 `public` 폴더 미포함
+  - `cp -r .next/static .next/standalone/apps/web/.next/static`
+  - `cp -r public .next/standalone/apps/web/public`
+- **OAuth 콜백 502 에러**: Supabase JWT 쿠키가 nginx 기본 버퍼 초과
+  - nginx에 `proxy_buffer_size 128k`, `proxy_buffers 4 256k` 추가
+- `scripts/deploy-vps.sh` — 배포 자동화 스크립트 작성
+
+**변경 파일**:
+- `apps/web/` — privacy/page.tsx(신규), terms/page.tsx(신규), auth/complete-profile/page.tsx(신규), auth/callback/route.ts, lib/auth/actions.ts, lib/vocab/actions.ts, components/mypage/settings-panel.tsx, mypage/page.tsx, signup/page.tsx
+- `supabase/migrations/006_add_phone_to_profiles.sql` (신규)
+- `scripts/deploy-vps.sh` (신규)
+
+**현재 상태**: 법적 페이지 완성, 전화번호 수집 구현, OAuth 수정, VPS 정상 배포. 크롬 웹스토어 검토 대기 중
