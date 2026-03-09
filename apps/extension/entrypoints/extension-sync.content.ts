@@ -5,7 +5,7 @@
  * DOM에서 세션 데이터를 읽어 background로 전달
  */
 export default defineContentScript({
-  matches: ["*://hanjahanja.co.kr/auth/extension-sync*", "*://localhost:*/auth/extension-sync*", "*://*/auth/extension-sync*"],
+  matches: ["*://hanjahanja.co.kr/auth/extension-sync*"],
   runAt: "document_idle",
 
   main() {
