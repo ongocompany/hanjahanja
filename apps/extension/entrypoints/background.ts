@@ -1,6 +1,6 @@
 import { saveToVocabulary } from '@/lib/sync';
 
-const WSD_API_URL = 'http://100.68.25.79:8079';
+const WSD_API_URL = 'https://hanjahanja.co.kr/api';
 
 export default defineBackground(() => {
   console.log("한자한자 Background Script 로드됨");
@@ -24,7 +24,7 @@ export default defineBackground(() => {
   // WSD API 프록시 — content script의 Mixed Content 우회
   browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.type === 'wsd-health') {
-      fetch(`${WSD_API_URL}/health`, { signal: AbortSignal.timeout(3000) })
+      fetch(`${WSD_API_URL}/wsd-health`, { signal: AbortSignal.timeout(3000) })
         .then(res => res.json())
         .then(data => sendResponse({ ok: true, data }))
         .catch(() => sendResponse({ ok: false }));
