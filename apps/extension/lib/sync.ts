@@ -226,6 +226,37 @@ export async function getWrongWords(): Promise<Array<{ word: string; hanja: stri
     .map((s) => ({ word: s.word, hanja: s.hanja, wrongCount: s.wrong - s.correct }));
 }
 
+/** 오변환 신고 저장 */
+export async function reportError(
+  koreanWord: string,
+  predictedHanja: string,
+  correctHanja: string,
+  contextSentence?: string,
+  sourceUrl?: string,
+): Promise<boolean> {
+  const client = getSupabase();
+  if (!client) return false;
+
+  const userId = await getUserId();
+
+  const { error } = await client.from('error_reports').insert({
+    user_id: userId ?? null,
+    korean_word: koreanWord,
+    predicted_hanja: predictedHanja,
+    correct_hanja: correctHanja,
+    context_sentence: contextSentence?.slice(0, 500) ?? null,
+    source_url: sourceUrl?.slice(0, 2000) ?? null,
+  });
+
+  if (error) {
+    console.error('[한자한자] 오변환 신고 실패:', error.message);
+    return false;
+  }
+
+  console.log(`[한자한자] 오변환 신고: ${koreanWord} ${predictedHanja} → ${correctHanja}`);
+  return true;
+}
+
 /** 전체 동기화 (팝업 열 때 등) */
 export async function syncAll(): Promise<void> {
   await Promise.all([syncExposures(), syncClicks(), syncLocalVocabulary()]);

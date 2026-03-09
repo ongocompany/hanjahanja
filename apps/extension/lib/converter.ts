@@ -3,6 +3,7 @@ import { findHanjaWords } from './tokenizer';
 import { recordChoice, getWordPrefs } from './preference';
 import { predictHanjaBatch, hasWSDHead } from './wsd';
 import { trackExposure, trackClick } from './tracker';
+import { reportError } from './sync';
 
 const SKIP_TAGS = new Set([
   'SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'OBJECT', 'EMBED',
@@ -265,6 +266,38 @@ function injectStyles(): void {
     .hjhj-entry.hjhj-dim:hover {
       opacity: 0.8;
     }
+    .hjhj-report-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 4px 8px 2px;
+      border-top: 1px solid #e5e5e5;
+      margin-top: 4px;
+    }
+    .hjhj-dark .hjhj-report-bar {
+      border-top-color: #333;
+    }
+    .hjhj-report-btn {
+      font-size: 12px;
+      color: #999;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .hjhj-report-btn:hover {
+      color: #e53935;
+      background: rgba(229,57,53,0.08);
+    }
+    .hjhj-report-btn.hjhj-reported {
+      color: #4caf50;
+      cursor: default;
+    }
+    .hjhj-report-btn.hjhj-reported:hover {
+      background: none;
+      color: #4caf50;
+    }
   `;
   document.head.appendChild(style);
 
@@ -515,10 +548,63 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
 
           // 선호도 저장 (동음이의어 선택은 클릭 추적 불필요)
           recordChoice(word, entry.hanja);
+
+          // 오변환 신고용 선택 변경 이벤트
+          tooltip!.dispatchEvent(new CustomEvent('hjhj-selection-change', { detail: { hanja: entry.hanja } }));
         });
       }
 
       tooltip.appendChild(row);
+    }
+
+    // 동음이의어(2개+)일 때 오변환 신고 버튼 추가
+    if (sorted.length >= 2) {
+      const reportBar = document.createElement('div');
+      reportBar.className = 'hjhj-report-bar';
+
+      const reportBtn = document.createElement('button');
+      reportBtn.className = 'hjhj-report-btn';
+      reportBtn.textContent = '오변환 신고';
+      reportBtn.title = '이 단어의 한자 변환이 잘못되었다면 신고해주세요';
+
+      // 원래 예측 한자 기록
+      const originalHanja = sorted[0].hanja;
+      let currentHanja = originalHanja;
+
+      // 한자 선택이 바뀔 때 currentHanja 업데이트
+      tooltip.addEventListener('hjhj-selection-change', ((e: CustomEvent) => {
+        currentHanja = e.detail.hanja;
+      }) as EventListener);
+
+      reportBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        if (reportBtn.classList.contains('hjhj-reported')) return;
+
+        if (currentHanja === originalHanja) {
+          // 다른 한자를 먼저 선택하라고 안내
+          reportBtn.textContent = '올바른 한자를 먼저 선택하세요';
+          reportBtn.style.color = '#e65100';
+          setTimeout(() => {
+            reportBtn.textContent = '오변환 신고';
+            reportBtn.style.color = '';
+          }, 2000);
+          return;
+        }
+
+        // 문맥 문장 수집
+        const contextEl = wrapper.closest('p, div, li, td, h1, h2, h3, h4, h5, h6, article, section');
+        const contextText = contextEl?.textContent?.trim()?.slice(0, 500) ?? '';
+
+        reportError(word, originalHanja, currentHanja, contextText, location.href);
+
+        reportBtn.textContent = '신고 완료!';
+        reportBtn.classList.add('hjhj-reported');
+      });
+
+      reportBar.appendChild(reportBtn);
+      tooltip.appendChild(reportBar);
     }
 
     // 툴팁에 마우스 들어오면 숨기기 취소
