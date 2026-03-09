@@ -451,8 +451,8 @@ function createHanjaElement(word: string, entries: DictEntry[], prefs: Record<st
   const inlineText = document.createTextNode(sorted[0].hanja);
   wrapper.appendChild(inlineText);
 
-  // 노출 추적 (메모리 버퍼에 누적, 주기적 flush)
-  trackExposure(word, sorted[0].hanja);
+  // 노출 추적 (메모리 버퍼에 누적, 주기적 flush) + 뜻풀이 캐시
+  trackExposure(word, sorted[0].hanja, sorted[0].meaning);
 
   // 호버 추적 중복 방지 (페이지 세션 내 1회만)
   let hoverTracked = false;

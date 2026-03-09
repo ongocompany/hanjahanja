@@ -120,7 +120,113 @@ export async function saveToVocabulary(
   return true;
 }
 
+/** 로컬 단어장 → Supabase 일괄 동기화 */
+export async function syncLocalVocabulary(): Promise<number> {
+  const userId = await getUserId();
+  if (!userId) return 0;
+
+  const client = getSupabase();
+  if (!client) return 0;
+
+  const result = await browser.storage.local.get(['localVocabulary', 'vocabSyncedCount']);
+  const vocab = (result.localVocabulary as Array<Record<string, unknown>>) ?? [];
+  const syncedCount = (result.vocabSyncedCount as number) ?? 0;
+
+  // 이미 동기화된 것 이후만 전송
+  const newItems = vocab.slice(syncedCount);
+  if (newItems.length === 0) return 0;
+
+  const rows = newItems.map((v) => ({
+    user_id: userId,
+    korean_word: v.word as string,
+    hanja: v.hanja as string,
+    context_sentence: (v.contextSentence as string) || null,
+    source_url: (v.sourceUrl as string) || null,
+    source_title: (v.sourceTitle as string) || null,
+  }));
+
+  // 50개씩 배치 insert
+  let synced = 0;
+  for (let i = 0; i < rows.length; i += 50) {
+    const batch = rows.slice(i, i + 50);
+    const { error } = await client.from('user_vocabulary').insert(batch);
+    if (!error) synced += batch.length;
+  }
+
+  if (synced > 0) {
+    await browser.storage.local.set({ vocabSyncedCount: syncedCount + synced });
+    console.log(`[한자한자 Sync] 단어장 ${synced}건 일괄 동기화`);
+  }
+
+  return synced;
+}
+
+/** 퀴즈 결과 저장 (단건) */
+export async function saveQuizResult(
+  koreanWord: string,
+  hanja: string,
+  isCorrect: boolean,
+  quizType: string,
+): Promise<boolean> {
+  const userId = await getUserId();
+  if (!userId) return false;
+
+  const client = getSupabase();
+  if (!client) return false;
+
+  const { error } = await client.from('user_quiz_results').insert({
+    user_id: userId,
+    korean_word: koreanWord,
+    hanja,
+    is_correct: isCorrect,
+    quiz_type: quizType,
+  });
+
+  if (error) {
+    console.error('[한자한자 Sync] 퀴즈 결과 저장 실패:', error.message);
+    return false;
+  }
+
+  return true;
+}
+
+/** 오답 단어 목록 조회 (최근 7일, 정답으로 만회하지 못한 단어) */
+export async function getWrongWords(): Promise<Array<{ word: string; hanja: string; wrongCount: number }>> {
+  const userId = await getUserId();
+  if (!userId) return [];
+
+  const client = getSupabase();
+  if (!client) return [];
+
+  // 최근 7일 퀴즈 결과 조회
+  const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString();
+
+  const { data, error } = await client
+    .from('user_quiz_results')
+    .select('korean_word, hanja, is_correct')
+    .eq('user_id', userId)
+    .gte('answered_at', sevenDaysAgo);
+
+  if (error || !data) return [];
+
+  // 단어별 정답/오답 집계
+  const stats = new Map<string, { word: string; hanja: string; wrong: number; correct: number }>();
+  for (const row of data) {
+    const key = `${row.korean_word}|${row.hanja}`;
+    const s = stats.get(key) ?? { word: row.korean_word, hanja: row.hanja, wrong: 0, correct: 0 };
+    if (row.is_correct) s.correct++;
+    else s.wrong++;
+    stats.set(key, s);
+  }
+
+  // 오답이 정답보다 많은 단어 반환 (오답 횟수 내림차순)
+  return [...stats.values()]
+    .filter((s) => s.wrong > s.correct)
+    .sort((a, b) => (b.wrong - b.correct) - (a.wrong - a.correct))
+    .map((s) => ({ word: s.word, hanja: s.hanja, wrongCount: s.wrong - s.correct }));
+}
+
 /** 전체 동기화 (팝업 열 때 등) */
 export async function syncAll(): Promise<void> {
-  await Promise.all([syncExposures(), syncClicks()]);
+  await Promise.all([syncExposures(), syncClicks(), syncLocalVocabulary()]);
 }

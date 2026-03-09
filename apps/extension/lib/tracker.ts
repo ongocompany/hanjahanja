@@ -44,23 +44,39 @@ async function rotateDateIfNeeded(): Promise<void> {
 
 /** 메모리 버퍼를 chrome.storage로 flush */
 async function flushExposures(): Promise<void> {
-  if (exposureBuffer.size === 0) return;
+  if (exposureBuffer.size === 0 && meaningCache.size === 0) return;
 
-  const result = await browser.storage.local.get(EXPOSURE_KEY);
+  const result = await browser.storage.local.get([EXPOSURE_KEY, MEANING_CACHE_KEY]);
   const stored = (result[EXPOSURE_KEY] as Record<string, number>) ?? {};
+  const storedMeanings = (result[MEANING_CACHE_KEY] as Record<string, string>) ?? {};
 
   for (const [key, count] of exposureBuffer.entries()) {
     stored[key] = (stored[key] ?? 0) + count;
   }
 
-  await browser.storage.local.set({ [EXPOSURE_KEY]: stored });
+  for (const [key, meaning] of meaningCache.entries()) {
+    if (!storedMeanings[key]) storedMeanings[key] = meaning;
+  }
+
+  await browser.storage.local.set({
+    [EXPOSURE_KEY]: stored,
+    [MEANING_CACHE_KEY]: storedMeanings,
+  });
   exposureBuffer.clear();
+  meaningCache.clear();
 }
 
+/** 뜻풀이 캐시: "경제|經濟" → "재물을 잘 다스림..." */
+const meaningCache = new Map<string, string>();
+const MEANING_CACHE_KEY = 'meaningCache';
+
 /** 노출 추적 — 메모리 버퍼에 누적 (가벼움) */
-export function trackExposure(word: string, hanja: string): void {
+export function trackExposure(word: string, hanja: string, meaning?: string): void {
   const key = `${word}|${hanja}`;
   exposureBuffer.set(key, (exposureBuffer.get(key) ?? 0) + 1);
+  if (meaning && !meaningCache.has(key)) {
+    meaningCache.set(key, meaning);
+  }
 }
 
 /** 클릭 추적 — 즉시 chrome.storage에 기록 */

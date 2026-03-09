@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getSupabase, loadSession, saveSession, clearSession } from "../../lib/auth";
-import { syncAll } from "../../lib/sync";
+import { syncAll, saveQuizResult, getWrongWords } from "../../lib/sync";
 import type { Session } from "@supabase/supabase-js";
 
 // ─── 타입 ───
@@ -103,22 +103,68 @@ function clicksToRank(data: Array<Record<string, unknown>>): HanjaRank[] {
     .map((item, i) => ({ rank: i + 1, ...item }));
 }
 
-// ─── Mock 데이터 ───
-const MOCK_QUIZ_EXPOSURE: QuizQuestion[] = [
-  { hint: "재물을 잘 다스림. 물자의 생산·분배·소비 등의 활동", word: "경제", hanja: "經濟", choices: ["經濟", "京際", "經齊", "景制"] },
-  { hint: "나라를 다스리는 일. 권력을 획득·유지·행사하는 활동", word: "정치", hanja: "政治", choices: ["正置", "政治", "定致", "精緻"] },
-  { hint: "지식과 기술 등을 가르치고 배우는 활동", word: "교육", hanja: "敎育", choices: ["敎育", "交域", "校肉", "橋育"] },
-  { hint: "같은 무리끼리 모여 이루는 집단. 공동생활을 하는 인간의 조직체", word: "사회", hanja: "社會", choices: ["士會", "社會", "史繪", "私懷"] },
-  { hint: "사회 구성원들이 만들어 가는 생활 양식과 그에 따른 산물", word: "문화", hanja: "文化", choices: ["聞花", "紋火", "文化", "門華"] },
-];
+// ─── 퀴즈 생성 (실데이터 기반) ───
+function generateQuizFromData(
+  data: HanjaRank[],
+  meanings: Record<string, string>,
+  maxQuestions = 5,
+  wrongWords: Array<{ word: string; hanja: string }> = [],
+): QuizQuestion[] {
+  if (data.length < 2) return [];
 
-const MOCK_QUIZ_CLICK: QuizQuestion[] = [
-  { hint: "한 나라의 으뜸가는 자리. 행정부의 수반", word: "대통령", hanja: "大統領", choices: ["大統領", "代通靈", "大桶嶺", "臺統領"] },
-  { hint: "나라의 백성. 국가를 구성하는 사람", word: "국민", hanja: "國民", choices: ["局旻", "國民", "菊敏", "國旼"] },
-  { hint: "국가의 주권이 국민에게 있는 것", word: "민주", hanja: "民主", choices: ["民主", "敏周", "閔朱", "旻柱"] },
-  { hint: "국가 통치 체제의 기본 원칙에 관한 법", word: "헌법", hanja: "憲法", choices: ["獻法", "軒法", "憲法", "顯罰"] },
-  { hint: "외부의 구속이나 간섭을 받지 않고 자기 뜻에 따라 행동함", word: "자유", hanja: "自由", choices: ["自由", "子遊", "恣油", "慈幽"] },
-];
+  // 상위 단어에서 문제 출제
+  const candidates = data.slice(0, Math.max(maxQuestions * 2, 10));
+  const candidateKeys = new Set(candidates.map((c) => `${c.word}|${c.hanja}`));
+  const questions: QuizQuestion[] = [];
+
+  // 오답 단어 중 오늘 노출된 것을 우선 배치
+  const wrongFirst = wrongWords
+    .filter((w) => candidateKeys.has(`${w.word}|${w.hanja}`))
+    .map((w) => candidates.find((c) => c.word === w.word && c.hanja === w.hanja)!)
+    .filter(Boolean);
+
+  // 오답 우선 + 나머지 셔플
+  const rest = candidates.filter((c) => !wrongFirst.some((w) => w.word === c.word && w.hanja === c.hanja));
+  const shuffled = [...wrongFirst, ...rest.sort(() => Math.random() - 0.5)];
+
+  for (const item of shuffled) {
+    if (questions.length >= maxQuestions) break;
+    if (!item.hanja || !item.word) continue;
+
+    // 오답 보기 생성: 다른 단어의 한자에서 3개 선택
+    const others = candidates
+      .filter((o) => o.hanja !== item.hanja)
+      .map((o) => o.hanja)
+      .filter(Boolean);
+
+    if (others.length < 3) continue;
+
+    // 오답 3개 랜덤 선택
+    const wrongChoices: string[] = [];
+    const shuffledOthers = [...others].sort(() => Math.random() - 0.5);
+    for (const o of shuffledOthers) {
+      if (!wrongChoices.includes(o)) wrongChoices.push(o);
+      if (wrongChoices.length >= 3) break;
+    }
+
+    // 정답 포함 4지선다 셔플
+    const choices = [...wrongChoices, item.hanja].sort(() => Math.random() - 0.5);
+
+    // 뜻풀이 가져오기 (캐시에 있으면 사용, 없으면 단어로 대체)
+    const meaningKey = `${item.word}|${item.hanja}`;
+    const meaning = meanings[meaningKey];
+    const hint = meaning || `"${item.word}"의 한자는?`;
+
+    questions.push({
+      hint,
+      word: item.word,
+      hanja: item.hanja,
+      choices,
+    });
+  }
+
+  return questions;
+}
 
 const MOCK_IDIOM = {
   idiom: "經世濟民",
@@ -276,25 +322,43 @@ function TodayTab({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [todayStats, setTodayStats] = useState({ exposureCount: 0, uniqueWords: 0, clickCount: 0 });
+  const [exposureQuiz, setExposureQuiz] = useState<QuizQuestion[]>([]);
+  const [clickQuiz, setClickQuiz] = useState<QuizQuestion[]>([]);
 
   useEffect(() => {
     if (!isLoggedIn) return;
-    browser.storage.local.get([STORAGE_KEYS.todayExposures, STORAGE_KEYS.todayClicks]).then((result) => {
+    browser.storage.local.get([STORAGE_KEYS.todayExposures, STORAGE_KEYS.todayClicks, 'meaningCache']).then((result) => {
       const exposures = (result[STORAGE_KEYS.todayExposures] as Record<string, number>) ?? {};
       const clicks = (result[STORAGE_KEYS.todayClicks] as Array<Record<string, unknown>>) ?? [];
+      const meanings = (result.meaningCache as Record<string, string>) ?? {};
       const totalExposure = Object.values(exposures).reduce((sum, c) => sum + c, 0);
       setTodayStats({ exposureCount: totalExposure, uniqueWords: Object.keys(exposures).length, clickCount: clicks.length });
+
+      // 오답 단어 조회 + 퀴즈 생성
+      const exposureRanks = exposuresToRank(exposures);
+      const clickRanks = clicksToRank(clicks);
+
+      getWrongWords().then((wrongWords) => {
+        setExposureQuiz(generateQuizFromData(exposureRanks, meanings, 5, wrongWords));
+        setClickQuiz(generateQuizFromData(clickRanks, meanings, 5, wrongWords));
+      }).catch(() => {
+        setExposureQuiz(generateQuizFromData(exposureRanks, meanings, 5));
+        setClickQuiz(generateQuizFromData(clickRanks, meanings, 5));
+      });
     });
   }, [isLoggedIn]);
 
-  const questions = quizSection === "exposure" ? MOCK_QUIZ_EXPOSURE : MOCK_QUIZ_CLICK;
+  const questions = quizSection === "exposure" ? exposureQuiz : clickQuiz;
   const q = questions[currentQ];
 
   const handleAnswer = (choice: string) => {
     if (answered) return;
     setSelected(choice);
     setAnswered(true);
-    if (choice === q.hanja) setScore((s) => s + 1);
+    const isCorrect = choice === q.hanja;
+    if (isCorrect) setScore((s) => s + 1);
+    // Supabase에 결과 저장 (비동기, 실패해도 무시)
+    saveQuizResult(q.word, q.hanja, isCorrect, quizSection).catch(() => {});
   };
 
   const nextQuestion = () => {
@@ -350,7 +414,17 @@ function TodayTab({ isLoggedIn }: { isLoggedIn: boolean }) {
 
       {/* 퀴즈 카드 */}
       <div style={S.card}>
-        {finished ? (
+        {questions.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "16px 0", color: C.warmBrownLight }}>
+            <div style={{ fontSize: 13, marginBottom: 4 }}>
+              {quizSection === "exposure" ? "오늘 본 한자가 부족해요" : "클릭한 한자가 부족해요"}
+            </div>
+            <div style={{ fontSize: 11 }}>
+              웹서핑을 하면서 한자를 더 만나보세요!<br />
+              최소 4개 이상의 한자어가 필요합니다.
+            </div>
+          </div>
+        ) : finished ? (
           <div style={{ textAlign: "center", padding: "10px 0" }}>
             <img src={charImg("whiteboard")} alt="결과" style={{ width: 100, height: 100, objectFit: "contain", marginBottom: 6 }} />
             <div style={{ fontSize: 28, fontWeight: 700, color: C.tanDark, marginBottom: 4 }}>
@@ -525,7 +599,7 @@ function YesterdayTab({ isLoggedIn }: { isLoggedIn: boolean }) {
           </div>
         ))}
         {vocab.length > 3 && (
-          <button onClick={() => window.open("https://hanjahanja.co.kr/mypage/vocab", "_blank")}
+          <button onClick={() => window.open("https://hanjahanja.co.kr/mypage", "_blank")}
             style={{ ...S.btn("outline"), width: "100%", marginTop: 10, fontSize: 12 }}>
             단어장 더 보기 →
           </button>

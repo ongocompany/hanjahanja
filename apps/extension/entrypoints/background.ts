@@ -1,3 +1,5 @@
+import { saveToVocabulary } from '@/lib/sync';
+
 const WSD_API_URL = 'http://100.68.25.79:8079';
 
 export default defineBackground(() => {
@@ -78,6 +80,15 @@ export default defineBackground(() => {
             });
             await browser.storage.local.set({ localVocabulary: vocab });
             console.log(`단어장 저장 완료: ${response.word} → ${response.hanja}`);
+
+            // Supabase에도 동기화 (로그인 시에만, 실패해도 로컬은 이미 저장됨)
+            saveToVocabulary(
+              response.word,
+              response.hanja,
+              response.context ?? '',
+              tab.url ?? '',
+              tab.title ?? '',
+            ).catch(() => {});
           } else {
             console.log("한자 정보를 찾을 수 없음:", selectedText);
           }

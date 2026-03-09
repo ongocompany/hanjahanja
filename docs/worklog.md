@@ -580,3 +580,50 @@
 - `docs/checklist.md`, `docs/worklog.md`, `CLAUDE.md`, `nginx.conf`, `.gitignore`
 
 **현재 상태**: OAuth 동작, 웹→확장 세션 동기화 구현, Supabase 노출/클릭 동기화 완성. 마이페이지 단어장 웹 UI 미구현
+
+## 2026-03-09
+
+### 세션 20: 마이페이지 단어장 + 퀴즈 실데이터 전환 + 오답 재출제
+
+#### 마이페이지 단어장 웹 UI 구현
+- `apps/web/app/mypage/page.tsx` — 목데이터 → 서버 컴포넌트로 전면 리라이트
+  - Supabase에서 프로필(닉네임, 급수) + 단어장 조회
+  - 비로그인 시 `/login?next=/mypage`로 리다이렉트
+- `apps/web/components/mypage/mypage-tabs.tsx` — 신규. 탭 전환 (단어장/설정)
+- `apps/web/components/mypage/vocab-list.tsx` — 신규. 검색, 필터(전체/학습중/암기완료), 날짜별 그룹핑, 암기 토글, 삭제
+- `apps/web/components/mypage/settings-panel.tsx` — 신규. 닉네임 저장, 급수 변경, 로그아웃
+- `apps/web/lib/vocab/actions.ts` — 신규. 서버 액션 (getVocabulary, toggleMemorized, deleteVocab, updateProfile)
+- `apps/web/app/login/page.tsx` — useSearchParams Suspense 래핑 (빌드 에러 수정)
+
+#### 확장 → Supabase 단어장 동기화
+- 기존: 확장에서 우클릭 저장 시 로컬 스토리지만 저장 → 웹 마이페이지에 안 보이는 문제
+- `apps/extension/lib/sync.ts` — `syncLocalVocabulary()` 추가. 로컬 단어장 일괄 Supabase 동기화 (vocabSyncedCount 인덱스 기반)
+- `apps/extension/entrypoints/background.ts` — 로컬 저장 후 `saveToVocabulary()` Supabase 동기화 추가
+
+#### 퀴즈 목데이터 → 실데이터 전환
+- 기존: MOCK_QUIZ_EXPOSURE, MOCK_QUIZ_CLICK 하드코딩 → 삭제
+- `apps/extension/entrypoints/popup/App.tsx` — `generateQuizFromData()` 구현
+  - 실제 노출/클릭 데이터 기반 퀴즈 생성
+  - 데이터 4개 미만 시 "데이터 부족" 안내 메시지
+- 팝업 단어장 링크 `/mypage/vocab` → `/mypage`로 수정 (521 에러 해결)
+
+#### 동음이의어 뜻풀이 힌트 시스템
+- 문제점: "기사의 한자는?" → article인지 knight인지 구분 불가
+- 해결: 뜻풀이 기반 출제 → "다음 설명에 해당하는 한자어를 고르세요: '신문이나 책에서 사실을 기록한 글'"
+- `apps/extension/lib/converter.ts` — trackExposure에 meaning 파라미터 전달
+- `apps/extension/lib/tracker.ts` — meaningCache 추가. 노출 시 뜻풀이 저장, flush 시 chrome.storage에 영속화
+- 팝업에서 meaningCache 로드 → 퀴즈 힌트로 활용
+
+#### 퀴즈 정답/오답 기록 + 오답 재출제
+- `supabase/migrations/004_quiz_results.sql` — user_quiz_results 테이블 생성 (RLS 적용)
+- `apps/extension/lib/sync.ts` — `saveQuizResult()`, `getWrongWords()` 추가
+  - saveQuizResult: 개별 정답/오답 Supabase 기록
+  - getWrongWords: 최근 7일 오답 > 정답인 단어 조회
+- `apps/extension/entrypoints/popup/App.tsx` — handleAnswer에서 결과 저장, 오답 단어 우선 출제
+
+**변경 파일**:
+- `apps/web/` — mypage/page.tsx, login/page.tsx, components/mypage/(신규 3개), lib/vocab/actions.ts(신규)
+- `apps/extension/` — popup/App.tsx, lib/sync.ts, lib/tracker.ts, lib/converter.ts, entrypoints/background.ts
+- `supabase/migrations/004_quiz_results.sql` (신규, Supabase 실행 완료)
+
+**현재 상태**: 마이페이지 단어장 웹 UI 완성, 퀴즈 실데이터 전환, 뜻풀이 힌트, 오답 재출제 구현 완료. jinserver 빌드 배포 완료
