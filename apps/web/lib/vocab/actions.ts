@@ -85,9 +85,9 @@ export async function deleteVocab(
   return {};
 }
 
-// 프로필 업데이트 (닉네임, 급수)
+// 프로필 업데이트 (닉네임, 급수, 전화번호)
 export async function updateProfile(
-  updates: { nickname?: string; current_level?: number }
+  updates: { nickname?: string; current_level?: number; phone?: string }
 ): Promise<{ error?: string }> {
   const supabase = await createClient();
   const {

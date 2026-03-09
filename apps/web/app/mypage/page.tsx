@@ -28,7 +28,7 @@ export default async function MyPage() {
   // 프로필 조회
   const { data: profile } = await supabase
     .from("profiles")
-    .select("nickname, current_level")
+    .select("nickname, current_level, phone")
     .eq("id", user.id)
     .single();
 
@@ -37,6 +37,7 @@ export default async function MyPage() {
 
   const nickname = profile?.nickname || user.email?.split("@")[0] || "사용자";
   const currentLevel = profile?.current_level ?? 8;
+  const userPhone = profile?.phone ?? null;
 
   return (
     <main className="min-h-screen bg-cream">
@@ -65,6 +66,7 @@ export default async function MyPage() {
           nickname={nickname}
           currentLevel={currentLevel}
           userEmail={user.email ?? ""}
+          userPhone={userPhone}
           levelOptions={LEVEL_OPTIONS}
         />
       </div>

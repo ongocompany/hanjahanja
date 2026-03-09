@@ -1,7 +1,6 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import type { Provider } from "@supabase/supabase-js";
 
@@ -50,10 +49,7 @@ export async function logout() {
 
 export async function socialLogin(provider: Provider, next?: string) {
   const supabase = await createClient();
-  const headersList = await headers();
-  const origin = headersList.get("origin") || headersList.get("x-forwarded-host") || "http://localhost:3500";
-  const protocol = headersList.get("x-forwarded-proto") || "http";
-  const baseUrl = origin.startsWith("http") ? origin : `${protocol}://${origin}`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3500";
 
   const callbackUrl = next
     ? `${baseUrl}/auth/callback?next=${encodeURIComponent(next)}`

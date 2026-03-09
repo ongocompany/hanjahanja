@@ -10,24 +10,47 @@ export function SettingsPanel({
   nickname: initialNickname,
   currentLevel: initialLevel,
   userEmail,
+  userPhone: initialPhone,
   levelOptions,
 }: {
   nickname: string;
   currentLevel: number;
   userEmail: string;
+  userPhone: string | null;
   levelOptions: { value: number; label: string }[];
 }) {
   const router = useRouter();
   const [nickname, setNickname] = useState(initialNickname);
+  const [phone, setPhone] = useState(initialPhone ?? "");
   const [level, setLevel] = useState(initialLevel);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
+  const [phoneSaved, setPhoneSaved] = useState(false);
+
+  // 전화번호 포맷팅 (010-1234-5678)
+  function formatPhone(value: string) {
+    const nums = value.replace(/\D/g, "").slice(0, 11);
+    if (nums.length <= 3) return nums;
+    if (nums.length <= 7) return `${nums.slice(0, 3)}-${nums.slice(3)}`;
+    return `${nums.slice(0, 3)}-${nums.slice(3, 7)}-${nums.slice(7)}`;
+  }
 
   const handleSaveNickname = () => {
     startTransition(async () => {
       await updateProfile({ nickname });
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
+      router.refresh();
+    });
+  };
+
+  const handleSavePhone = () => {
+    const nums = phone.replace(/\D/g, "");
+    if (nums.length < 10 || nums.length > 11) return;
+    startTransition(async () => {
+      await updateProfile({ phone: nums });
+      setPhoneSaved(true);
+      setTimeout(() => setPhoneSaved(false), 2000);
       router.refresh();
     });
   };
@@ -82,6 +105,27 @@ export function SettingsPanel({
             </option>
           ))}
         </select>
+      </div>
+
+      {/* 전화번호 */}
+      <div className="rounded-xl bg-white border-2 border-vanilla p-5">
+        <h3 className="text-sm font-semibold text-warm-brown mb-3">전화번호</h3>
+        <div className="flex gap-3">
+          <input
+            type="tel"
+            value={formatPhone(phone)}
+            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+            placeholder="010-1234-5678"
+            className="flex-1 rounded-xl border-2 border-vanilla bg-cream/50 px-4 py-2.5 text-sm outline-none focus:border-tan transition-colors"
+          />
+          <button
+            onClick={handleSavePhone}
+            disabled={isPending}
+            className="px-5 py-2.5 rounded-xl bg-tan text-cream text-sm font-medium hover:bg-tan-dark transition-colors cursor-pointer disabled:opacity-50"
+          >
+            {phoneSaved ? "저장됨 ✓" : "저장"}
+          </button>
+        </div>
       </div>
 
       {/* 이메일 */}

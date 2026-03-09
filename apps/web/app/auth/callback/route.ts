@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,16 +6,27 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
-  // host 헤더에서 origin 추출 (0.0.0.0 바인딩 문제 방지)
-  const headersList = await headers();
-  const host = headersList.get("host") || "localhost:3500";
-  const protocol = headersList.get("x-forwarded-proto") || "http";
-  const origin = `${protocol}://${host}`;
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3500";
 
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // 전화번호 미입력 시 추가 정보 입력 페이지로
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("phone")
+          .eq("id", user.id)
+          .single();
+
+        if (!profile?.phone) {
+          const completeUrl = new URL("/auth/complete-profile", origin);
+          completeUrl.searchParams.set("next", next);
+          return NextResponse.redirect(completeUrl.toString());
+        }
+      }
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

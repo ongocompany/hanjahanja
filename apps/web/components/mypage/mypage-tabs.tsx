@@ -12,12 +12,14 @@ export function MyPageTabs({
   nickname,
   currentLevel,
   userEmail,
+  userPhone,
   levelOptions,
 }: {
   vocab: VocabItem[];
   nickname: string;
   currentLevel: number;
   userEmail: string;
+  userPhone: string | null;
   levelOptions: { value: number; label: string }[];
 }) {
   const [tab, setTab] = useState<Tab>("vocab");
@@ -54,6 +56,7 @@ export function MyPageTabs({
           nickname={nickname}
           currentLevel={currentLevel}
           userEmail={userEmail}
+          userPhone={userPhone}
           levelOptions={levelOptions}
         />
       )}
