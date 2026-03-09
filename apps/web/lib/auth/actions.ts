@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { Provider } from "@supabase/supabase-js";
 
 function sanitizeRedirect(next: string): string {
@@ -73,6 +74,30 @@ export async function completeProfile(data: {
       terms_agreed_at: new Date().toISOString(),
     })
     .eq("id", user.id);
+
+  if (error) return { error: error.message };
+  return {};
+}
+
+// 회원 탈퇴 - 모든 사용자 데이터 삭제 후 auth 유저 삭제
+export async function deleteAccount(): Promise<{ error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { error: "로그인이 필요합니다" };
+
+  // 1. 사용자 데이터 삭제 (RLS로 본인 데이터만 삭제됨)
+  await supabase.from("user_vocabulary").delete().eq("user_id", user.id);
+  await supabase.from("profiles").delete().eq("id", user.id);
+
+  // 2. 로그아웃
+  await supabase.auth.signOut();
+
+  // 3. admin 권한으로 auth 유저 삭제
+  const admin = createAdminClient();
+  const { error } = await admin.auth.admin.deleteUser(user.id);
 
   if (error) return { error: error.message };
   return {};

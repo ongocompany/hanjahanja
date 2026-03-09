@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { logout } from "@/lib/auth/actions";
+import { logout, deleteAccount } from "@/lib/auth/actions";
 import { updateProfile } from "@/lib/vocab/actions";
 import { useRouter } from "next/navigation";
 
@@ -26,6 +26,8 @@ export function SettingsPanel({
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [phoneSaved, setPhoneSaved] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
 
   // 전화번호 포맷팅 (010-1234-5678)
   function formatPhone(value: string) {
@@ -164,11 +166,68 @@ export function SettingsPanel({
               로그아웃
             </button>
           </form>
-          <button className="px-5 py-2.5 rounded-xl text-red-400 text-sm font-medium hover:bg-red-50 transition-colors cursor-pointer">
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            className="px-5 py-2.5 rounded-xl text-red-400 text-sm font-medium hover:bg-red-50 transition-colors cursor-pointer"
+          >
             회원 탈퇴
           </button>
         </div>
       </div>
+
+      {/* 회원 탈퇴 확인 모달 */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl p-6 mx-4 max-w-sm w-full shadow-xl">
+            <h3 className="text-lg font-bold text-warm-brown mb-2">
+              정말 탈퇴하시겠습니까?
+            </h3>
+            <p className="text-sm text-warm-brown-light mb-4">
+              탈퇴하면 저장된 단어장, 학습 기록 등 모든 데이터가
+              <span className="text-red-500 font-semibold"> 즉시 삭제</span>되며
+              복구할 수 없습니다.
+            </p>
+            <p className="text-sm text-warm-brown mb-2">
+              확인을 위해 <span className="font-semibold">&quot;탈퇴합니다&quot;</span>를 입력해주세요.
+            </p>
+            <input
+              type="text"
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              placeholder="탈퇴합니다"
+              className="w-full rounded-xl border-2 border-vanilla bg-cream/50 px-4 py-2.5 text-sm outline-none focus:border-red-300 transition-colors mb-4"
+            />
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => {
+                  setShowDeleteConfirm(false);
+                  setDeleteConfirmText("");
+                }}
+                className="px-5 py-2.5 rounded-xl bg-vanilla text-warm-brown text-sm font-medium hover:bg-sage transition-colors cursor-pointer"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  startTransition(async () => {
+                    const result = await deleteAccount();
+                    if (result.error) {
+                      alert(`탈퇴 실패: ${result.error}`);
+                    } else {
+                      router.push("/");
+                      router.refresh();
+                    }
+                  });
+                }}
+                disabled={deleteConfirmText !== "탈퇴합니다" || isPending}
+                className="px-5 py-2.5 rounded-xl bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {isPending ? "처리 중..." : "탈퇴하기"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

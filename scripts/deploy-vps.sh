@@ -25,7 +25,7 @@ echo "=== 5. pm2 재시작 ==="
 ssh $VPS "pm2 restart hanjahanja-web"
 
 echo "=== 6. 헬스체크 ==="
-sleep 3
+sleep 5
 STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://hanjahanja.co.kr/)
 if [ "$STATUS" = "200" ]; then
   echo "✅ 배포 완료! (HTTP $STATUS)"
