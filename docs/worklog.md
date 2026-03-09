@@ -702,3 +702,53 @@
 - `scripts/deploy-vps.sh` (신규)
 
 **현재 상태**: 법적 페이지 완성, 전화번호 수집 구현, OAuth 수정, VPS 정상 배포. 크롬 웹스토어 검토 대기 중
+
+## 2026-03-09
+
+### 세션 23: 보안 강화 + 소셜 로그인 전용 전환 + UI 개선
+
+#### 보안 검토 및 수정 (Critical/High)
+- Open Redirect 방지: `sanitizeRedirect()` 함수 추가 (callback, actions)
+- OAuth provider 화이트리스트: `ALLOWED_PROVIDERS` 배열로 제한
+- 프로필 업데이트 필드 화이트리스트: `ALLOWED_PROFILE_FIELDS` 적용
+- `getUser()` 서버사이드 토큰 검증으로 통일 (extension-sync)
+- Naver 콜백: `listUsers` 풀스캔 → `createUser` + 중복 무시 패턴으로 변경
+
+#### 소셜 로그인 전용 전환
+- 이메일/비밀번호 가입/로그인 완전 제거 (signup → /login 리다이렉트)
+- 소셜 로그인 후 프로필 완성 페이지 통합: 이름(필수) + 전화번호(선택) + 약관동의(필수)
+- `completeProfile()` 서버 액션 — OAuth 메타데이터에서 avatar_url 자동 추출
+- 네비바에 소셜 프로필 이미지 표시 (없으면 기본 이미지)
+
+#### 회원 탈퇴 기능
+- `deleteAccount()` 서버 액션: user_vocabulary → profiles 삭제 → auth 유저 삭제
+- 확인 모달: "탈퇴합니다" 텍스트 입력 필수 (실수 방지)
+
+#### 네비바 간소화
+- 마이페이지 링크, 로그아웃 버튼 제거
+- 프로필 아이콘 클릭 → /mypage 이동으로 통합
+
+#### 로그인 유지 옵션
+- 로그인 페이지에 "로그인 유지" 체크박스 추가 (기본 ON)
+- 미들웨어에서 `remember_me` 쿠키 확인, 해제 시 세션 쿠키로 변환
+
+#### Supabase 데이터 초기화
+- 테스트를 위해 모든 사용자 데이터 삭제 (auth.users, profiles, user_vocabulary 등)
+- profiles 테이블에 `terms_agreed_at`, `avatar_url` 컬럼 추가
+
+**변경 파일**:
+- `apps/web/lib/auth/actions.ts` — socialLogin, completeProfile, deleteAccount, logout
+- `apps/web/lib/supabase/middleware.ts` — 로그인 유지 옵션 처리
+- `apps/web/components/landing/nav-menu.tsx` — 간소화 (프로필 아이콘→마이페이지)
+- `apps/web/components/mypage/settings-panel.tsx` — 회원 탈퇴 모달
+- `apps/web/app/login/page.tsx` — 소셜 로그인 전용 + 로그인 유지
+- `apps/web/app/auth/callback/route.ts` — sanitizeRedirect, terms_agreed_at 체크
+- `apps/web/app/auth/complete-profile/page.tsx` — 이름+전화번호+약관 통합
+- `apps/web/next.config.ts` — 소셜 프로필 이미지 도메인 추가
+
+**커밋 히스토리**:
+- `d937dc5` feat: 소셜 로그인 전용 + 약관동의/이름/전화번호 통합 + 프로필 이미지
+- `86ffef3` feat: 회원 탈퇴 기능 추가 (확인 모달 + 데이터 즉시 삭제)
+- `64d7169` feat: 네비바 간소화 (프로필 아이콘→마이페이지) + 로그인 유지 옵션
+
+**현재 상태**: 소셜 로그인 전용 체계 완성, 회원 탈퇴/로그인 유지 구현, VPS 배포 완료. 다음 작업: 확장 퀴즈 탭 개선 (단어장 복습 탭 추가)
