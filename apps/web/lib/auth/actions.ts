@@ -4,50 +4,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Provider } from "@supabase/supabase-js";
 
-export async function signup(formData: FormData) {
-  const supabase = await createClient();
-
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  return { success: true };
-}
-
 function sanitizeRedirect(next: string): string {
   if (!next.startsWith("/") || next.startsWith("//")) return "/";
   return next;
-}
-
-export async function login(formData: FormData) {
-  const supabase = await createClient();
-
-  const email = (formData.get("email") as string)?.trim();
-  const password = formData.get("password") as string;
-  const next = sanitizeRedirect((formData.get("next") as string) || "/");
-
-  if (!email || !password) {
-    return { error: "이메일과 비밀번호를 입력해주세요." };
-  }
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return { error: "이메일 또는 비밀번호가 올바르지 않습니다." };
-  }
-
-  redirect(next);
 }
 
 export async function logout() {
@@ -85,4 +44,36 @@ export async function socialLogin(provider: Provider, next?: string) {
   if (data.url) {
     redirect(data.url);
   }
+}
+
+// 소셜 로그인 후 프로필 완성 (이름 + 전화번호 + 약관 동의)
+export async function completeProfile(data: {
+  nickname: string;
+  phone?: string;
+}): Promise<{ error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { error: "로그인이 필요합니다" };
+
+  // avatar_url을 OAuth 메타데이터에서 가져오기
+  const avatarUrl =
+    user.user_metadata?.avatar_url ||
+    user.user_metadata?.picture ||
+    null;
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({
+      nickname: data.nickname,
+      phone: data.phone || null,
+      avatar_url: avatarUrl,
+      terms_agreed_at: new Date().toISOString(),
+    })
+    .eq("id", user.id);
+
+  if (error) return { error: error.message };
+  return {};
 }

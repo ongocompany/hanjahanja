@@ -18,16 +18,16 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // 전화번호 미입력 시 추가 정보 입력 페이지로
+      // 약관 미동의 시 프로필 완성 페이지로
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         const { data: profile } = await supabase
           .from("profiles")
-          .select("phone")
+          .select("terms_agreed_at")
           .eq("id", user.id)
           .single();
 
-        if (!profile?.phone) {
+        if (!profile?.terms_agreed_at) {
           const completeUrl = new URL("/auth/complete-profile", origin);
           completeUrl.searchParams.set("next", next);
           return NextResponse.redirect(completeUrl.toString());
