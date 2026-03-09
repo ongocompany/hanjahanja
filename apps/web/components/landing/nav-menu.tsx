@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { logout } from "@/lib/auth/actions";
 
 interface NavMenuProps {
   user: { nickname?: string | null; avatarUrl?: string | null } | null;
@@ -55,26 +54,12 @@ export function NavMenu({ user }: NavMenuProps) {
           한자한자 소개
         </Link>
         {user ? (
-          <>
-            <Link
-              href="/mypage"
-              className="text-sm font-medium text-warm-brown-light hover:text-warm-brown transition-colors"
-            >
-              마이페이지
-            </Link>
-            <div className="flex items-center gap-2">
-              <UserAvatar avatarUrl={user.avatarUrl} nickname={user.nickname} size={28} />
-              <span className="text-sm text-warm-brown-light hidden lg:inline max-w-[100px] truncate">
-                {user.nickname || "사용자"}
-              </span>
-              <button
-                onClick={() => logout()}
-                className="text-xs font-medium text-warm-brown-light/60 hover:text-warm-brown transition-colors cursor-pointer ml-1"
-              >
-                로그아웃
-              </button>
-            </div>
-          </>
+          <Link href="/mypage" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <UserAvatar avatarUrl={user.avatarUrl} nickname={user.nickname} size={28} />
+            <span className="text-sm text-warm-brown-light hidden lg:inline max-w-[100px] truncate">
+              {user.nickname || "사용자"}
+            </span>
+          </Link>
         ) : (
           <Link
             href="/login"
@@ -127,27 +112,16 @@ export function NavMenu({ user }: NavMenuProps) {
               한자한자 소개
             </Link>
             {user ? (
-              <>
-                <Link
-                  href="/mypage"
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-warm-brown-light hover:text-warm-brown transition-colors py-1"
-                >
-                  마이페이지
-                </Link>
-                <div className="flex items-center gap-2 py-1">
-                  <UserAvatar avatarUrl={user.avatarUrl} nickname={user.nickname} size={24} />
-                  <span className="text-sm text-warm-brown-light">
-                    {user.nickname || "사용자"}
-                  </span>
-                  <button
-                    onClick={() => logout()}
-                    className="text-xs font-medium text-warm-brown-light/60 hover:text-warm-brown transition-colors cursor-pointer ml-auto"
-                  >
-                    로그아웃
-                  </button>
-                </div>
-              </>
+              <Link
+                href="/mypage"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 py-1 hover:opacity-80 transition-opacity"
+              >
+                <UserAvatar avatarUrl={user.avatarUrl} nickname={user.nickname} size={24} />
+                <span className="text-sm text-warm-brown-light">
+                  {user.nickname || "사용자"}
+                </span>
+              </Link>
             ) : (
               <Link
                 href="/login"

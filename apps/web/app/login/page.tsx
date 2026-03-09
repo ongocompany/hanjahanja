@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +18,12 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const next = searchParams.get("next") || "/";
   const error = searchParams.get("error");
+  const [rememberMe, setRememberMe] = useState(true);
+
+  const handleRememberMe = (checked: boolean) => {
+    setRememberMe(checked);
+    document.cookie = `remember_me=${checked ? "1" : "0"}; path=/; max-age=31536000`;
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-6 bg-cream">
@@ -54,7 +60,17 @@ function LoginContent() {
 
         <SocialLoginButtons next={next} />
 
-        <p className="mt-8 text-center text-xs text-warm-brown-light/60">
+        <label className="flex items-center justify-center gap-2 mt-4 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => handleRememberMe(e.target.checked)}
+            className="w-4 h-4 rounded border-vanilla accent-tan cursor-pointer"
+          />
+          <span className="text-sm text-warm-brown-light">로그인 유지</span>
+        </label>
+
+        <p className="mt-6 text-center text-xs text-warm-brown-light/60">
           로그인 시{" "}
           <Link href="/terms" className="underline">
             이용약관
