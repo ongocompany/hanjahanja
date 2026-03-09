@@ -627,3 +627,34 @@
 - `supabase/migrations/004_quiz_results.sql` (신규, Supabase 실행 완료)
 
 **현재 상태**: 마이페이지 단어장 웹 UI 완성, 퀴즈 실데이터 전환, 뜻풀이 힌트, 오답 재출제 구현 완료. jinserver 빌드 배포 완료
+
+### 세션 21: VPS 프로덕션 배포 + 크롬 웹스토어 등록
+
+#### VPS 프로덕션 배포 (Vultr 158.247.225.152)
+- Docker 대신 **pm2 + nginx** 구성으로 배포
+- Next.js `output: "standalone"` 설정 추가
+- **pm2 프로세스**: hanjahanja-web (포트 3100), hanjahanja-wsd (포트 8079)
+- **nginx 리버스 프록시**: `/` → web, `/api/wsd` → WSD API, `/api/wsd-health` → health
+- **SSL**: Let's Encrypt certbot (hanjahanja.co.kr)
+- WSD API: FastAPI + ONNX Runtime (INT8 모델) jinserver → VPS 파일 전송 후 배포
+- `pm2 save` + `pm2 startup` 설정 (재부팅 시 자동 복구)
+
+#### 확장 프로덕션 URL 변경
+- `apps/extension/entrypoints/background.ts` — WSD_API_URL을 `http://100.68.25.79:8079` → `https://hanjahanja.co.kr/api`로 변경
+- health 엔드포인트 `/health` → `/wsd-health` (nginx 프록시 경로에 맞게)
+- jinserver에서 프로덕션 빌드 → `hanjahanja-extension.zip` (73MB) 생성
+
+#### 크롬 웹스토어 등록
+- 비사업자(개인) 개발자 계정으로 등록 ($5 결제 완료)
+- 확장 zip 업로드 완료, 심사 대기 중
+
+#### SSH 환경 설정
+- VPS용 SSH 키 생성 (`~/.ssh/id_ed25519_vps`)
+- `~/.ssh/config`에 `vps`, `hanjahanja.co.kr` 호스트 추가 → `ssh vps`로 바로 접속 가능
+
+**변경 파일**:
+- `apps/web/next.config.ts` — standalone 출력 추가
+- `apps/extension/entrypoints/background.ts` — WSD API URL 프로덕션 변경
+- `docs/checklist.md` — OAuth, 마이페이지 단어장 항목 완료 처리
+
+**현재 상태**: VPS 프로덕션 배포 완료 (hanjahanja.co.kr), 크롬 웹스토어 심사 대기 중
