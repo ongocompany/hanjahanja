@@ -10,7 +10,7 @@ GitHub (소스 관리) ←→ jinserver (개발/빌드/테스트) ──→ VPS 
 |------|------|------|
 | 소스 관리 | GitHub | https://github.com/ongocompany/hanjahanja.git |
 | 개발/빌드 | jinserver (집 리눅스) | ssh jinwoo@100.68.25.79 (Tailscale) |
-| 배포 | VPS (Vultr) | 158.247.225.152 / hanjahanja.kr |
+| 배포 | VPS (Vultr) | 158.247.225.152 / hanjahanja.co.kr |
 | 백업 | NAS | 100.115.194.12 (Tailscale) |
 
 ## jinserver (메인 개발 서버)
@@ -23,8 +23,12 @@ GitHub (소스 관리) ←→ jinserver (개발/빌드/테스트) ──→ VPS 
 
 ## VPS (Vultr) - 배포 전용
 - **IP**: 158.247.225.152
-- **도메인**: hanjahanja.kr
+- **도메인**: hanjahanja.co.kr
+- **스펙**: 4 CPU / 8GB RAM (Ubuntu 24.04)
 - **구성**: Docker + Nginx 리버스 프록시 (3100→3000)
+- **SSL**: Cloudflare Flexible 모드 (Cloudflare↔사용자: HTTPS, Cloudflare↔VPS: HTTP)
+- **프로젝트 경로**: /root/hanjahanja
+- **SSH 키**: GitHub 배포용 등록 완료 (ed25519, hanjahanja-vps)
 
 ## 맥북 (로컬)
 - **Node**: v24.13.1

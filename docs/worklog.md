@@ -752,3 +752,38 @@
 - `64d7169` feat: 네비바 간소화 (프로필 아이콘→마이페이지) + 로그인 유지 옵션
 
 **현재 상태**: 소셜 로그인 전용 체계 완성, 회원 탈퇴/로그인 유지 구현, VPS 배포 완료. 다음 작업: 확장 퀴즈 탭 개선 (단어장 복습 탭 추가)
+
+## 2026-03-11
+
+### 세션 24: VPS 재구축 + 모바일 앱 개발 시작
+
+#### VPS 서버 재구축
+- Vultr VPS 리인스톨 (4 CPU / 8GB RAM으로 스펙 업그레이드)
+- Docker 29.3.0 + Compose 5.1.0 설치
+- Nginx 리버스 프록시 설정 (HTTP only, Cloudflare Flexible SSL)
+- SSH 키 생성 → GitHub 배포용 등록
+- 프로젝트 클론 + .env 설정 + Docker 빌드 & 배포
+- hanjahanja.co.kr 정상 접속 확인 (HTTP 200)
+- dev-environment.md 업데이트 (스펙, Cloudflare SSL, 프로젝트 경로 등)
+
+#### 크롬 웹스토어 등록 완료
+- 심사 통과 → 웹스토어 등록 확인
+
+#### 모바일 앱 개발 착수 (Phase 1)
+- 모바일 앱 콘셉트 결정: "한자 학습 앱 + 인앱 브라우저(WebView)"
+  - 학습 탭: 단어장, 맞춤 퀴즈, 진단 테스트, 통계
+  - 한자 브라우저 탭: WebView + content script 주입 (한자 자동 변환)
+  - 마이페이지 탭: 기록, 설정, Anki/Quizlet 내보내기
+- 기존 코드 약 85% 재활용 가능 (변환 로직, 퀴즈, 동기화 등)
+- `docs/모바일앱_개발계획서.md` 작성
+- `feature/mobile-app` 브랜치 생성
+- React Native (Expo SDK 55) 프로젝트 초기화 (`apps/mobile/`)
+- 3탭 네비게이션 구현 (학습 / 한자 브라우저 / 마이페이지)
+- 기본 UI 뼈대 완성 (학습 대시보드, 브라우저 플레이스홀더, 마이페이지 메뉴)
+
+**수정된 파일**:
+- `docs/dev-environment.md` — VPS 정보 업데이트
+- `docs/모바일앱_개발계획서.md` — 신규 작성
+- `apps/mobile/` — Expo 프로젝트 전체 (신규)
+
+**현재 상태**: VPS 재구축 완료, 웹스토어 등록 완료, 모바일 앱 Phase 1 진행 중. 다음 작업: Supabase Auth 연동 → Phase 2 (인앱 브라우저 WebView)
