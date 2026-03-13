@@ -92,17 +92,80 @@ export async function trackClick(
   }
 }
 
+// ── WSD 교정 데이터 (학습용) ──
+
+const KEY_WSD_CORRECTIONS = 'hj_wsdCorrections';
+
+export interface WSDCorrection {
+  sentence: string;     // 문맥 문장 (마침표 기준 추출)
+  word: string;         // 대상 단어
+  selectedHanja: string; // 유저가 선택한 한자 (정답)
+  originalHanja: string; // 기존 표시된 한자 (오답)
+  ts: number;
+}
+
+/** 문장 경계(마침표/물음표/느낌표) 기준으로 단어 포함 문장 추출 */
+function extractSentence(text: string, word: string): string {
+  // 문장 구분자: . ? ! 。 및 줄바꿈
+  const sentences = text.split(/(?<=[.?!。\n])\s*/);
+  for (const s of sentences) {
+    if (s.includes(word)) return s.trim();
+  }
+  // 못 찾으면 전체 텍스트 (200자 제한)
+  return text.length > 200 ? text.slice(0, 200) : text;
+}
+
+/** WSD 교정 기록 (유저가 동음이의어에서 다른 한자 선택 시) */
+export async function trackWSDCorrection(
+  fullText: string,
+  word: string,
+  selectedHanja: string,
+  originalHanja: string,
+) {
+  // 같은 한자면 교정 아님
+  if (selectedHanja === originalHanja) return;
+
+  try {
+    const sentence = extractSentence(fullText, word);
+    const raw = await AsyncStorage.getItem(KEY_WSD_CORRECTIONS);
+    const corrections: WSDCorrection[] = raw ? JSON.parse(raw) : [];
+
+    corrections.push({
+      sentence,
+      word,
+      selectedHanja,
+      originalHanja,
+      ts: Date.now(),
+    });
+
+    await AsyncStorage.setItem(KEY_WSD_CORRECTIONS, JSON.stringify(corrections));
+  } catch (error) {
+    console.warn('WSD 교정 저장 실패:', error);
+  }
+}
+
+/** WSD 교정 데이터 조회 */
+export async function getWSDCorrections(): Promise<WSDCorrection[]> {
+  try {
+    const raw = await AsyncStorage.getItem(KEY_WSD_CORRECTIONS);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
 // ── 단어장 ──
 
 export interface VocabItem {
   word: string;
   hanja: string;
   meaning: string;
+  context: string;  // 문맥 문장
   addedAt: number;
 }
 
-/** 단어장에 추가 */
-export async function addToVocab(word: string, hanja: string, meaning: string) {
+/** 단어장에 추가 (단어 + 문맥 문장) */
+export async function addToVocab(word: string, hanja: string, meaning: string, context: string = '') {
   try {
     const raw = await AsyncStorage.getItem(KEY_VOCAB);
     const vocab: VocabItem[] = raw ? JSON.parse(raw) : [];
@@ -110,7 +173,7 @@ export async function addToVocab(word: string, hanja: string, meaning: string) {
     // 중복 체크
     if (vocab.some((v) => v.word === word && v.hanja === hanja)) return;
 
-    vocab.push({ word, hanja, meaning, addedAt: Date.now() });
+    vocab.push({ word, hanja, meaning, context, addedAt: Date.now() });
     await AsyncStorage.setItem(KEY_VOCAB, JSON.stringify(vocab));
   } catch (error) {
     console.warn('단어장 저장 실패:', error);

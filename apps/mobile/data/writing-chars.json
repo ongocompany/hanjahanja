@@ -1,0 +1,8002 @@
+[
+  {
+    "char": "暇",
+    "reading": "가",
+    "meaning": "틈/겨를",
+    "level": 4.0,
+    "radical": "日",
+    "stroke_count": 9
+  },
+  {
+    "char": "覺",
+    "reading": "각",
+    "meaning": "깨달을",
+    "level": 4.0,
+    "radical": "見",
+    "stroke_count": 13
+  },
+  {
+    "char": "刻",
+    "reading": "각",
+    "meaning": "새길",
+    "level": 4.0,
+    "radical": "刀",
+    "stroke_count": 6
+  },
+  {
+    "char": "簡",
+    "reading": "간",
+    "meaning": "대쪽/간략할",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 12
+  },
+  {
+    "char": "干",
+    "reading": "간",
+    "meaning": "방패",
+    "level": 4.0,
+    "radical": "干",
+    "stroke_count": 0
+  },
+  {
+    "char": "看",
+    "reading": "간",
+    "meaning": "볼",
+    "level": 4.0,
+    "radical": "目",
+    "stroke_count": 4
+  },
+  {
+    "char": "敢",
+    "reading": "감",
+    "meaning": "감히/구태여",
+    "level": 4.0,
+    "radical": "攴",
+    "stroke_count": 8
+  },
+  {
+    "char": "甘",
+    "reading": "감",
+    "meaning": "달",
+    "level": 4.0,
+    "radical": "甘",
+    "stroke_count": 0
+  },
+  {
+    "char": "甲",
+    "reading": "갑",
+    "meaning": "갑옷",
+    "level": 4.0,
+    "radical": "田",
+    "stroke_count": 0
+  },
+  {
+    "char": "降",
+    "reading": "강",
+    "meaning": "내릴",
+    "level": 4.0,
+    "radical": "阜",
+    "stroke_count": 6
+  },
+  {
+    "char": "據",
+    "reading": "거",
+    "meaning": "근거",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 13
+  },
+  {
+    "char": "拒",
+    "reading": "거",
+    "meaning": "막을",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 5
+  },
+  {
+    "char": "居",
+    "reading": "거",
+    "meaning": "살",
+    "level": 4.0,
+    "radical": "尸",
+    "stroke_count": 5
+  },
+  {
+    "char": "巨",
+    "reading": "거",
+    "meaning": "클",
+    "level": 4.0,
+    "radical": "工",
+    "stroke_count": 2
+  },
+  {
+    "char": "傑",
+    "reading": "걸",
+    "meaning": "뛰어날",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 10
+  },
+  {
+    "char": "儉",
+    "reading": "검",
+    "meaning": "검소할",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 13
+  },
+  {
+    "char": "激",
+    "reading": "격",
+    "meaning": "격할",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 13
+  },
+  {
+    "char": "擊",
+    "reading": "격",
+    "meaning": "칠[打]",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 13
+  },
+  {
+    "char": "犬",
+    "reading": "견",
+    "meaning": "개",
+    "level": 4.0,
+    "radical": "犬",
+    "stroke_count": 0
+  },
+  {
+    "char": "堅",
+    "reading": "견",
+    "meaning": "굳을",
+    "level": 4.0,
+    "radical": "土",
+    "stroke_count": 8
+  },
+  {
+    "char": "鏡",
+    "reading": "경",
+    "meaning": "거울",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 11
+  },
+  {
+    "char": "更",
+    "reading": "경",
+    "meaning": "고칠",
+    "level": 4.0,
+    "radical": "曰",
+    "stroke_count": 3
+  },
+  {
+    "char": "傾",
+    "reading": "경",
+    "meaning": "기울",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 11
+  },
+  {
+    "char": "驚",
+    "reading": "경",
+    "meaning": "놀랄",
+    "level": 4.0,
+    "radical": "馬",
+    "stroke_count": 13
+  },
+  {
+    "char": "戒",
+    "reading": "계",
+    "meaning": "경계할",
+    "level": 4.0,
+    "radical": "戈",
+    "stroke_count": 3
+  },
+  {
+    "char": "季",
+    "reading": "계",
+    "meaning": "계절",
+    "level": 4.0,
+    "radical": "子",
+    "stroke_count": 5
+  },
+  {
+    "char": "鷄",
+    "reading": "계",
+    "meaning": "닭",
+    "level": 4.0,
+    "radical": "鳥",
+    "stroke_count": 10
+  },
+  {
+    "char": "階",
+    "reading": "계",
+    "meaning": "섬돌",
+    "level": 4.0,
+    "radical": "阜",
+    "stroke_count": 9
+  },
+  {
+    "char": "系",
+    "reading": "계",
+    "meaning": "이어맬",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 1
+  },
+  {
+    "char": "繼",
+    "reading": "계",
+    "meaning": "이을",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 14
+  },
+  {
+    "char": "庫",
+    "reading": "고",
+    "meaning": "곳집",
+    "level": 4.0,
+    "radical": "广",
+    "stroke_count": 7
+  },
+  {
+    "char": "孤",
+    "reading": "고",
+    "meaning": "외로울",
+    "level": 4.0,
+    "radical": "子",
+    "stroke_count": 5
+  },
+  {
+    "char": "穀",
+    "reading": "곡",
+    "meaning": "곡식",
+    "level": 4.0,
+    "radical": "禾",
+    "stroke_count": 10
+  },
+  {
+    "char": "困",
+    "reading": "곤",
+    "meaning": "곤할",
+    "level": 4.0,
+    "radical": "囗",
+    "stroke_count": 4
+  },
+  {
+    "char": "骨",
+    "reading": "골",
+    "meaning": "뼈",
+    "level": 4.0,
+    "radical": "骨",
+    "stroke_count": 0
+  },
+  {
+    "char": "孔",
+    "reading": "공",
+    "meaning": "구멍",
+    "level": 4.0,
+    "radical": "子",
+    "stroke_count": 1
+  },
+  {
+    "char": "攻",
+    "reading": "공",
+    "meaning": "칠[擊]",
+    "level": 4.0,
+    "radical": "攴",
+    "stroke_count": 3
+  },
+  {
+    "char": "管",
+    "reading": "관",
+    "meaning": "대롱/주관할",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 8
+  },
+  {
+    "char": "鑛",
+    "reading": "광",
+    "meaning": "쇳돌",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 15
+  },
+  {
+    "char": "構",
+    "reading": "구",
+    "meaning": "얽을",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 10
+  },
+  {
+    "char": "群",
+    "reading": "군",
+    "meaning": "무리",
+    "level": 4.0,
+    "radical": "羊",
+    "stroke_count": 7
+  },
+  {
+    "char": "君",
+    "reading": "군",
+    "meaning": "임금",
+    "level": 4.0,
+    "radical": "口",
+    "stroke_count": 4
+  },
+  {
+    "char": "屈",
+    "reading": "굴",
+    "meaning": "굽힐",
+    "level": 4.0,
+    "radical": "尸",
+    "stroke_count": 5
+  },
+  {
+    "char": "窮",
+    "reading": "궁",
+    "meaning": "다할/궁할",
+    "level": 4.0,
+    "radical": "穴",
+    "stroke_count": 10
+  },
+  {
+    "char": "勸",
+    "reading": "권",
+    "meaning": "권할",
+    "level": 4.0,
+    "radical": "力",
+    "stroke_count": 18
+  },
+  {
+    "char": "券",
+    "reading": "권",
+    "meaning": "문서",
+    "level": 4.0,
+    "radical": "刀",
+    "stroke_count": 6
+  },
+  {
+    "char": "卷",
+    "reading": "권",
+    "meaning": "책",
+    "level": 4.0,
+    "radical": "卩",
+    "stroke_count": 6
+  },
+  {
+    "char": "歸",
+    "reading": "귀",
+    "meaning": "돌아갈",
+    "level": 4.0,
+    "radical": "止",
+    "stroke_count": 14
+  },
+  {
+    "char": "均",
+    "reading": "균",
+    "meaning": "고를",
+    "level": 4.0,
+    "radical": "土",
+    "stroke_count": 4
+  },
+  {
+    "char": "劇",
+    "reading": "극",
+    "meaning": "심할",
+    "level": 4.0,
+    "radical": "刀",
+    "stroke_count": 13
+  },
+  {
+    "char": "勤",
+    "reading": "근",
+    "meaning": "부지런할",
+    "level": 4.0,
+    "radical": "力",
+    "stroke_count": 11
+  },
+  {
+    "char": "筋",
+    "reading": "근",
+    "meaning": "힘줄",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 6
+  },
+  {
+    "char": "奇",
+    "reading": "기",
+    "meaning": "기특할",
+    "level": 4.0,
+    "radical": "大",
+    "stroke_count": 5
+  },
+  {
+    "char": "紀",
+    "reading": "기",
+    "meaning": "벼리",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 3
+  },
+  {
+    "char": "寄",
+    "reading": "기",
+    "meaning": "부칠",
+    "level": 4.0,
+    "radical": "宀",
+    "stroke_count": 8
+  },
+  {
+    "char": "機",
+    "reading": "기",
+    "meaning": "틀",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 12
+  },
+  {
+    "char": "納",
+    "reading": "납",
+    "meaning": "들일",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 4
+  },
+  {
+    "char": "段",
+    "reading": "단",
+    "meaning": "층계",
+    "level": 4.0,
+    "radical": "殳",
+    "stroke_count": 5
+  },
+  {
+    "char": "盜",
+    "reading": "도",
+    "meaning": "도둑",
+    "level": 4.0,
+    "radical": "皿",
+    "stroke_count": 7
+  },
+  {
+    "char": "逃",
+    "reading": "도",
+    "meaning": "도망할",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 6
+  },
+  {
+    "char": "徒",
+    "reading": "도",
+    "meaning": "무리",
+    "level": 4.0,
+    "radical": "彳",
+    "stroke_count": 7
+  },
+  {
+    "char": "卵",
+    "reading": "란",
+    "meaning": "알",
+    "level": 4.0,
+    "radical": "卩",
+    "stroke_count": 5
+  },
+  {
+    "char": "亂",
+    "reading": "란",
+    "meaning": "어지러울",
+    "level": 4.0,
+    "radical": "乙",
+    "stroke_count": 12
+  },
+  {
+    "char": "覽",
+    "reading": "람",
+    "meaning": "볼",
+    "level": 4.0,
+    "radical": "見",
+    "stroke_count": 14
+  },
+  {
+    "char": "略",
+    "reading": "략",
+    "meaning": "간략할/약할",
+    "level": 4.0,
+    "radical": "田",
+    "stroke_count": 6
+  },
+  {
+    "char": "糧",
+    "reading": "량",
+    "meaning": "양식",
+    "level": 4.0,
+    "radical": "米",
+    "stroke_count": 12
+  },
+  {
+    "char": "慮",
+    "reading": "려",
+    "meaning": "생각할",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 11
+  },
+  {
+    "char": "烈",
+    "reading": "렬",
+    "meaning": "매울",
+    "level": 4.0,
+    "radical": "火",
+    "stroke_count": 6
+  },
+  {
+    "char": "龍",
+    "reading": "룡",
+    "meaning": "용",
+    "level": 4.0,
+    "radical": "龍",
+    "stroke_count": 0
+  },
+  {
+    "char": "柳",
+    "reading": "류",
+    "meaning": "버들",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 5
+  },
+  {
+    "char": "輪",
+    "reading": "륜",
+    "meaning": "바퀴",
+    "level": 4.0,
+    "radical": "車",
+    "stroke_count": 8
+  },
+  {
+    "char": "離",
+    "reading": "리",
+    "meaning": "떠날",
+    "level": 4.0,
+    "radical": "隹",
+    "stroke_count": 11
+  },
+  {
+    "char": "妹",
+    "reading": "매",
+    "meaning": "누이",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 5
+  },
+  {
+    "char": "勉",
+    "reading": "면",
+    "meaning": "힘쓸",
+    "level": 4.0,
+    "radical": "力",
+    "stroke_count": 7
+  },
+  {
+    "char": "鳴",
+    "reading": "명",
+    "meaning": "울",
+    "level": 4.0,
+    "radical": "鳥",
+    "stroke_count": 3
+  },
+  {
+    "char": "模",
+    "reading": "모",
+    "meaning": "본뜰",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 11
+  },
+  {
+    "char": "妙",
+    "reading": "묘",
+    "meaning": "묘할",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 4
+  },
+  {
+    "char": "墓",
+    "reading": "묘",
+    "meaning": "무덤",
+    "level": 4.0,
+    "radical": "土",
+    "stroke_count": 11
+  },
+  {
+    "char": "舞",
+    "reading": "무",
+    "meaning": "춤출",
+    "level": 4.0,
+    "radical": "舛",
+    "stroke_count": 8
+  },
+  {
+    "char": "拍",
+    "reading": "박",
+    "meaning": "칠",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 5
+  },
+  {
+    "char": "髮",
+    "reading": "발",
+    "meaning": "터럭",
+    "level": 4.0,
+    "radical": "髟",
+    "stroke_count": 5
+  },
+  {
+    "char": "妨",
+    "reading": "방",
+    "meaning": "방해할",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 4
+  },
+  {
+    "char": "犯",
+    "reading": "범",
+    "meaning": "범할",
+    "level": 4.0,
+    "radical": "犬",
+    "stroke_count": 2
+  },
+  {
+    "char": "範",
+    "reading": "범",
+    "meaning": "법",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 9
+  },
+  {
+    "char": "辯",
+    "reading": "변",
+    "meaning": "말씀",
+    "level": 4.0,
+    "radical": "辛",
+    "stroke_count": 14
+  },
+  {
+    "char": "普",
+    "reading": "보",
+    "meaning": "넓을",
+    "level": 4.0,
+    "radical": "日",
+    "stroke_count": 8
+  },
+  {
+    "char": "複",
+    "reading": "복",
+    "meaning": "겹칠",
+    "level": 4.0,
+    "radical": "衣",
+    "stroke_count": 9
+  },
+  {
+    "char": "伏",
+    "reading": "복",
+    "meaning": "엎드릴",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 4
+  },
+  {
+    "char": "否",
+    "reading": "부",
+    "meaning": "아닐",
+    "level": 4.0,
+    "radical": "口",
+    "stroke_count": 4
+  },
+  {
+    "char": "負",
+    "reading": "부",
+    "meaning": "질[荷]",
+    "level": 4.0,
+    "radical": "貝",
+    "stroke_count": 2
+  },
+  {
+    "char": "粉",
+    "reading": "분",
+    "meaning": "가루",
+    "level": 4.0,
+    "radical": "米",
+    "stroke_count": 4
+  },
+  {
+    "char": "憤",
+    "reading": "분",
+    "meaning": "분할",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 12
+  },
+  {
+    "char": "碑",
+    "reading": "비",
+    "meaning": "비석",
+    "level": 4.0,
+    "radical": "石",
+    "stroke_count": 8
+  },
+  {
+    "char": "批",
+    "reading": "비",
+    "meaning": "비평할",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "祕",
+    "reading": "비",
+    "meaning": "숨길",
+    "level": 4.0,
+    "radical": "示",
+    "stroke_count": 5
+  },
+  {
+    "char": "辭",
+    "reading": "사",
+    "meaning": "말씀",
+    "level": 4.0,
+    "radical": "辛",
+    "stroke_count": 12
+  },
+  {
+    "char": "私",
+    "reading": "사",
+    "meaning": "사사(私事)",
+    "level": 4.0,
+    "radical": "禾",
+    "stroke_count": 2
+  },
+  {
+    "char": "絲",
+    "reading": "사",
+    "meaning": "실",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 6
+  },
+  {
+    "char": "射",
+    "reading": "사",
+    "meaning": "쏠",
+    "level": 4.0,
+    "radical": "寸",
+    "stroke_count": 7
+  },
+  {
+    "char": "散",
+    "reading": "산",
+    "meaning": "흩을",
+    "level": 4.0,
+    "radical": "攴",
+    "stroke_count": 8
+  },
+  {
+    "char": "傷",
+    "reading": "상",
+    "meaning": "다칠",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 11
+  },
+  {
+    "char": "象",
+    "reading": "상",
+    "meaning": "코끼리",
+    "level": 4.0,
+    "radical": "豕",
+    "stroke_count": 5
+  },
+  {
+    "char": "宣",
+    "reading": "선",
+    "meaning": "베풀",
+    "level": 4.0,
+    "radical": "宀",
+    "stroke_count": 6
+  },
+  {
+    "char": "舌",
+    "reading": "설",
+    "meaning": "혀",
+    "level": 4.0,
+    "radical": "舌",
+    "stroke_count": 0
+  },
+  {
+    "char": "屬",
+    "reading": "속",
+    "meaning": "붙일",
+    "level": 4.0,
+    "radical": "尸",
+    "stroke_count": 18
+  },
+  {
+    "char": "損",
+    "reading": "손",
+    "meaning": "덜",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 10
+  },
+  {
+    "char": "頌",
+    "reading": "송",
+    "meaning": "기릴/칭송할",
+    "level": 4.0,
+    "radical": "頁",
+    "stroke_count": 4
+  },
+  {
+    "char": "松",
+    "reading": "송",
+    "meaning": "소나무",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 4
+  },
+  {
+    "char": "秀",
+    "reading": "수",
+    "meaning": "빼어날",
+    "level": 4.0,
+    "radical": "禾",
+    "stroke_count": 2
+  },
+  {
+    "char": "叔",
+    "reading": "숙",
+    "meaning": "아재비",
+    "level": 4.0,
+    "radical": "又",
+    "stroke_count": 6
+  },
+  {
+    "char": "肅",
+    "reading": "숙",
+    "meaning": "엄숙할",
+    "level": 4.0,
+    "radical": "聿",
+    "stroke_count": 7
+  },
+  {
+    "char": "崇",
+    "reading": "숭",
+    "meaning": "높을",
+    "level": 4.0,
+    "radical": "山",
+    "stroke_count": 8
+  },
+  {
+    "char": "氏",
+    "reading": "씨",
+    "meaning": "각시/성씨(姓氏)",
+    "level": 4.0,
+    "radical": "氏",
+    "stroke_count": 0
+  },
+  {
+    "char": "額",
+    "reading": "액",
+    "meaning": "이마",
+    "level": 4.0,
+    "radical": "頁",
+    "stroke_count": 9
+  },
+  {
+    "char": "樣",
+    "reading": "양",
+    "meaning": "모양",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 11
+  },
+  {
+    "char": "嚴",
+    "reading": "엄",
+    "meaning": "엄할",
+    "level": 4.0,
+    "radical": "口",
+    "stroke_count": 17
+  },
+  {
+    "char": "與",
+    "reading": "여",
+    "meaning": "더불/줄",
+    "level": 4.0,
+    "radical": "臼",
+    "stroke_count": 7
+  },
+  {
+    "char": "易",
+    "reading": "역",
+    "meaning": "바꿀",
+    "level": 4.0,
+    "radical": "日",
+    "stroke_count": 4
+  },
+  {
+    "char": "域",
+    "reading": "역",
+    "meaning": "지경",
+    "level": 4.0,
+    "radical": "土",
+    "stroke_count": 8
+  },
+  {
+    "char": "鉛",
+    "reading": "연",
+    "meaning": "납",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 5
+  },
+  {
+    "char": "延",
+    "reading": "연",
+    "meaning": "늘일",
+    "level": 4.0,
+    "radical": "廴",
+    "stroke_count": 4
+  },
+  {
+    "char": "緣",
+    "reading": "연",
+    "meaning": "인연",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 9
+  },
+  {
+    "char": "燃",
+    "reading": "연",
+    "meaning": "탈",
+    "level": 4.0,
+    "radical": "火",
+    "stroke_count": 12
+  },
+  {
+    "char": "營",
+    "reading": "영",
+    "meaning": "경영할",
+    "level": 4.0,
+    "radical": "火",
+    "stroke_count": 13
+  },
+  {
+    "char": "迎",
+    "reading": "영",
+    "meaning": "맞을",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 4
+  },
+  {
+    "char": "映",
+    "reading": "영",
+    "meaning": "비칠",
+    "level": 4.0,
+    "radical": "日",
+    "stroke_count": 5
+  },
+  {
+    "char": "豫",
+    "reading": "예",
+    "meaning": "미리",
+    "level": 4.0,
+    "radical": "豕",
+    "stroke_count": 9
+  },
+  {
+    "char": "優",
+    "reading": "우",
+    "meaning": "넉넉할",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 15
+  },
+  {
+    "char": "遇",
+    "reading": "우",
+    "meaning": "만날",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "郵",
+    "reading": "우",
+    "meaning": "우편",
+    "level": 4.0,
+    "radical": "邑",
+    "stroke_count": 8
+  },
+  {
+    "char": "源",
+    "reading": "원",
+    "meaning": "근원",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 10
+  },
+  {
+    "char": "援",
+    "reading": "원",
+    "meaning": "도울",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 9
+  },
+  {
+    "char": "怨",
+    "reading": "원",
+    "meaning": "원망할",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 5
+  },
+  {
+    "char": "委",
+    "reading": "위",
+    "meaning": "맡길",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 5
+  },
+  {
+    "char": "圍",
+    "reading": "위",
+    "meaning": "에워쌀",
+    "level": 4.0,
+    "radical": "囗",
+    "stroke_count": 9
+  },
+  {
+    "char": "慰",
+    "reading": "위",
+    "meaning": "위로할",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 11
+  },
+  {
+    "char": "威",
+    "reading": "위",
+    "meaning": "위엄",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 6
+  },
+  {
+    "char": "危",
+    "reading": "위",
+    "meaning": "위태할",
+    "level": 4.0,
+    "radical": "卩",
+    "stroke_count": 4
+  },
+  {
+    "char": "遺",
+    "reading": "유",
+    "meaning": "남길",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 12
+  },
+  {
+    "char": "遊",
+    "reading": "유",
+    "meaning": "놀",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "儒",
+    "reading": "유",
+    "meaning": "선비",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 14
+  },
+  {
+    "char": "乳",
+    "reading": "유",
+    "meaning": "젖",
+    "level": 4.0,
+    "radical": "乙",
+    "stroke_count": 7
+  },
+  {
+    "char": "隱",
+    "reading": "은",
+    "meaning": "숨을",
+    "level": 4.0,
+    "radical": "阜",
+    "stroke_count": 14
+  },
+  {
+    "char": "儀",
+    "reading": "의",
+    "meaning": "거동",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 13
+  },
+  {
+    "char": "疑",
+    "reading": "의",
+    "meaning": "의심할",
+    "level": 4.0,
+    "radical": "疋",
+    "stroke_count": 9
+  },
+  {
+    "char": "依",
+    "reading": "의",
+    "meaning": "의지할",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 6
+  },
+  {
+    "char": "異",
+    "reading": "이",
+    "meaning": "다를",
+    "level": 4.0,
+    "radical": "田",
+    "stroke_count": 6
+  },
+  {
+    "char": "仁",
+    "reading": "인",
+    "meaning": "어질",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 2
+  },
+  {
+    "char": "姿",
+    "reading": "자",
+    "meaning": "모양",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 6
+  },
+  {
+    "char": "姉",
+    "reading": "자",
+    "meaning": "손윗누이",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 5
+  },
+  {
+    "char": "資",
+    "reading": "자",
+    "meaning": "재물",
+    "level": 4.0,
+    "radical": "貝",
+    "stroke_count": 6
+  },
+  {
+    "char": "殘",
+    "reading": "잔",
+    "meaning": "남을",
+    "level": 4.0,
+    "radical": "歹",
+    "stroke_count": 8
+  },
+  {
+    "char": "雜",
+    "reading": "잡",
+    "meaning": "섞일",
+    "level": 4.0,
+    "radical": "隹",
+    "stroke_count": 10
+  },
+  {
+    "char": "裝",
+    "reading": "장",
+    "meaning": "꾸밀",
+    "level": 4.0,
+    "radical": "衣",
+    "stroke_count": 7
+  },
+  {
+    "char": "張",
+    "reading": "장",
+    "meaning": "베풀",
+    "level": 4.0,
+    "radical": "弓",
+    "stroke_count": 8
+  },
+  {
+    "char": "獎",
+    "reading": "장",
+    "meaning": "장려할",
+    "level": 4.0,
+    "radical": "犬",
+    "stroke_count": 11
+  },
+  {
+    "char": "帳",
+    "reading": "장",
+    "meaning": "장막",
+    "level": 4.0,
+    "radical": "巾",
+    "stroke_count": 8
+  },
+  {
+    "char": "壯",
+    "reading": "장",
+    "meaning": "장할",
+    "level": 4.0,
+    "radical": "士",
+    "stroke_count": 4
+  },
+  {
+    "char": "腸",
+    "reading": "장",
+    "meaning": "창자",
+    "level": 4.0,
+    "radical": "肉",
+    "stroke_count": 9
+  },
+  {
+    "char": "底",
+    "reading": "저",
+    "meaning": "밑",
+    "level": 4.0,
+    "radical": "广",
+    "stroke_count": 5
+  },
+  {
+    "char": "績",
+    "reading": "적",
+    "meaning": "길쌈",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 11
+  },
+  {
+    "char": "賊",
+    "reading": "적",
+    "meaning": "도둑",
+    "level": 4.0,
+    "radical": "貝",
+    "stroke_count": 6
+  },
+  {
+    "char": "適",
+    "reading": "적",
+    "meaning": "맞을",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 11
+  },
+  {
+    "char": "籍",
+    "reading": "적",
+    "meaning": "문서",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 14
+  },
+  {
+    "char": "積",
+    "reading": "적",
+    "meaning": "쌓을",
+    "level": 4.0,
+    "radical": "禾",
+    "stroke_count": 11
+  },
+  {
+    "char": "轉",
+    "reading": "전",
+    "meaning": "구를",
+    "level": 4.0,
+    "radical": "車",
+    "stroke_count": 11
+  },
+  {
+    "char": "錢",
+    "reading": "전",
+    "meaning": "돈",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 8
+  },
+  {
+    "char": "專",
+    "reading": "전",
+    "meaning": "오로지",
+    "level": 4.0,
+    "radical": "寸",
+    "stroke_count": 8
+  },
+  {
+    "char": "折",
+    "reading": "절",
+    "meaning": "꺾을",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "點",
+    "reading": "점",
+    "meaning": "점",
+    "level": 4.0,
+    "radical": "黑",
+    "stroke_count": 5
+  },
+  {
+    "char": "占",
+    "reading": "점",
+    "meaning": "점령할",
+    "level": 4.0,
+    "radical": "卜",
+    "stroke_count": 3
+  },
+  {
+    "char": "整",
+    "reading": "정",
+    "meaning": "가지런할",
+    "level": 4.0,
+    "radical": "攴",
+    "stroke_count": 12
+  },
+  {
+    "char": "丁",
+    "reading": "정",
+    "meaning": "고무래/장정",
+    "level": 4.0,
+    "radical": "一",
+    "stroke_count": 1
+  },
+  {
+    "char": "靜",
+    "reading": "정",
+    "meaning": "고요할",
+    "level": 4.0,
+    "radical": "靑",
+    "stroke_count": 8
+  },
+  {
+    "char": "帝",
+    "reading": "제",
+    "meaning": "임금",
+    "level": 4.0,
+    "radical": "巾",
+    "stroke_count": 6
+  },
+  {
+    "char": "條",
+    "reading": "조",
+    "meaning": "가지",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 7
+  },
+  {
+    "char": "潮",
+    "reading": "조",
+    "meaning": "밀물/조수",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 12
+  },
+  {
+    "char": "組",
+    "reading": "조",
+    "meaning": "짤",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 5
+  },
+  {
+    "char": "存",
+    "reading": "존",
+    "meaning": "있을",
+    "level": 4.0,
+    "radical": "子",
+    "stroke_count": 3
+  },
+  {
+    "char": "鍾",
+    "reading": "종",
+    "meaning": "쇠북",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 9
+  },
+  {
+    "char": "從",
+    "reading": "종",
+    "meaning": "좇을",
+    "level": 4.0,
+    "radical": "彳",
+    "stroke_count": 8
+  },
+  {
+    "char": "座",
+    "reading": "좌",
+    "meaning": "자리",
+    "level": 4.0,
+    "radical": "广",
+    "stroke_count": 7
+  },
+  {
+    "char": "周",
+    "reading": "주",
+    "meaning": "두루",
+    "level": 4.0,
+    "radical": "口",
+    "stroke_count": 5
+  },
+  {
+    "char": "朱",
+    "reading": "주",
+    "meaning": "붉을",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 2
+  },
+  {
+    "char": "酒",
+    "reading": "주",
+    "meaning": "술",
+    "level": 4.0,
+    "radical": "酉",
+    "stroke_count": 3
+  },
+  {
+    "char": "證",
+    "reading": "증",
+    "meaning": "증거",
+    "level": 4.0,
+    "radical": "言",
+    "stroke_count": 12
+  },
+  {
+    "char": "持",
+    "reading": "지",
+    "meaning": "가질",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 6
+  },
+  {
+    "char": "誌",
+    "reading": "지",
+    "meaning": "기록할",
+    "level": 4.0,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "智",
+    "reading": "지",
+    "meaning": "슬기/지혜",
+    "level": 4.0,
+    "radical": "日",
+    "stroke_count": 8
+  },
+  {
+    "char": "織",
+    "reading": "직",
+    "meaning": "짤",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 12
+  },
+  {
+    "char": "盡",
+    "reading": "진",
+    "meaning": "다할",
+    "level": 4.0,
+    "radical": "皿",
+    "stroke_count": 9
+  },
+  {
+    "char": "珍",
+    "reading": "진",
+    "meaning": "보배",
+    "level": 4.0,
+    "radical": "玉",
+    "stroke_count": 5
+  },
+  {
+    "char": "陣",
+    "reading": "진",
+    "meaning": "진칠",
+    "level": 4.0,
+    "radical": "阜",
+    "stroke_count": 7
+  },
+  {
+    "char": "差",
+    "reading": "차",
+    "meaning": "다를",
+    "level": 4.0,
+    "radical": "工",
+    "stroke_count": 7
+  },
+  {
+    "char": "讚",
+    "reading": "찬",
+    "meaning": "기릴",
+    "level": 4.0,
+    "radical": "言",
+    "stroke_count": 19
+  },
+  {
+    "char": "採",
+    "reading": "채",
+    "meaning": "캘",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "冊",
+    "reading": "책",
+    "meaning": "책",
+    "level": 4.0,
+    "radical": "冂",
+    "stroke_count": 3
+  },
+  {
+    "char": "泉",
+    "reading": "천",
+    "meaning": "샘",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "廳",
+    "reading": "청",
+    "meaning": "관청",
+    "level": 4.0,
+    "radical": "广",
+    "stroke_count": 22
+  },
+  {
+    "char": "聽",
+    "reading": "청",
+    "meaning": "들을",
+    "level": 4.0,
+    "radical": "耳",
+    "stroke_count": 16
+  },
+  {
+    "char": "招",
+    "reading": "초",
+    "meaning": "부를",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 5
+  },
+  {
+    "char": "推",
+    "reading": "추",
+    "meaning": "밀",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "縮",
+    "reading": "축",
+    "meaning": "줄일",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 11
+  },
+  {
+    "char": "就",
+    "reading": "취",
+    "meaning": "나아갈",
+    "level": 4.0,
+    "radical": "尢",
+    "stroke_count": 9
+  },
+  {
+    "char": "趣",
+    "reading": "취",
+    "meaning": "뜻",
+    "level": 4.0,
+    "radical": "走",
+    "stroke_count": 8
+  },
+  {
+    "char": "層",
+    "reading": "층",
+    "meaning": "층[層階]",
+    "level": 4.0,
+    "radical": "尸",
+    "stroke_count": 12
+  },
+  {
+    "char": "針",
+    "reading": "침",
+    "meaning": "바늘",
+    "level": 4.0,
+    "radical": "金",
+    "stroke_count": 2
+  },
+  {
+    "char": "寢",
+    "reading": "침",
+    "meaning": "잘",
+    "level": 4.0,
+    "radical": "宀",
+    "stroke_count": 11
+  },
+  {
+    "char": "稱",
+    "reading": "칭",
+    "meaning": "일컬을",
+    "level": 4.0,
+    "radical": "禾",
+    "stroke_count": 9
+  },
+  {
+    "char": "歎",
+    "reading": "탄",
+    "meaning": "탄식할",
+    "level": 4.0,
+    "radical": "欠",
+    "stroke_count": 11
+  },
+  {
+    "char": "彈",
+    "reading": "탄",
+    "meaning": "탄알",
+    "level": 4.0,
+    "radical": "弓",
+    "stroke_count": 12
+  },
+  {
+    "char": "脫",
+    "reading": "탈",
+    "meaning": "벗을",
+    "level": 4.0,
+    "radical": "肉",
+    "stroke_count": 7
+  },
+  {
+    "char": "探",
+    "reading": "탐",
+    "meaning": "찾을",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "擇",
+    "reading": "택",
+    "meaning": "가릴",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 13
+  },
+  {
+    "char": "討",
+    "reading": "토",
+    "meaning": "칠",
+    "level": 4.0,
+    "radical": "言",
+    "stroke_count": 3
+  },
+  {
+    "char": "痛",
+    "reading": "통",
+    "meaning": "아플",
+    "level": 4.0,
+    "radical": "疒",
+    "stroke_count": 7
+  },
+  {
+    "char": "投",
+    "reading": "투",
+    "meaning": "던질",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "鬪",
+    "reading": "투",
+    "meaning": "싸움",
+    "level": 4.0,
+    "radical": "鬥",
+    "stroke_count": 10
+  },
+  {
+    "char": "派",
+    "reading": "파",
+    "meaning": "갈래",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 6
+  },
+  {
+    "char": "判",
+    "reading": "판",
+    "meaning": "판단할",
+    "level": 4.0,
+    "radical": "刀",
+    "stroke_count": 5
+  },
+  {
+    "char": "篇",
+    "reading": "편",
+    "meaning": "책",
+    "level": 4.0,
+    "radical": "竹",
+    "stroke_count": 9
+  },
+  {
+    "char": "評",
+    "reading": "평",
+    "meaning": "평할",
+    "level": 4.0,
+    "radical": "言",
+    "stroke_count": 5
+  },
+  {
+    "char": "閉",
+    "reading": "폐",
+    "meaning": "닫을",
+    "level": 4.0,
+    "radical": "門",
+    "stroke_count": 3
+  },
+  {
+    "char": "胞",
+    "reading": "포",
+    "meaning": "세포",
+    "level": 4.0,
+    "radical": "肉",
+    "stroke_count": 5
+  },
+  {
+    "char": "爆",
+    "reading": "폭",
+    "meaning": "불터질",
+    "level": 4.0,
+    "radical": "火",
+    "stroke_count": 15
+  },
+  {
+    "char": "標",
+    "reading": "표",
+    "meaning": "표할",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 11
+  },
+  {
+    "char": "疲",
+    "reading": "피",
+    "meaning": "피곤할",
+    "level": 4.0,
+    "radical": "疒",
+    "stroke_count": 5
+  },
+  {
+    "char": "避",
+    "reading": "피",
+    "meaning": "피할",
+    "level": 4.0,
+    "radical": "辵",
+    "stroke_count": 13
+  },
+  {
+    "char": "恨",
+    "reading": "한",
+    "meaning": "한[怨]",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 6
+  },
+  {
+    "char": "閑",
+    "reading": "한",
+    "meaning": "한가할",
+    "level": 4.0,
+    "radical": "門",
+    "stroke_count": 4
+  },
+  {
+    "char": "抗",
+    "reading": "항",
+    "meaning": "겨룰",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "核",
+    "reading": "핵",
+    "meaning": "씨",
+    "level": 4.0,
+    "radical": "木",
+    "stroke_count": 6
+  },
+  {
+    "char": "憲",
+    "reading": "헌",
+    "meaning": "법",
+    "level": 4.0,
+    "radical": "心",
+    "stroke_count": 12
+  },
+  {
+    "char": "險",
+    "reading": "험",
+    "meaning": "험할",
+    "level": 4.0,
+    "radical": "阜",
+    "stroke_count": 13
+  },
+  {
+    "char": "革",
+    "reading": "혁",
+    "meaning": "가죽",
+    "level": 4.0,
+    "radical": "革",
+    "stroke_count": 0
+  },
+  {
+    "char": "顯",
+    "reading": "현",
+    "meaning": "나타날",
+    "level": 4.0,
+    "radical": "頁",
+    "stroke_count": 14
+  },
+  {
+    "char": "刑",
+    "reading": "형",
+    "meaning": "형벌",
+    "level": 4.0,
+    "radical": "刀",
+    "stroke_count": 4
+  },
+  {
+    "char": "或",
+    "reading": "혹",
+    "meaning": "혹",
+    "level": 4.0,
+    "radical": "戈",
+    "stroke_count": 4
+  },
+  {
+    "char": "混",
+    "reading": "혼",
+    "meaning": "섞을",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 8
+  },
+  {
+    "char": "婚",
+    "reading": "혼",
+    "meaning": "혼인할",
+    "level": 4.0,
+    "radical": "女",
+    "stroke_count": 8
+  },
+  {
+    "char": "紅",
+    "reading": "홍",
+    "meaning": "붉을",
+    "level": 4.0,
+    "radical": "糸",
+    "stroke_count": 3
+  },
+  {
+    "char": "華",
+    "reading": "화",
+    "meaning": "빛날",
+    "level": 4.0,
+    "radical": "艸",
+    "stroke_count": 7
+  },
+  {
+    "char": "環",
+    "reading": "환",
+    "meaning": "고리",
+    "level": 4.0,
+    "radical": "玉",
+    "stroke_count": 13
+  },
+  {
+    "char": "歡",
+    "reading": "환",
+    "meaning": "기쁠",
+    "level": 4.0,
+    "radical": "欠",
+    "stroke_count": 18
+  },
+  {
+    "char": "況",
+    "reading": "황",
+    "meaning": "상황",
+    "level": 4.0,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "灰",
+    "reading": "회",
+    "meaning": "재",
+    "level": 4.0,
+    "radical": "火",
+    "stroke_count": 2
+  },
+  {
+    "char": "候",
+    "reading": "후",
+    "meaning": "기후",
+    "level": 4.0,
+    "radical": "人",
+    "stroke_count": 8
+  },
+  {
+    "char": "厚",
+    "reading": "후",
+    "meaning": "두터울",
+    "level": 4.0,
+    "radical": "厂",
+    "stroke_count": 7
+  },
+  {
+    "char": "揮",
+    "reading": "휘",
+    "meaning": "휘두를",
+    "level": 4.0,
+    "radical": "手",
+    "stroke_count": 9
+  },
+  {
+    "char": "喜",
+    "reading": "희",
+    "meaning": "기쁠",
+    "level": 4.0,
+    "radical": "口",
+    "stroke_count": 9
+  },
+  {
+    "char": "街",
+    "reading": "가",
+    "meaning": "거리",
+    "level": 4.5,
+    "radical": "行",
+    "stroke_count": 6
+  },
+  {
+    "char": "假",
+    "reading": "가",
+    "meaning": "거짓",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 9
+  },
+  {
+    "char": "減",
+    "reading": "감",
+    "meaning": "덜",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 9
+  },
+  {
+    "char": "監",
+    "reading": "감",
+    "meaning": "볼",
+    "level": 4.5,
+    "radical": "皿",
+    "stroke_count": 9
+  },
+  {
+    "char": "講",
+    "reading": "강",
+    "meaning": "욀",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 10
+  },
+  {
+    "char": "康",
+    "reading": "강",
+    "meaning": "편안",
+    "level": 4.5,
+    "radical": "广",
+    "stroke_count": 8
+  },
+  {
+    "char": "個",
+    "reading": "개",
+    "meaning": "낱",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 8
+  },
+  {
+    "char": "檢",
+    "reading": "검",
+    "meaning": "검사할",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 13
+  },
+  {
+    "char": "潔",
+    "reading": "결",
+    "meaning": "깨끗할",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 12
+  },
+  {
+    "char": "缺",
+    "reading": "결",
+    "meaning": "이지러질",
+    "level": 4.5,
+    "radical": "缶",
+    "stroke_count": 4
+  },
+  {
+    "char": "慶",
+    "reading": "경",
+    "meaning": "경사",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 11
+  },
+  {
+    "char": "警",
+    "reading": "경",
+    "meaning": "깨우칠",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 13
+  },
+  {
+    "char": "境",
+    "reading": "경",
+    "meaning": "지경",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 11
+  },
+  {
+    "char": "經",
+    "reading": "경",
+    "meaning": "지날/글",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 7
+  },
+  {
+    "char": "係",
+    "reading": "계",
+    "meaning": "맬",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "故",
+    "reading": "고",
+    "meaning": "연고",
+    "level": 4.5,
+    "radical": "攴",
+    "stroke_count": 5
+  },
+  {
+    "char": "官",
+    "reading": "관",
+    "meaning": "벼슬",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 5
+  },
+  {
+    "char": "求",
+    "reading": "구",
+    "meaning": "구할[索]",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 2
+  },
+  {
+    "char": "句",
+    "reading": "구",
+    "meaning": "글귀",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 2
+  },
+  {
+    "char": "究",
+    "reading": "구",
+    "meaning": "연구할",
+    "level": 4.5,
+    "radical": "穴",
+    "stroke_count": 2
+  },
+  {
+    "char": "宮",
+    "reading": "궁",
+    "meaning": "집",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 7
+  },
+  {
+    "char": "權",
+    "reading": "권",
+    "meaning": "권세",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 18
+  },
+  {
+    "char": "極",
+    "reading": "극",
+    "meaning": "다할/극진할",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 8
+  },
+  {
+    "char": "禁",
+    "reading": "금",
+    "meaning": "금할",
+    "level": 4.5,
+    "radical": "示",
+    "stroke_count": 8
+  },
+  {
+    "char": "器",
+    "reading": "기",
+    "meaning": "그릇",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 13
+  },
+  {
+    "char": "起",
+    "reading": "기",
+    "meaning": "일어날",
+    "level": 4.5,
+    "radical": "走",
+    "stroke_count": 3
+  },
+  {
+    "char": "暖",
+    "reading": "난",
+    "meaning": "따뜻할",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 9
+  },
+  {
+    "char": "難",
+    "reading": "난",
+    "meaning": "어려울",
+    "level": 4.5,
+    "radical": "隹",
+    "stroke_count": 11
+  },
+  {
+    "char": "怒",
+    "reading": "노",
+    "meaning": "성낼",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 5
+  },
+  {
+    "char": "努",
+    "reading": "노",
+    "meaning": "힘쓸",
+    "level": 4.5,
+    "radical": "力",
+    "stroke_count": 5
+  },
+  {
+    "char": "斷",
+    "reading": "단",
+    "meaning": "끊을",
+    "level": 4.5,
+    "radical": "斤",
+    "stroke_count": 14
+  },
+  {
+    "char": "端",
+    "reading": "단",
+    "meaning": "끝",
+    "level": 4.5,
+    "radical": "立",
+    "stroke_count": 9
+  },
+  {
+    "char": "檀",
+    "reading": "단",
+    "meaning": "박달나무",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 13
+  },
+  {
+    "char": "單",
+    "reading": "단",
+    "meaning": "홑",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 9
+  },
+  {
+    "char": "達",
+    "reading": "달",
+    "meaning": "통달할",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "擔",
+    "reading": "담",
+    "meaning": "멜",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 13
+  },
+  {
+    "char": "黨",
+    "reading": "당",
+    "meaning": "무리",
+    "level": 4.5,
+    "radical": "黑",
+    "stroke_count": 8
+  },
+  {
+    "char": "帶",
+    "reading": "대",
+    "meaning": "띠",
+    "level": 4.5,
+    "radical": "巾",
+    "stroke_count": 8
+  },
+  {
+    "char": "隊",
+    "reading": "대",
+    "meaning": "무리",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 9
+  },
+  {
+    "char": "導",
+    "reading": "도",
+    "meaning": "인도할",
+    "level": 4.5,
+    "radical": "寸",
+    "stroke_count": 13
+  },
+  {
+    "char": "督",
+    "reading": "독",
+    "meaning": "감독할",
+    "level": 4.5,
+    "radical": "目",
+    "stroke_count": 8
+  },
+  {
+    "char": "毒",
+    "reading": "독",
+    "meaning": "독",
+    "level": 4.5,
+    "radical": "毋",
+    "stroke_count": 5
+  },
+  {
+    "char": "銅",
+    "reading": "동",
+    "meaning": "구리",
+    "level": 4.5,
+    "radical": "金",
+    "stroke_count": 6
+  },
+  {
+    "char": "斗",
+    "reading": "두",
+    "meaning": "말",
+    "level": 4.5,
+    "radical": "斗",
+    "stroke_count": 0
+  },
+  {
+    "char": "豆",
+    "reading": "두",
+    "meaning": "콩",
+    "level": 4.5,
+    "radical": "豆",
+    "stroke_count": 0
+  },
+  {
+    "char": "得",
+    "reading": "득",
+    "meaning": "얻을",
+    "level": 4.5,
+    "radical": "彳",
+    "stroke_count": 8
+  },
+  {
+    "char": "燈",
+    "reading": "등",
+    "meaning": "등",
+    "level": 4.5,
+    "radical": "火",
+    "stroke_count": 12
+  },
+  {
+    "char": "羅",
+    "reading": "라",
+    "meaning": "벌릴",
+    "level": 4.5,
+    "radical": "网",
+    "stroke_count": 14
+  },
+  {
+    "char": "兩",
+    "reading": "량",
+    "meaning": "두",
+    "level": 4.5,
+    "radical": "入",
+    "stroke_count": 6
+  },
+  {
+    "char": "麗",
+    "reading": "려",
+    "meaning": "고울",
+    "level": 4.5,
+    "radical": "鹿",
+    "stroke_count": 8
+  },
+  {
+    "char": "連",
+    "reading": "련",
+    "meaning": "이을",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 7
+  },
+  {
+    "char": "列",
+    "reading": "렬",
+    "meaning": "벌릴",
+    "level": 4.5,
+    "radical": "刀",
+    "stroke_count": 4
+  },
+  {
+    "char": "錄",
+    "reading": "록",
+    "meaning": "기록할",
+    "level": 4.5,
+    "radical": "金",
+    "stroke_count": 8
+  },
+  {
+    "char": "論",
+    "reading": "론",
+    "meaning": "논할",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 8
+  },
+  {
+    "char": "留",
+    "reading": "류",
+    "meaning": "머무를",
+    "level": 4.5,
+    "radical": "田",
+    "stroke_count": 5
+  },
+  {
+    "char": "律",
+    "reading": "률",
+    "meaning": "법칙",
+    "level": 4.5,
+    "radical": "彳",
+    "stroke_count": 6
+  },
+  {
+    "char": "滿",
+    "reading": "만",
+    "meaning": "찰",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 11
+  },
+  {
+    "char": "脈",
+    "reading": "맥",
+    "meaning": "줄기",
+    "level": 4.5,
+    "radical": "肉",
+    "stroke_count": 6
+  },
+  {
+    "char": "毛",
+    "reading": "모",
+    "meaning": "터럭",
+    "level": 4.5,
+    "radical": "毛",
+    "stroke_count": 0
+  },
+  {
+    "char": "牧",
+    "reading": "목",
+    "meaning": "칠[養]",
+    "level": 4.5,
+    "radical": "牛",
+    "stroke_count": 4
+  },
+  {
+    "char": "武",
+    "reading": "무",
+    "meaning": "호반",
+    "level": 4.5,
+    "radical": "止",
+    "stroke_count": 4
+  },
+  {
+    "char": "務",
+    "reading": "무",
+    "meaning": "힘쓸",
+    "level": 4.5,
+    "radical": "力",
+    "stroke_count": 9
+  },
+  {
+    "char": "味",
+    "reading": "미",
+    "meaning": "맛",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 5
+  },
+  {
+    "char": "未",
+    "reading": "미",
+    "meaning": "아닐",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 1
+  },
+  {
+    "char": "密",
+    "reading": "밀",
+    "meaning": "빽빽할",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 8
+  },
+  {
+    "char": "博",
+    "reading": "박",
+    "meaning": "넓을",
+    "level": 4.5,
+    "radical": "十",
+    "stroke_count": 10
+  },
+  {
+    "char": "防",
+    "reading": "방",
+    "meaning": "막을",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 4
+  },
+  {
+    "char": "房",
+    "reading": "방",
+    "meaning": "방",
+    "level": 4.5,
+    "radical": "戶",
+    "stroke_count": 4
+  },
+  {
+    "char": "訪",
+    "reading": "방",
+    "meaning": "찾을",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 4
+  },
+  {
+    "char": "配",
+    "reading": "배",
+    "meaning": "나눌/짝",
+    "level": 4.5,
+    "radical": "酉",
+    "stroke_count": 3
+  },
+  {
+    "char": "背",
+    "reading": "배",
+    "meaning": "등",
+    "level": 4.5,
+    "radical": "肉",
+    "stroke_count": 5
+  },
+  {
+    "char": "拜",
+    "reading": "배",
+    "meaning": "절",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 5
+  },
+  {
+    "char": "罰",
+    "reading": "벌",
+    "meaning": "벌할",
+    "level": 4.5,
+    "radical": "网",
+    "stroke_count": 9
+  },
+  {
+    "char": "伐",
+    "reading": "벌",
+    "meaning": "칠[討]",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 4
+  },
+  {
+    "char": "壁",
+    "reading": "벽",
+    "meaning": "벽",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 13
+  },
+  {
+    "char": "邊",
+    "reading": "변",
+    "meaning": "가[側]",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 15
+  },
+  {
+    "char": "報",
+    "reading": "보",
+    "meaning": "갚을/알릴",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 9
+  },
+  {
+    "char": "步",
+    "reading": "보",
+    "meaning": "걸음",
+    "level": 4.5,
+    "radical": "止",
+    "stroke_count": 3
+  },
+  {
+    "char": "寶",
+    "reading": "보",
+    "meaning": "보배",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 17
+  },
+  {
+    "char": "保",
+    "reading": "보",
+    "meaning": "지킬",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "復",
+    "reading": "복",
+    "meaning": "회복할",
+    "level": 4.5,
+    "radical": "彳",
+    "stroke_count": 9
+  },
+  {
+    "char": "府",
+    "reading": "부",
+    "meaning": "마을[官廳]",
+    "level": 4.5,
+    "radical": "广",
+    "stroke_count": 5
+  },
+  {
+    "char": "婦",
+    "reading": "부",
+    "meaning": "며느리",
+    "level": 4.5,
+    "radical": "女",
+    "stroke_count": 8
+  },
+  {
+    "char": "副",
+    "reading": "부",
+    "meaning": "버금",
+    "level": 4.5,
+    "radical": "刀",
+    "stroke_count": 9
+  },
+  {
+    "char": "富",
+    "reading": "부",
+    "meaning": "부자",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 9
+  },
+  {
+    "char": "佛",
+    "reading": "불",
+    "meaning": "부처",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 5
+  },
+  {
+    "char": "備",
+    "reading": "비",
+    "meaning": "갖출",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 10
+  },
+  {
+    "char": "飛",
+    "reading": "비",
+    "meaning": "날",
+    "level": 4.5,
+    "radical": "飛",
+    "stroke_count": 0
+  },
+  {
+    "char": "悲",
+    "reading": "비",
+    "meaning": "슬플",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 8
+  },
+  {
+    "char": "非",
+    "reading": "비",
+    "meaning": "아닐",
+    "level": 4.5,
+    "radical": "非",
+    "stroke_count": 0
+  },
+  {
+    "char": "貧",
+    "reading": "빈",
+    "meaning": "가난할",
+    "level": 4.5,
+    "radical": "貝",
+    "stroke_count": 4
+  },
+  {
+    "char": "謝",
+    "reading": "사",
+    "meaning": "사례할",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 10
+  },
+  {
+    "char": "師",
+    "reading": "사",
+    "meaning": "스승",
+    "level": 4.5,
+    "radical": "巾",
+    "stroke_count": 7
+  },
+  {
+    "char": "寺",
+    "reading": "사",
+    "meaning": "절",
+    "level": 4.5,
+    "radical": "寸",
+    "stroke_count": 3
+  },
+  {
+    "char": "舍",
+    "reading": "사",
+    "meaning": "집",
+    "level": 4.5,
+    "radical": "舌",
+    "stroke_count": 2
+  },
+  {
+    "char": "殺",
+    "reading": "살",
+    "meaning": "죽일",
+    "level": 4.5,
+    "radical": "殳",
+    "stroke_count": 7
+  },
+  {
+    "char": "常",
+    "reading": "상",
+    "meaning": "떳떳할",
+    "level": 4.5,
+    "radical": "巾",
+    "stroke_count": 8
+  },
+  {
+    "char": "床",
+    "reading": "상",
+    "meaning": "상",
+    "level": 4.5,
+    "radical": "广",
+    "stroke_count": 4
+  },
+  {
+    "char": "想",
+    "reading": "상",
+    "meaning": "생각",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 9
+  },
+  {
+    "char": "狀",
+    "reading": "상",
+    "meaning": "형상",
+    "level": 4.5,
+    "radical": "犬",
+    "stroke_count": 4
+  },
+  {
+    "char": "設",
+    "reading": "설",
+    "meaning": "베풀",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 4
+  },
+  {
+    "char": "星",
+    "reading": "성",
+    "meaning": "별",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 5
+  },
+  {
+    "char": "聖",
+    "reading": "성",
+    "meaning": "성인",
+    "level": 4.5,
+    "radical": "耳",
+    "stroke_count": 7
+  },
+  {
+    "char": "盛",
+    "reading": "성",
+    "meaning": "성할",
+    "level": 4.5,
+    "radical": "皿",
+    "stroke_count": 7
+  },
+  {
+    "char": "聲",
+    "reading": "성",
+    "meaning": "소리",
+    "level": 4.5,
+    "radical": "耳",
+    "stroke_count": 11
+  },
+  {
+    "char": "城",
+    "reading": "성",
+    "meaning": "재",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 7
+  },
+  {
+    "char": "誠",
+    "reading": "성",
+    "meaning": "정성",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "細",
+    "reading": "세",
+    "meaning": "가늘",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 5
+  },
+  {
+    "char": "稅",
+    "reading": "세",
+    "meaning": "세금",
+    "level": 4.5,
+    "radical": "禾",
+    "stroke_count": 7
+  },
+  {
+    "char": "勢",
+    "reading": "세",
+    "meaning": "형세",
+    "level": 4.5,
+    "radical": "力",
+    "stroke_count": 11
+  },
+  {
+    "char": "素",
+    "reading": "소",
+    "meaning": "본디/흴[白]",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 4
+  },
+  {
+    "char": "掃",
+    "reading": "소",
+    "meaning": "쓸[掃除]",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "笑",
+    "reading": "소",
+    "meaning": "웃음",
+    "level": 4.5,
+    "radical": "竹",
+    "stroke_count": 4
+  },
+  {
+    "char": "續",
+    "reading": "속",
+    "meaning": "이을",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 15
+  },
+  {
+    "char": "俗",
+    "reading": "속",
+    "meaning": "풍속",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "送",
+    "reading": "송",
+    "meaning": "보낼",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 6
+  },
+  {
+    "char": "收",
+    "reading": "수",
+    "meaning": "거둘",
+    "level": 4.5,
+    "radical": "攴",
+    "stroke_count": 2
+  },
+  {
+    "char": "修",
+    "reading": "수",
+    "meaning": "닦을",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 8
+  },
+  {
+    "char": "受",
+    "reading": "수",
+    "meaning": "받을",
+    "level": 4.5,
+    "radical": "又",
+    "stroke_count": 6
+  },
+  {
+    "char": "授",
+    "reading": "수",
+    "meaning": "줄",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "守",
+    "reading": "수",
+    "meaning": "지킬",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 3
+  },
+  {
+    "char": "純",
+    "reading": "순",
+    "meaning": "순수할",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 4
+  },
+  {
+    "char": "承",
+    "reading": "승",
+    "meaning": "이을",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "施",
+    "reading": "시",
+    "meaning": "베풀",
+    "level": 4.5,
+    "radical": "方",
+    "stroke_count": 5
+  },
+  {
+    "char": "視",
+    "reading": "시",
+    "meaning": "볼",
+    "level": 4.5,
+    "radical": "見",
+    "stroke_count": 5
+  },
+  {
+    "char": "詩",
+    "reading": "시",
+    "meaning": "시",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 6
+  },
+  {
+    "char": "試",
+    "reading": "시",
+    "meaning": "시험",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 6
+  },
+  {
+    "char": "是",
+    "reading": "시",
+    "meaning": "이[斯]/옳을",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 5
+  },
+  {
+    "char": "息",
+    "reading": "식",
+    "meaning": "쉴",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 6
+  },
+  {
+    "char": "申",
+    "reading": "신",
+    "meaning": "납[猿]",
+    "level": 4.5,
+    "radical": "田",
+    "stroke_count": 0
+  },
+  {
+    "char": "深",
+    "reading": "심",
+    "meaning": "깊을",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 8
+  },
+  {
+    "char": "眼",
+    "reading": "안",
+    "meaning": "눈",
+    "level": 4.5,
+    "radical": "目",
+    "stroke_count": 6
+  },
+  {
+    "char": "暗",
+    "reading": "암",
+    "meaning": "어두울",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 9
+  },
+  {
+    "char": "壓",
+    "reading": "압",
+    "meaning": "누를",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 14
+  },
+  {
+    "char": "液",
+    "reading": "액",
+    "meaning": "진",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 8
+  },
+  {
+    "char": "羊",
+    "reading": "양",
+    "meaning": "양",
+    "level": 4.5,
+    "radical": "羊",
+    "stroke_count": 0
+  },
+  {
+    "char": "如",
+    "reading": "여",
+    "meaning": "같을",
+    "level": 4.5,
+    "radical": "女",
+    "stroke_count": 3
+  },
+  {
+    "char": "餘",
+    "reading": "여",
+    "meaning": "남을",
+    "level": 4.5,
+    "radical": "食",
+    "stroke_count": 7
+  },
+  {
+    "char": "逆",
+    "reading": "역",
+    "meaning": "거스릴",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 6
+  },
+  {
+    "char": "硏",
+    "reading": "연",
+    "meaning": "갈",
+    "level": 4.5,
+    "radical": "石",
+    "stroke_count": 6
+  },
+  {
+    "char": "煙",
+    "reading": "연",
+    "meaning": "연기",
+    "level": 4.5,
+    "radical": "火",
+    "stroke_count": 9
+  },
+  {
+    "char": "演",
+    "reading": "연",
+    "meaning": "펼",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 11
+  },
+  {
+    "char": "榮",
+    "reading": "영",
+    "meaning": "영화",
+    "level": 4.5,
+    "radical": "木",
+    "stroke_count": 10
+  },
+  {
+    "char": "藝",
+    "reading": "예",
+    "meaning": "재주",
+    "level": 4.5,
+    "radical": "艸",
+    "stroke_count": 15
+  },
+  {
+    "char": "誤",
+    "reading": "오",
+    "meaning": "그르칠",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "玉",
+    "reading": "옥",
+    "meaning": "구슬",
+    "level": 4.5,
+    "radical": "玉",
+    "stroke_count": 0
+  },
+  {
+    "char": "往",
+    "reading": "왕",
+    "meaning": "갈",
+    "level": 4.5,
+    "radical": "彳",
+    "stroke_count": 5
+  },
+  {
+    "char": "謠",
+    "reading": "요",
+    "meaning": "노래",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 10
+  },
+  {
+    "char": "容",
+    "reading": "용",
+    "meaning": "얼굴",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 7
+  },
+  {
+    "char": "圓",
+    "reading": "원",
+    "meaning": "둥글",
+    "level": 4.5,
+    "radical": "囗",
+    "stroke_count": 10
+  },
+  {
+    "char": "員",
+    "reading": "원",
+    "meaning": "인원",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 7
+  },
+  {
+    "char": "衛",
+    "reading": "위",
+    "meaning": "지킬",
+    "level": 4.5,
+    "radical": "行",
+    "stroke_count": 9
+  },
+  {
+    "char": "爲",
+    "reading": "위",
+    "meaning": "하/할",
+    "level": 4.5,
+    "radical": "爪",
+    "stroke_count": 8
+  },
+  {
+    "char": "肉",
+    "reading": "육",
+    "meaning": "고기",
+    "level": 4.5,
+    "radical": "肉",
+    "stroke_count": 0
+  },
+  {
+    "char": "恩",
+    "reading": "은",
+    "meaning": "은혜",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 6
+  },
+  {
+    "char": "陰",
+    "reading": "음",
+    "meaning": "그늘",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 8
+  },
+  {
+    "char": "應",
+    "reading": "응",
+    "meaning": "응할",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 13
+  },
+  {
+    "char": "義",
+    "reading": "의",
+    "meaning": "옳을",
+    "level": 4.5,
+    "radical": "羊",
+    "stroke_count": 7
+  },
+  {
+    "char": "議",
+    "reading": "의",
+    "meaning": "의논할",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 13
+  },
+  {
+    "char": "移",
+    "reading": "이",
+    "meaning": "옮길",
+    "level": 4.5,
+    "radical": "禾",
+    "stroke_count": 6
+  },
+  {
+    "char": "益",
+    "reading": "익",
+    "meaning": "더할",
+    "level": 4.5,
+    "radical": "皿",
+    "stroke_count": 5
+  },
+  {
+    "char": "引",
+    "reading": "인",
+    "meaning": "끌",
+    "level": 4.5,
+    "radical": "弓",
+    "stroke_count": 1
+  },
+  {
+    "char": "印",
+    "reading": "인",
+    "meaning": "도장",
+    "level": 4.5,
+    "radical": "卩",
+    "stroke_count": 4
+  },
+  {
+    "char": "認",
+    "reading": "인",
+    "meaning": "알[知]",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "障",
+    "reading": "장",
+    "meaning": "막을",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 11
+  },
+  {
+    "char": "將",
+    "reading": "장",
+    "meaning": "장수",
+    "level": 4.5,
+    "radical": "寸",
+    "stroke_count": 8
+  },
+  {
+    "char": "低",
+    "reading": "저",
+    "meaning": "낮을",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 5
+  },
+  {
+    "char": "敵",
+    "reading": "적",
+    "meaning": "대적할",
+    "level": 4.5,
+    "radical": "攴",
+    "stroke_count": 11
+  },
+  {
+    "char": "田",
+    "reading": "전",
+    "meaning": "밭",
+    "level": 4.5,
+    "radical": "田",
+    "stroke_count": 0
+  },
+  {
+    "char": "絶",
+    "reading": "절",
+    "meaning": "끊을",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 6
+  },
+  {
+    "char": "接",
+    "reading": "접",
+    "meaning": "이을",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 8
+  },
+  {
+    "char": "政",
+    "reading": "정",
+    "meaning": "정사(政事)",
+    "level": 4.5,
+    "radical": "攴",
+    "stroke_count": 5
+  },
+  {
+    "char": "精",
+    "reading": "정",
+    "meaning": "정할",
+    "level": 4.5,
+    "radical": "米",
+    "stroke_count": 8
+  },
+  {
+    "char": "程",
+    "reading": "정",
+    "meaning": "한도/길[道]",
+    "level": 4.5,
+    "radical": "禾",
+    "stroke_count": 7
+  },
+  {
+    "char": "濟",
+    "reading": "제",
+    "meaning": "건널",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 14
+  },
+  {
+    "char": "提",
+    "reading": "제",
+    "meaning": "끌",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 9
+  },
+  {
+    "char": "除",
+    "reading": "제",
+    "meaning": "덜",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 7
+  },
+  {
+    "char": "制",
+    "reading": "제",
+    "meaning": "절제할",
+    "level": 4.5,
+    "radical": "刀",
+    "stroke_count": 6
+  },
+  {
+    "char": "祭",
+    "reading": "제",
+    "meaning": "제사",
+    "level": 4.5,
+    "radical": "示",
+    "stroke_count": 6
+  },
+  {
+    "char": "際",
+    "reading": "제",
+    "meaning": "즈음/가[邊]",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 11
+  },
+  {
+    "char": "製",
+    "reading": "제",
+    "meaning": "지을",
+    "level": 4.5,
+    "radical": "衣",
+    "stroke_count": 8
+  },
+  {
+    "char": "助",
+    "reading": "조",
+    "meaning": "도울",
+    "level": 4.5,
+    "radical": "力",
+    "stroke_count": 5
+  },
+  {
+    "char": "鳥",
+    "reading": "조",
+    "meaning": "새",
+    "level": 4.5,
+    "radical": "鳥",
+    "stroke_count": 0
+  },
+  {
+    "char": "早",
+    "reading": "조",
+    "meaning": "이를",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 2
+  },
+  {
+    "char": "造",
+    "reading": "조",
+    "meaning": "지을",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 7
+  },
+  {
+    "char": "尊",
+    "reading": "존",
+    "meaning": "높을",
+    "level": 4.5,
+    "radical": "寸",
+    "stroke_count": 9
+  },
+  {
+    "char": "宗",
+    "reading": "종",
+    "meaning": "마루",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 5
+  },
+  {
+    "char": "走",
+    "reading": "주",
+    "meaning": "달릴",
+    "level": 4.5,
+    "radical": "走",
+    "stroke_count": 0
+  },
+  {
+    "char": "竹",
+    "reading": "죽",
+    "meaning": "대",
+    "level": 4.5,
+    "radical": "竹",
+    "stroke_count": 0
+  },
+  {
+    "char": "準",
+    "reading": "준",
+    "meaning": "준할",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 10
+  },
+  {
+    "char": "衆",
+    "reading": "중",
+    "meaning": "무리",
+    "level": 4.5,
+    "radical": "血",
+    "stroke_count": 6
+  },
+  {
+    "char": "增",
+    "reading": "증",
+    "meaning": "더할",
+    "level": 4.5,
+    "radical": "土",
+    "stroke_count": 12
+  },
+  {
+    "char": "指",
+    "reading": "지",
+    "meaning": "가리킬",
+    "level": 4.5,
+    "radical": "手",
+    "stroke_count": 6
+  },
+  {
+    "char": "志",
+    "reading": "지",
+    "meaning": "뜻",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 3
+  },
+  {
+    "char": "至",
+    "reading": "지",
+    "meaning": "이를",
+    "level": 4.5,
+    "radical": "至",
+    "stroke_count": 0
+  },
+  {
+    "char": "支",
+    "reading": "지",
+    "meaning": "지탱할",
+    "level": 4.5,
+    "radical": "支",
+    "stroke_count": 0
+  },
+  {
+    "char": "職",
+    "reading": "직",
+    "meaning": "직분",
+    "level": 4.5,
+    "radical": "耳",
+    "stroke_count": 12
+  },
+  {
+    "char": "進",
+    "reading": "진",
+    "meaning": "나아갈",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 8
+  },
+  {
+    "char": "眞",
+    "reading": "진",
+    "meaning": "참",
+    "level": 4.5,
+    "radical": "目",
+    "stroke_count": 5
+  },
+  {
+    "char": "次",
+    "reading": "차",
+    "meaning": "버금",
+    "level": 4.5,
+    "radical": "欠",
+    "stroke_count": 2
+  },
+  {
+    "char": "察",
+    "reading": "찰",
+    "meaning": "살필",
+    "level": 4.5,
+    "radical": "宀",
+    "stroke_count": 11
+  },
+  {
+    "char": "創",
+    "reading": "창",
+    "meaning": "비롯할",
+    "level": 4.5,
+    "radical": "刀",
+    "stroke_count": 10
+  },
+  {
+    "char": "處",
+    "reading": "처",
+    "meaning": "곳",
+    "level": 4.5,
+    "radical": "虍",
+    "stroke_count": 5
+  },
+  {
+    "char": "請",
+    "reading": "청",
+    "meaning": "청할",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 8
+  },
+  {
+    "char": "總",
+    "reading": "총",
+    "meaning": "다[皆]",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 11
+  },
+  {
+    "char": "銃",
+    "reading": "총",
+    "meaning": "총",
+    "level": 4.5,
+    "radical": "金",
+    "stroke_count": 6
+  },
+  {
+    "char": "蓄",
+    "reading": "축",
+    "meaning": "모을",
+    "level": 4.5,
+    "radical": "艸",
+    "stroke_count": 10
+  },
+  {
+    "char": "築",
+    "reading": "축",
+    "meaning": "쌓을",
+    "level": 4.5,
+    "radical": "竹",
+    "stroke_count": 10
+  },
+  {
+    "char": "蟲",
+    "reading": "충",
+    "meaning": "벌레",
+    "level": 4.5,
+    "radical": "虫",
+    "stroke_count": 12
+  },
+  {
+    "char": "忠",
+    "reading": "충",
+    "meaning": "충성",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 4
+  },
+  {
+    "char": "取",
+    "reading": "취",
+    "meaning": "가질",
+    "level": 4.5,
+    "radical": "又",
+    "stroke_count": 6
+  },
+  {
+    "char": "測",
+    "reading": "측",
+    "meaning": "헤아릴",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 9
+  },
+  {
+    "char": "治",
+    "reading": "치",
+    "meaning": "다스릴",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "置",
+    "reading": "치",
+    "meaning": "둘[措]",
+    "level": 4.5,
+    "radical": "网",
+    "stroke_count": 8
+  },
+  {
+    "char": "齒",
+    "reading": "치",
+    "meaning": "이",
+    "level": 4.5,
+    "radical": "齒",
+    "stroke_count": 0
+  },
+  {
+    "char": "侵",
+    "reading": "침",
+    "meaning": "침노할",
+    "level": 4.5,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "快",
+    "reading": "쾌",
+    "meaning": "쾌할",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 4
+  },
+  {
+    "char": "態",
+    "reading": "태",
+    "meaning": "모습",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 10
+  },
+  {
+    "char": "統",
+    "reading": "통",
+    "meaning": "거느릴",
+    "level": 4.5,
+    "radical": "糸",
+    "stroke_count": 6
+  },
+  {
+    "char": "退",
+    "reading": "퇴",
+    "meaning": "물러날",
+    "level": 4.5,
+    "radical": "辵",
+    "stroke_count": 6
+  },
+  {
+    "char": "破",
+    "reading": "파",
+    "meaning": "깨뜨릴",
+    "level": 4.5,
+    "radical": "石",
+    "stroke_count": 5
+  },
+  {
+    "char": "波",
+    "reading": "파",
+    "meaning": "물결",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "砲",
+    "reading": "포",
+    "meaning": "대포",
+    "level": 4.5,
+    "radical": "石",
+    "stroke_count": 5
+  },
+  {
+    "char": "布",
+    "reading": "포",
+    "meaning": "베/펼",
+    "level": 4.5,
+    "radical": "巾",
+    "stroke_count": 2
+  },
+  {
+    "char": "包",
+    "reading": "포",
+    "meaning": "쌀[裹]",
+    "level": 4.5,
+    "radical": "勹",
+    "stroke_count": 3
+  },
+  {
+    "char": "暴",
+    "reading": "폭",
+    "meaning": "사나울",
+    "level": 4.5,
+    "radical": "日",
+    "stroke_count": 11
+  },
+  {
+    "char": "票",
+    "reading": "표",
+    "meaning": "표",
+    "level": 4.5,
+    "radical": "示",
+    "stroke_count": 6
+  },
+  {
+    "char": "豊",
+    "reading": "풍",
+    "meaning": "풍년",
+    "level": 4.5,
+    "radical": "豆",
+    "stroke_count": 6
+  },
+  {
+    "char": "限",
+    "reading": "한",
+    "meaning": "한할",
+    "level": 4.5,
+    "radical": "阜",
+    "stroke_count": 6
+  },
+  {
+    "char": "航",
+    "reading": "항",
+    "meaning": "배",
+    "level": 4.5,
+    "radical": "舟",
+    "stroke_count": 4
+  },
+  {
+    "char": "港",
+    "reading": "항",
+    "meaning": "항구",
+    "level": 4.5,
+    "radical": "水",
+    "stroke_count": 9
+  },
+  {
+    "char": "解",
+    "reading": "해",
+    "meaning": "풀",
+    "level": 4.5,
+    "radical": "角",
+    "stroke_count": 6
+  },
+  {
+    "char": "鄕",
+    "reading": "향",
+    "meaning": "시골",
+    "level": 4.5,
+    "radical": "邑",
+    "stroke_count": 10
+  },
+  {
+    "char": "香",
+    "reading": "향",
+    "meaning": "향기",
+    "level": 4.5,
+    "radical": "香",
+    "stroke_count": 0
+  },
+  {
+    "char": "虛",
+    "reading": "허",
+    "meaning": "빌",
+    "level": 4.5,
+    "radical": "虍",
+    "stroke_count": 6
+  },
+  {
+    "char": "驗",
+    "reading": "험",
+    "meaning": "시험",
+    "level": 4.5,
+    "radical": "馬",
+    "stroke_count": 13
+  },
+  {
+    "char": "賢",
+    "reading": "현",
+    "meaning": "어질",
+    "level": 4.5,
+    "radical": "貝",
+    "stroke_count": 8
+  },
+  {
+    "char": "血",
+    "reading": "혈",
+    "meaning": "피",
+    "level": 4.5,
+    "radical": "血",
+    "stroke_count": 0
+  },
+  {
+    "char": "協",
+    "reading": "협",
+    "meaning": "화할",
+    "level": 4.5,
+    "radical": "十",
+    "stroke_count": 6
+  },
+  {
+    "char": "惠",
+    "reading": "혜",
+    "meaning": "은혜",
+    "level": 4.5,
+    "radical": "心",
+    "stroke_count": 8
+  },
+  {
+    "char": "護",
+    "reading": "호",
+    "meaning": "도울",
+    "level": 4.5,
+    "radical": "言",
+    "stroke_count": 14
+  },
+  {
+    "char": "呼",
+    "reading": "호",
+    "meaning": "부를",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 5
+  },
+  {
+    "char": "好",
+    "reading": "호",
+    "meaning": "좋을",
+    "level": 4.5,
+    "radical": "女",
+    "stroke_count": 3
+  },
+  {
+    "char": "戶",
+    "reading": "호",
+    "meaning": "집",
+    "level": 4.5,
+    "radical": "戶",
+    "stroke_count": 0
+  },
+  {
+    "char": "貨",
+    "reading": "화",
+    "meaning": "재물",
+    "level": 4.5,
+    "radical": "貝",
+    "stroke_count": 4
+  },
+  {
+    "char": "確",
+    "reading": "확",
+    "meaning": "굳을",
+    "level": 4.5,
+    "radical": "石",
+    "stroke_count": 10
+  },
+  {
+    "char": "回",
+    "reading": "회",
+    "meaning": "돌아올",
+    "level": 4.5,
+    "radical": "囗",
+    "stroke_count": 3
+  },
+  {
+    "char": "吸",
+    "reading": "흡",
+    "meaning": "마실",
+    "level": 4.5,
+    "radical": "口",
+    "stroke_count": 4
+  },
+  {
+    "char": "興",
+    "reading": "흥",
+    "meaning": "일[盛]",
+    "level": 4.5,
+    "radical": "臼",
+    "stroke_count": 9
+  },
+  {
+    "char": "希",
+    "reading": "희",
+    "meaning": "바랄",
+    "level": 4.5,
+    "radical": "巾",
+    "stroke_count": 4
+  },
+  {
+    "char": "加",
+    "reading": "가",
+    "meaning": "더할",
+    "level": 5.0,
+    "radical": "力",
+    "stroke_count": 3
+  },
+  {
+    "char": "可",
+    "reading": "가",
+    "meaning": "옳을",
+    "level": 5.0,
+    "radical": "口",
+    "stroke_count": 2
+  },
+  {
+    "char": "改",
+    "reading": "개",
+    "meaning": "고칠",
+    "level": 5.0,
+    "radical": "攴",
+    "stroke_count": 3
+  },
+  {
+    "char": "去",
+    "reading": "거",
+    "meaning": "갈",
+    "level": 5.0,
+    "radical": "厶",
+    "stroke_count": 3
+  },
+  {
+    "char": "擧",
+    "reading": "거",
+    "meaning": "들",
+    "level": 5.0,
+    "radical": "手",
+    "stroke_count": 14
+  },
+  {
+    "char": "健",
+    "reading": "건",
+    "meaning": "굳셀",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 9
+  },
+  {
+    "char": "件",
+    "reading": "건",
+    "meaning": "물건",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 4
+  },
+  {
+    "char": "建",
+    "reading": "건",
+    "meaning": "세울",
+    "level": 5.0,
+    "radical": "廴",
+    "stroke_count": 6
+  },
+  {
+    "char": "輕",
+    "reading": "경",
+    "meaning": "가벼울",
+    "level": 5.0,
+    "radical": "車",
+    "stroke_count": 7
+  },
+  {
+    "char": "競",
+    "reading": "경",
+    "meaning": "다툴",
+    "level": 5.0,
+    "radical": "立",
+    "stroke_count": 15
+  },
+  {
+    "char": "景",
+    "reading": "경",
+    "meaning": "볕",
+    "level": 5.0,
+    "radical": "日",
+    "stroke_count": 8
+  },
+  {
+    "char": "固",
+    "reading": "고",
+    "meaning": "굳을",
+    "level": 5.0,
+    "radical": "囗",
+    "stroke_count": 5
+  },
+  {
+    "char": "考",
+    "reading": "고",
+    "meaning": "생각할",
+    "level": 5.0,
+    "radical": "老",
+    "stroke_count": 2
+  },
+  {
+    "char": "曲",
+    "reading": "곡",
+    "meaning": "굽을",
+    "level": 5.0,
+    "radical": "曰",
+    "stroke_count": 2
+  },
+  {
+    "char": "橋",
+    "reading": "교",
+    "meaning": "다리",
+    "level": 5.0,
+    "radical": "木",
+    "stroke_count": 12
+  },
+  {
+    "char": "救",
+    "reading": "구",
+    "meaning": "구원할",
+    "level": 5.0,
+    "radical": "攴",
+    "stroke_count": 7
+  },
+  {
+    "char": "貴",
+    "reading": "귀",
+    "meaning": "귀할",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 5
+  },
+  {
+    "char": "規",
+    "reading": "규",
+    "meaning": "법",
+    "level": 5.0,
+    "radical": "見",
+    "stroke_count": 4
+  },
+  {
+    "char": "給",
+    "reading": "급",
+    "meaning": "줄",
+    "level": 5.0,
+    "radical": "糸",
+    "stroke_count": 6
+  },
+  {
+    "char": "期",
+    "reading": "기",
+    "meaning": "기약할",
+    "level": 5.0,
+    "radical": "月",
+    "stroke_count": 8
+  },
+  {
+    "char": "汽",
+    "reading": "기",
+    "meaning": "물끓는김",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 4
+  },
+  {
+    "char": "技",
+    "reading": "기",
+    "meaning": "재주",
+    "level": 5.0,
+    "radical": "手",
+    "stroke_count": 4
+  },
+  {
+    "char": "吉",
+    "reading": "길",
+    "meaning": "길할",
+    "level": 5.0,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "壇",
+    "reading": "단",
+    "meaning": "단",
+    "level": 5.0,
+    "radical": "土",
+    "stroke_count": 13
+  },
+  {
+    "char": "談",
+    "reading": "담",
+    "meaning": "말씀",
+    "level": 5.0,
+    "radical": "言",
+    "stroke_count": 8
+  },
+  {
+    "char": "都",
+    "reading": "도",
+    "meaning": "도읍",
+    "level": 5.0,
+    "radical": "邑",
+    "stroke_count": 9
+  },
+  {
+    "char": "島",
+    "reading": "도",
+    "meaning": "섬",
+    "level": 5.0,
+    "radical": "山",
+    "stroke_count": 7
+  },
+  {
+    "char": "落",
+    "reading": "락",
+    "meaning": "떨어질",
+    "level": 5.0,
+    "radical": "艸",
+    "stroke_count": 9
+  },
+  {
+    "char": "冷",
+    "reading": "랭",
+    "meaning": "찰",
+    "level": 5.0,
+    "radical": "冫",
+    "stroke_count": 5
+  },
+  {
+    "char": "量",
+    "reading": "량",
+    "meaning": "헤아릴",
+    "level": 5.0,
+    "radical": "里",
+    "stroke_count": 5
+  },
+  {
+    "char": "領",
+    "reading": "령",
+    "meaning": "거느릴",
+    "level": 5.0,
+    "radical": "頁",
+    "stroke_count": 5
+  },
+  {
+    "char": "令",
+    "reading": "령",
+    "meaning": "하여금",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "料",
+    "reading": "료",
+    "meaning": "헤아릴",
+    "level": 5.0,
+    "radical": "斗",
+    "stroke_count": 6
+  },
+  {
+    "char": "馬",
+    "reading": "마",
+    "meaning": "말",
+    "level": 5.0,
+    "radical": "馬",
+    "stroke_count": 0
+  },
+  {
+    "char": "末",
+    "reading": "말",
+    "meaning": "끝",
+    "level": 5.0,
+    "radical": "木",
+    "stroke_count": 1
+  },
+  {
+    "char": "亡",
+    "reading": "망",
+    "meaning": "망할",
+    "level": 5.0,
+    "radical": "亠",
+    "stroke_count": 1
+  },
+  {
+    "char": "買",
+    "reading": "매",
+    "meaning": "살",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 5
+  },
+  {
+    "char": "賣",
+    "reading": "매",
+    "meaning": "팔",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 8
+  },
+  {
+    "char": "無",
+    "reading": "무",
+    "meaning": "없을",
+    "level": 5.0,
+    "radical": "火",
+    "stroke_count": 8
+  },
+  {
+    "char": "倍",
+    "reading": "배",
+    "meaning": "곱",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 8
+  },
+  {
+    "char": "比",
+    "reading": "비",
+    "meaning": "견줄",
+    "level": 5.0,
+    "radical": "比",
+    "stroke_count": 0
+  },
+  {
+    "char": "費",
+    "reading": "비",
+    "meaning": "쓸",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 5
+  },
+  {
+    "char": "鼻",
+    "reading": "비",
+    "meaning": "코",
+    "level": 5.0,
+    "radical": "鼻",
+    "stroke_count": 0
+  },
+  {
+    "char": "氷",
+    "reading": "빙",
+    "meaning": "얼음",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 1
+  },
+  {
+    "char": "寫",
+    "reading": "사",
+    "meaning": "베낄",
+    "level": 5.0,
+    "radical": "宀",
+    "stroke_count": 12
+  },
+  {
+    "char": "思",
+    "reading": "사",
+    "meaning": "생각",
+    "level": 5.0,
+    "radical": "心",
+    "stroke_count": 5
+  },
+  {
+    "char": "査",
+    "reading": "사",
+    "meaning": "조사할",
+    "level": 5.0,
+    "radical": "木",
+    "stroke_count": 5
+  },
+  {
+    "char": "賞",
+    "reading": "상",
+    "meaning": "상줄",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 8
+  },
+  {
+    "char": "序",
+    "reading": "서",
+    "meaning": "차례",
+    "level": 5.0,
+    "radical": "广",
+    "stroke_count": 4
+  },
+  {
+    "char": "選",
+    "reading": "선",
+    "meaning": "가릴",
+    "level": 5.0,
+    "radical": "辵",
+    "stroke_count": 12
+  },
+  {
+    "char": "船",
+    "reading": "선",
+    "meaning": "배",
+    "level": 5.0,
+    "radical": "舟",
+    "stroke_count": 5
+  },
+  {
+    "char": "善",
+    "reading": "선",
+    "meaning": "착할",
+    "level": 5.0,
+    "radical": "口",
+    "stroke_count": 9
+  },
+  {
+    "char": "示",
+    "reading": "시",
+    "meaning": "보일",
+    "level": 5.0,
+    "radical": "示",
+    "stroke_count": 0
+  },
+  {
+    "char": "案",
+    "reading": "안",
+    "meaning": "책상",
+    "level": 5.0,
+    "radical": "木",
+    "stroke_count": 6
+  },
+  {
+    "char": "魚",
+    "reading": "어",
+    "meaning": "고기/물고기",
+    "level": 5.0,
+    "radical": "魚",
+    "stroke_count": 0
+  },
+  {
+    "char": "漁",
+    "reading": "어",
+    "meaning": "고기잡을",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 11
+  },
+  {
+    "char": "億",
+    "reading": "억",
+    "meaning": "억[數字]",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 13
+  },
+  {
+    "char": "熱",
+    "reading": "열",
+    "meaning": "더울",
+    "level": 5.0,
+    "radical": "火",
+    "stroke_count": 11
+  },
+  {
+    "char": "葉",
+    "reading": "엽",
+    "meaning": "잎",
+    "level": 5.0,
+    "radical": "艸",
+    "stroke_count": 9
+  },
+  {
+    "char": "屋",
+    "reading": "옥",
+    "meaning": "집",
+    "level": 5.0,
+    "radical": "尸",
+    "stroke_count": 6
+  },
+  {
+    "char": "完",
+    "reading": "완",
+    "meaning": "완전할",
+    "level": 5.0,
+    "radical": "宀",
+    "stroke_count": 4
+  },
+  {
+    "char": "曜",
+    "reading": "요",
+    "meaning": "빛날요:",
+    "level": 5.0,
+    "radical": "日",
+    "stroke_count": 14
+  },
+  {
+    "char": "浴",
+    "reading": "욕",
+    "meaning": "목욕할",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 7
+  },
+  {
+    "char": "牛",
+    "reading": "우",
+    "meaning": "소",
+    "level": 5.0,
+    "radical": "牛",
+    "stroke_count": 0
+  },
+  {
+    "char": "雄",
+    "reading": "웅",
+    "meaning": "수컷",
+    "level": 5.0,
+    "radical": "隹",
+    "stroke_count": 4
+  },
+  {
+    "char": "原",
+    "reading": "원",
+    "meaning": "언덕",
+    "level": 5.0,
+    "radical": "厂",
+    "stroke_count": 8
+  },
+  {
+    "char": "願",
+    "reading": "원",
+    "meaning": "원할",
+    "level": 5.0,
+    "radical": "頁",
+    "stroke_count": 10
+  },
+  {
+    "char": "院",
+    "reading": "원",
+    "meaning": "집",
+    "level": 5.0,
+    "radical": "阜",
+    "stroke_count": 7
+  },
+  {
+    "char": "位",
+    "reading": "위",
+    "meaning": "자리",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 5
+  },
+  {
+    "char": "耳",
+    "reading": "이",
+    "meaning": "귀",
+    "level": 5.0,
+    "radical": "耳",
+    "stroke_count": 0
+  },
+  {
+    "char": "因",
+    "reading": "인",
+    "meaning": "인할",
+    "level": 5.0,
+    "radical": "囗",
+    "stroke_count": 3
+  },
+  {
+    "char": "再",
+    "reading": "재",
+    "meaning": "두",
+    "level": 5.0,
+    "radical": "冂",
+    "stroke_count": 4
+  },
+  {
+    "char": "災",
+    "reading": "재",
+    "meaning": "재앙",
+    "level": 5.0,
+    "radical": "火",
+    "stroke_count": 3
+  },
+  {
+    "char": "爭",
+    "reading": "쟁",
+    "meaning": "다툴",
+    "level": 5.0,
+    "radical": "爪",
+    "stroke_count": 4
+  },
+  {
+    "char": "貯",
+    "reading": "저",
+    "meaning": "쌓을",
+    "level": 5.0,
+    "radical": "貝",
+    "stroke_count": 5
+  },
+  {
+    "char": "赤",
+    "reading": "적",
+    "meaning": "붉을",
+    "level": 5.0,
+    "radical": "赤",
+    "stroke_count": 0
+  },
+  {
+    "char": "停",
+    "reading": "정",
+    "meaning": "머무를",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 9
+  },
+  {
+    "char": "操",
+    "reading": "조",
+    "meaning": "잡을",
+    "level": 5.0,
+    "radical": "手",
+    "stroke_count": 13
+  },
+  {
+    "char": "終",
+    "reading": "종",
+    "meaning": "마칠",
+    "level": 5.0,
+    "radical": "糸",
+    "stroke_count": 5
+  },
+  {
+    "char": "罪",
+    "reading": "죄",
+    "meaning": "허물",
+    "level": 5.0,
+    "radical": "网",
+    "stroke_count": 8
+  },
+  {
+    "char": "止",
+    "reading": "지",
+    "meaning": "그칠",
+    "level": 5.0,
+    "radical": "止",
+    "stroke_count": 0
+  },
+  {
+    "char": "唱",
+    "reading": "창",
+    "meaning": "부를",
+    "level": 5.0,
+    "radical": "口",
+    "stroke_count": 8
+  },
+  {
+    "char": "鐵",
+    "reading": "철",
+    "meaning": "쇠",
+    "level": 5.0,
+    "radical": "金",
+    "stroke_count": 13
+  },
+  {
+    "char": "初",
+    "reading": "초",
+    "meaning": "처음",
+    "level": 5.0,
+    "radical": "刀",
+    "stroke_count": 5
+  },
+  {
+    "char": "最",
+    "reading": "최",
+    "meaning": "가장",
+    "level": 5.0,
+    "radical": "曰",
+    "stroke_count": 8
+  },
+  {
+    "char": "祝",
+    "reading": "축",
+    "meaning": "빌",
+    "level": 5.0,
+    "radical": "示",
+    "stroke_count": 5
+  },
+  {
+    "char": "致",
+    "reading": "치",
+    "meaning": "이를",
+    "level": 5.0,
+    "radical": "至",
+    "stroke_count": 4
+  },
+  {
+    "char": "則",
+    "reading": "칙",
+    "meaning": "법칙",
+    "level": 5.0,
+    "radical": "刀",
+    "stroke_count": 7
+  },
+  {
+    "char": "他",
+    "reading": "타",
+    "meaning": "다를",
+    "level": 5.0,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "打",
+    "reading": "타",
+    "meaning": "칠",
+    "level": 5.0,
+    "radical": "手",
+    "stroke_count": 2
+  },
+  {
+    "char": "卓",
+    "reading": "탁",
+    "meaning": "높을",
+    "level": 5.0,
+    "radical": "十",
+    "stroke_count": 6
+  },
+  {
+    "char": "炭",
+    "reading": "탄",
+    "meaning": "숯",
+    "level": 5.0,
+    "radical": "火",
+    "stroke_count": 5
+  },
+  {
+    "char": "板",
+    "reading": "판",
+    "meaning": "널",
+    "level": 5.0,
+    "radical": "木",
+    "stroke_count": 4
+  },
+  {
+    "char": "敗",
+    "reading": "패",
+    "meaning": "패할",
+    "level": 5.0,
+    "radical": "攴",
+    "stroke_count": 7
+  },
+  {
+    "char": "河",
+    "reading": "하",
+    "meaning": "물",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "寒",
+    "reading": "한",
+    "meaning": "찰",
+    "level": 5.0,
+    "radical": "宀",
+    "stroke_count": 9
+  },
+  {
+    "char": "許",
+    "reading": "허",
+    "meaning": "허락할",
+    "level": 5.0,
+    "radical": "言",
+    "stroke_count": 4
+  },
+  {
+    "char": "湖",
+    "reading": "호",
+    "meaning": "호수",
+    "level": 5.0,
+    "radical": "水",
+    "stroke_count": 9
+  },
+  {
+    "char": "患",
+    "reading": "환",
+    "meaning": "근심",
+    "level": 5.0,
+    "radical": "心",
+    "stroke_count": 7
+  },
+  {
+    "char": "黑",
+    "reading": "흑",
+    "meaning": "검을",
+    "level": 5.0,
+    "radical": "黑",
+    "stroke_count": 0
+  },
+  {
+    "char": "價",
+    "reading": "가",
+    "meaning": "값",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 13
+  },
+  {
+    "char": "客",
+    "reading": "객",
+    "meaning": "손",
+    "level": 5.5,
+    "radical": "宀",
+    "stroke_count": 6
+  },
+  {
+    "char": "格",
+    "reading": "격",
+    "meaning": "격식",
+    "level": 5.5,
+    "radical": "木",
+    "stroke_count": 6
+  },
+  {
+    "char": "見",
+    "reading": "견",
+    "meaning": "볼",
+    "level": 5.5,
+    "radical": "見",
+    "stroke_count": 0
+  },
+  {
+    "char": "決",
+    "reading": "결",
+    "meaning": "결단할",
+    "level": 5.5,
+    "radical": "水",
+    "stroke_count": 4
+  },
+  {
+    "char": "結",
+    "reading": "결",
+    "meaning": "맺을",
+    "level": 5.5,
+    "radical": "糸",
+    "stroke_count": 6
+  },
+  {
+    "char": "敬",
+    "reading": "경",
+    "meaning": "공경",
+    "level": 5.5,
+    "radical": "攴",
+    "stroke_count": 9
+  },
+  {
+    "char": "告",
+    "reading": "고",
+    "meaning": "고할",
+    "level": 5.5,
+    "radical": "口",
+    "stroke_count": 4
+  },
+  {
+    "char": "課",
+    "reading": "과",
+    "meaning": "공부할/과정",
+    "level": 5.5,
+    "radical": "言",
+    "stroke_count": 8
+  },
+  {
+    "char": "過",
+    "reading": "과",
+    "meaning": "지날",
+    "level": 5.5,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "關",
+    "reading": "관",
+    "meaning": "관계할",
+    "level": 5.5,
+    "radical": "門",
+    "stroke_count": 11
+  },
+  {
+    "char": "觀",
+    "reading": "관",
+    "meaning": "볼",
+    "level": 5.5,
+    "radical": "見",
+    "stroke_count": 18
+  },
+  {
+    "char": "廣",
+    "reading": "광",
+    "meaning": "넓을",
+    "level": 5.5,
+    "radical": "广",
+    "stroke_count": 12
+  },
+  {
+    "char": "具",
+    "reading": "구",
+    "meaning": "갖출",
+    "level": 5.5,
+    "radical": "八",
+    "stroke_count": 6
+  },
+  {
+    "char": "舊",
+    "reading": "구",
+    "meaning": "예",
+    "level": 5.5,
+    "radical": "臼",
+    "stroke_count": 12
+  },
+  {
+    "char": "局",
+    "reading": "국",
+    "meaning": "판[形局]",
+    "level": 5.5,
+    "radical": "尸",
+    "stroke_count": 4
+  },
+  {
+    "char": "己",
+    "reading": "기",
+    "meaning": "몸",
+    "level": 5.5,
+    "radical": "己",
+    "stroke_count": 0
+  },
+  {
+    "char": "基",
+    "reading": "기",
+    "meaning": "터",
+    "level": 5.5,
+    "radical": "土",
+    "stroke_count": 8
+  },
+  {
+    "char": "念",
+    "reading": "념",
+    "meaning": "생각",
+    "level": 5.5,
+    "radical": "心",
+    "stroke_count": 4
+  },
+  {
+    "char": "能",
+    "reading": "능",
+    "meaning": "능할",
+    "level": 5.5,
+    "radical": "肉",
+    "stroke_count": 6
+  },
+  {
+    "char": "團",
+    "reading": "단",
+    "meaning": "둥글",
+    "level": 5.5,
+    "radical": "囗",
+    "stroke_count": 11
+  },
+  {
+    "char": "當",
+    "reading": "당",
+    "meaning": "마땅",
+    "level": 5.5,
+    "radical": "田",
+    "stroke_count": 8
+  },
+  {
+    "char": "德",
+    "reading": "덕",
+    "meaning": "큰",
+    "level": 5.5,
+    "radical": "彳",
+    "stroke_count": 12
+  },
+  {
+    "char": "到",
+    "reading": "도",
+    "meaning": "이를",
+    "level": 5.5,
+    "radical": "刀",
+    "stroke_count": 6
+  },
+  {
+    "char": "獨",
+    "reading": "독",
+    "meaning": "홀로",
+    "level": 5.5,
+    "radical": "犬",
+    "stroke_count": 13
+  },
+  {
+    "char": "朗",
+    "reading": "랑",
+    "meaning": "밝을",
+    "level": 5.5,
+    "radical": "月",
+    "stroke_count": 7
+  },
+  {
+    "char": "良",
+    "reading": "량",
+    "meaning": "어질",
+    "level": 5.5,
+    "radical": "艮",
+    "stroke_count": 1
+  },
+  {
+    "char": "旅",
+    "reading": "려",
+    "meaning": "나그네",
+    "level": 5.5,
+    "radical": "方",
+    "stroke_count": 6
+  },
+  {
+    "char": "歷",
+    "reading": "력",
+    "meaning": "지날",
+    "level": 5.5,
+    "radical": "止",
+    "stroke_count": 12
+  },
+  {
+    "char": "練",
+    "reading": "련",
+    "meaning": "익힐",
+    "level": 5.5,
+    "radical": "糸",
+    "stroke_count": 9
+  },
+  {
+    "char": "勞",
+    "reading": "로",
+    "meaning": "일할",
+    "level": 5.5,
+    "radical": "力",
+    "stroke_count": 10
+  },
+  {
+    "char": "類",
+    "reading": "류",
+    "meaning": "무리",
+    "level": 5.5,
+    "radical": "頁",
+    "stroke_count": 10
+  },
+  {
+    "char": "流",
+    "reading": "류",
+    "meaning": "흐를",
+    "level": 5.5,
+    "radical": "水",
+    "stroke_count": 7
+  },
+  {
+    "char": "陸",
+    "reading": "륙",
+    "meaning": "뭍",
+    "level": 5.5,
+    "radical": "阜",
+    "stroke_count": 8
+  },
+  {
+    "char": "望",
+    "reading": "망",
+    "meaning": "바랄",
+    "level": 5.5,
+    "radical": "月",
+    "stroke_count": 7
+  },
+  {
+    "char": "法",
+    "reading": "법",
+    "meaning": "법",
+    "level": 5.5,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "變",
+    "reading": "변",
+    "meaning": "변할",
+    "level": 5.5,
+    "radical": "言",
+    "stroke_count": 16
+  },
+  {
+    "char": "兵",
+    "reading": "병",
+    "meaning": "병사",
+    "level": 5.5,
+    "radical": "八",
+    "stroke_count": 5
+  },
+  {
+    "char": "福",
+    "reading": "복",
+    "meaning": "복",
+    "level": 5.5,
+    "radical": "示",
+    "stroke_count": 9
+  },
+  {
+    "char": "奉",
+    "reading": "봉",
+    "meaning": "받들",
+    "level": 5.5,
+    "radical": "大",
+    "stroke_count": 5
+  },
+  {
+    "char": "史",
+    "reading": "사",
+    "meaning": "사기(史記)",
+    "level": 5.5,
+    "radical": "口",
+    "stroke_count": 2
+  },
+  {
+    "char": "士",
+    "reading": "사",
+    "meaning": "선비",
+    "level": 5.5,
+    "radical": "士",
+    "stroke_count": 0
+  },
+  {
+    "char": "仕",
+    "reading": "사",
+    "meaning": "섬길",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "産",
+    "reading": "산",
+    "meaning": "낳을",
+    "level": 5.5,
+    "radical": "生",
+    "stroke_count": 6
+  },
+  {
+    "char": "相",
+    "reading": "상",
+    "meaning": "서로",
+    "level": 5.5,
+    "radical": "目",
+    "stroke_count": 4
+  },
+  {
+    "char": "商",
+    "reading": "상",
+    "meaning": "장사",
+    "level": 5.5,
+    "radical": "口",
+    "stroke_count": 8
+  },
+  {
+    "char": "鮮",
+    "reading": "선",
+    "meaning": "고울",
+    "level": 5.5,
+    "radical": "魚",
+    "stroke_count": 6
+  },
+  {
+    "char": "仙",
+    "reading": "선",
+    "meaning": "신선",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "說",
+    "reading": "설",
+    "meaning": "말씀",
+    "level": 5.5,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "性",
+    "reading": "성",
+    "meaning": "성품",
+    "level": 5.5,
+    "radical": "心",
+    "stroke_count": 5
+  },
+  {
+    "char": "洗",
+    "reading": "세",
+    "meaning": "씻을",
+    "level": 5.5,
+    "radical": "水",
+    "stroke_count": 6
+  },
+  {
+    "char": "歲",
+    "reading": "세",
+    "meaning": "해",
+    "level": 5.5,
+    "radical": "止",
+    "stroke_count": 9
+  },
+  {
+    "char": "束",
+    "reading": "속",
+    "meaning": "묶을",
+    "level": 5.5,
+    "radical": "木",
+    "stroke_count": 3
+  },
+  {
+    "char": "首",
+    "reading": "수",
+    "meaning": "머리",
+    "level": 5.5,
+    "radical": "首",
+    "stroke_count": 0
+  },
+  {
+    "char": "宿",
+    "reading": "숙",
+    "meaning": "잘",
+    "level": 5.5,
+    "radical": "宀",
+    "stroke_count": 8
+  },
+  {
+    "char": "順",
+    "reading": "순",
+    "meaning": "순할",
+    "level": 5.5,
+    "radical": "頁",
+    "stroke_count": 3
+  },
+  {
+    "char": "識",
+    "reading": "식",
+    "meaning": "알",
+    "level": 5.5,
+    "radical": "言",
+    "stroke_count": 12
+  },
+  {
+    "char": "臣",
+    "reading": "신",
+    "meaning": "신하",
+    "level": 5.5,
+    "radical": "臣",
+    "stroke_count": 0
+  },
+  {
+    "char": "實",
+    "reading": "실",
+    "meaning": "열매",
+    "level": 5.5,
+    "radical": "宀",
+    "stroke_count": 11
+  },
+  {
+    "char": "兒",
+    "reading": "아",
+    "meaning": "아이",
+    "level": 5.5,
+    "radical": "儿",
+    "stroke_count": 6
+  },
+  {
+    "char": "惡",
+    "reading": "악",
+    "meaning": "악할",
+    "level": 5.5,
+    "radical": "心",
+    "stroke_count": 8
+  },
+  {
+    "char": "約",
+    "reading": "약",
+    "meaning": "맺을",
+    "level": 5.5,
+    "radical": "糸",
+    "stroke_count": 3
+  },
+  {
+    "char": "養",
+    "reading": "양",
+    "meaning": "기를",
+    "level": 5.5,
+    "radical": "食",
+    "stroke_count": 6
+  },
+  {
+    "char": "要",
+    "reading": "요",
+    "meaning": "요긴할",
+    "level": 5.5,
+    "radical": "襾",
+    "stroke_count": 3
+  },
+  {
+    "char": "友",
+    "reading": "우",
+    "meaning": "벗",
+    "level": 5.5,
+    "radical": "又",
+    "stroke_count": 2
+  },
+  {
+    "char": "雨",
+    "reading": "우",
+    "meaning": "비",
+    "level": 5.5,
+    "radical": "雨",
+    "stroke_count": 0
+  },
+  {
+    "char": "雲",
+    "reading": "운",
+    "meaning": "구름",
+    "level": 5.5,
+    "radical": "雨",
+    "stroke_count": 4
+  },
+  {
+    "char": "元",
+    "reading": "원",
+    "meaning": "으뜸",
+    "level": 5.5,
+    "radical": "儿",
+    "stroke_count": 2
+  },
+  {
+    "char": "偉",
+    "reading": "위",
+    "meaning": "클",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 9
+  },
+  {
+    "char": "以",
+    "reading": "이",
+    "meaning": "써",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "任",
+    "reading": "임",
+    "meaning": "맡길",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 4
+  },
+  {
+    "char": "材",
+    "reading": "재",
+    "meaning": "재목",
+    "level": 5.5,
+    "radical": "木",
+    "stroke_count": 3
+  },
+  {
+    "char": "財",
+    "reading": "재",
+    "meaning": "재물",
+    "level": 5.5,
+    "radical": "貝",
+    "stroke_count": 3
+  },
+  {
+    "char": "的",
+    "reading": "적",
+    "meaning": "과녁",
+    "level": 5.5,
+    "radical": "白",
+    "stroke_count": 3
+  },
+  {
+    "char": "典",
+    "reading": "전",
+    "meaning": "법",
+    "level": 5.5,
+    "radical": "八",
+    "stroke_count": 6
+  },
+  {
+    "char": "傳",
+    "reading": "전",
+    "meaning": "전할",
+    "level": 5.5,
+    "radical": "人",
+    "stroke_count": 11
+  },
+  {
+    "char": "展",
+    "reading": "전",
+    "meaning": "펼",
+    "level": 5.5,
+    "radical": "尸",
+    "stroke_count": 7
+  },
+  {
+    "char": "切",
+    "reading": "절",
+    "meaning": "끊을",
+    "level": 5.5,
+    "radical": "刀",
+    "stroke_count": 2
+  },
+  {
+    "char": "節",
+    "reading": "절",
+    "meaning": "마디",
+    "level": 5.5,
+    "radical": "竹",
+    "stroke_count": 9
+  },
+  {
+    "char": "店",
+    "reading": "점",
+    "meaning": "가게",
+    "level": 5.5,
+    "radical": "广",
+    "stroke_count": 5
+  },
+  {
+    "char": "情",
+    "reading": "정",
+    "meaning": "뜻",
+    "level": 5.5,
+    "radical": "心",
+    "stroke_count": 8
+  },
+  {
+    "char": "調",
+    "reading": "조",
+    "meaning": "고를",
+    "level": 5.5,
+    "radical": "言",
+    "stroke_count": 8
+  },
+  {
+    "char": "卒",
+    "reading": "졸",
+    "meaning": "마칠",
+    "level": 5.5,
+    "radical": "十",
+    "stroke_count": 6
+  },
+  {
+    "char": "種",
+    "reading": "종",
+    "meaning": "씨",
+    "level": 5.5,
+    "radical": "禾",
+    "stroke_count": 9
+  },
+  {
+    "char": "州",
+    "reading": "주",
+    "meaning": "고을",
+    "level": 5.5,
+    "radical": "巛",
+    "stroke_count": 3
+  },
+  {
+    "char": "週",
+    "reading": "주",
+    "meaning": "주일",
+    "level": 5.5,
+    "radical": "辵",
+    "stroke_count": 8
+  },
+  {
+    "char": "知",
+    "reading": "지",
+    "meaning": "알",
+    "level": 5.5,
+    "radical": "矢",
+    "stroke_count": 3
+  },
+  {
+    "char": "質",
+    "reading": "질",
+    "meaning": "바탕",
+    "level": 5.5,
+    "radical": "貝",
+    "stroke_count": 8
+  },
+  {
+    "char": "着",
+    "reading": "착",
+    "meaning": "붙을",
+    "level": 5.5,
+    "radical": "目",
+    "stroke_count": 7
+  },
+  {
+    "char": "參",
+    "reading": "참",
+    "meaning": "참여할",
+    "level": 5.5,
+    "radical": "厶",
+    "stroke_count": 9
+  },
+  {
+    "char": "責",
+    "reading": "책",
+    "meaning": "꾸짖을",
+    "level": 5.5,
+    "radical": "貝",
+    "stroke_count": 4
+  },
+  {
+    "char": "充",
+    "reading": "충",
+    "meaning": "채울",
+    "level": 5.5,
+    "radical": "儿",
+    "stroke_count": 4
+  },
+  {
+    "char": "宅",
+    "reading": "택",
+    "meaning": "집",
+    "level": 5.5,
+    "radical": "宀",
+    "stroke_count": 3
+  },
+  {
+    "char": "品",
+    "reading": "품",
+    "meaning": "물건",
+    "level": 5.5,
+    "radical": "口",
+    "stroke_count": 6
+  },
+  {
+    "char": "必",
+    "reading": "필",
+    "meaning": "반드시",
+    "level": 5.5,
+    "radical": "心",
+    "stroke_count": 1
+  },
+  {
+    "char": "筆",
+    "reading": "필",
+    "meaning": "붓",
+    "level": 5.5,
+    "radical": "竹",
+    "stroke_count": 6
+  },
+  {
+    "char": "害",
+    "reading": "해",
+    "meaning": "해할",
+    "level": 5.5,
+    "radical": "宀",
+    "stroke_count": 7
+  },
+  {
+    "char": "化",
+    "reading": "화",
+    "meaning": "될",
+    "level": 5.5,
+    "radical": "匕",
+    "stroke_count": 2
+  },
+  {
+    "char": "效",
+    "reading": "효",
+    "meaning": "본받을",
+    "level": 5.5,
+    "radical": "攴",
+    "stroke_count": 6
+  },
+  {
+    "char": "凶",
+    "reading": "흉",
+    "meaning": "흉할",
+    "level": 5.5,
+    "radical": "凵",
+    "stroke_count": 2
+  },
+  {
+    "char": "感",
+    "reading": "감",
+    "meaning": "느낄",
+    "level": 6.0,
+    "radical": "心",
+    "stroke_count": 9
+  },
+  {
+    "char": "強",
+    "reading": "강",
+    "meaning": "강할",
+    "level": 6.0,
+    "radical": "弓",
+    "stroke_count": 8
+  },
+  {
+    "char": "開",
+    "reading": "개",
+    "meaning": "열",
+    "level": 6.0,
+    "radical": "門",
+    "stroke_count": 4
+  },
+  {
+    "char": "京",
+    "reading": "경",
+    "meaning": "서울",
+    "level": 6.0,
+    "radical": "亠",
+    "stroke_count": 6
+  },
+  {
+    "char": "苦",
+    "reading": "고",
+    "meaning": "쓸[味覺]",
+    "level": 6.0,
+    "radical": "艸",
+    "stroke_count": 5
+  },
+  {
+    "char": "古",
+    "reading": "고",
+    "meaning": "예",
+    "level": 6.0,
+    "radical": "口",
+    "stroke_count": 2
+  },
+  {
+    "char": "交",
+    "reading": "교",
+    "meaning": "사귈",
+    "level": 6.0,
+    "radical": "亠",
+    "stroke_count": 4
+  },
+  {
+    "char": "區",
+    "reading": "구",
+    "meaning": "구분할/지경",
+    "level": 6.0,
+    "radical": "匸",
+    "stroke_count": 9
+  },
+  {
+    "char": "郡",
+    "reading": "군",
+    "meaning": "고을",
+    "level": 6.0,
+    "radical": "邑",
+    "stroke_count": 7
+  },
+  {
+    "char": "近",
+    "reading": "근",
+    "meaning": "가까울",
+    "level": 6.0,
+    "radical": "辵",
+    "stroke_count": 4
+  },
+  {
+    "char": "根",
+    "reading": "근",
+    "meaning": "뿌리",
+    "level": 6.0,
+    "radical": "木",
+    "stroke_count": 6
+  },
+  {
+    "char": "級",
+    "reading": "급",
+    "meaning": "등급",
+    "level": 6.0,
+    "radical": "糸",
+    "stroke_count": 4
+  },
+  {
+    "char": "多",
+    "reading": "다",
+    "meaning": "많을",
+    "level": 6.0,
+    "radical": "夕",
+    "stroke_count": 3
+  },
+  {
+    "char": "待",
+    "reading": "대",
+    "meaning": "기다릴",
+    "level": 6.0,
+    "radical": "彳",
+    "stroke_count": 6
+  },
+  {
+    "char": "度",
+    "reading": "도",
+    "meaning": "법도",
+    "level": 6.0,
+    "radical": "广",
+    "stroke_count": 6
+  },
+  {
+    "char": "頭",
+    "reading": "두",
+    "meaning": "머리",
+    "level": 6.0,
+    "radical": "頁",
+    "stroke_count": 7
+  },
+  {
+    "char": "例",
+    "reading": "례",
+    "meaning": "법식",
+    "level": 6.0,
+    "radical": "人",
+    "stroke_count": 6
+  },
+  {
+    "char": "禮",
+    "reading": "례",
+    "meaning": "예도",
+    "level": 6.0,
+    "radical": "示",
+    "stroke_count": 13
+  },
+  {
+    "char": "路",
+    "reading": "로",
+    "meaning": "길",
+    "level": 6.0,
+    "radical": "足",
+    "stroke_count": 6
+  },
+  {
+    "char": "綠",
+    "reading": "록",
+    "meaning": "푸를",
+    "level": 6.0,
+    "radical": "糸",
+    "stroke_count": 8
+  },
+  {
+    "char": "李",
+    "reading": "리",
+    "meaning": "오얏/성(姓)",
+    "level": 6.0,
+    "radical": "木",
+    "stroke_count": 3
+  },
+  {
+    "char": "目",
+    "reading": "목",
+    "meaning": "눈",
+    "level": 6.0,
+    "radical": "目",
+    "stroke_count": 0
+  },
+  {
+    "char": "米",
+    "reading": "미",
+    "meaning": "쌀",
+    "level": 6.0,
+    "radical": "米",
+    "stroke_count": 0
+  },
+  {
+    "char": "美",
+    "reading": "미",
+    "meaning": "아름다울",
+    "level": 6.0,
+    "radical": "羊",
+    "stroke_count": 3
+  },
+  {
+    "char": "朴",
+    "reading": "박",
+    "meaning": "성(姓)",
+    "level": 6.0,
+    "radical": "木",
+    "stroke_count": 2
+  },
+  {
+    "char": "番",
+    "reading": "번",
+    "meaning": "차례",
+    "level": 6.0,
+    "radical": "田",
+    "stroke_count": 7
+  },
+  {
+    "char": "別",
+    "reading": "별",
+    "meaning": "다를/나눌",
+    "level": 6.0,
+    "radical": "刀",
+    "stroke_count": 5
+  },
+  {
+    "char": "病",
+    "reading": "병",
+    "meaning": "병",
+    "level": 6.0,
+    "radical": "疒",
+    "stroke_count": 5
+  },
+  {
+    "char": "服",
+    "reading": "복",
+    "meaning": "옷",
+    "level": 6.0,
+    "radical": "月",
+    "stroke_count": 4
+  },
+  {
+    "char": "本",
+    "reading": "본",
+    "meaning": "근본",
+    "level": 6.0,
+    "radical": "木",
+    "stroke_count": 1
+  },
+  {
+    "char": "死",
+    "reading": "사",
+    "meaning": "죽을",
+    "level": 6.0,
+    "radical": "歹",
+    "stroke_count": 2
+  },
+  {
+    "char": "使",
+    "reading": "사",
+    "meaning": "하여금/부릴",
+    "level": 6.0,
+    "radical": "人",
+    "stroke_count": 6
+  },
+  {
+    "char": "石",
+    "reading": "석",
+    "meaning": "돌",
+    "level": 6.0,
+    "radical": "石",
+    "stroke_count": 0
+  },
+  {
+    "char": "席",
+    "reading": "석",
+    "meaning": "자리",
+    "level": 6.0,
+    "radical": "巾",
+    "stroke_count": 7
+  },
+  {
+    "char": "速",
+    "reading": "속",
+    "meaning": "빠를",
+    "level": 6.0,
+    "radical": "辵",
+    "stroke_count": 7
+  },
+  {
+    "char": "孫",
+    "reading": "손",
+    "meaning": "손자",
+    "level": 6.0,
+    "radical": "子",
+    "stroke_count": 7
+  },
+  {
+    "char": "樹",
+    "reading": "수",
+    "meaning": "나무",
+    "level": 6.0,
+    "radical": "木",
+    "stroke_count": 12
+  },
+  {
+    "char": "習",
+    "reading": "습",
+    "meaning": "익힐",
+    "level": 6.0,
+    "radical": "羽",
+    "stroke_count": 5
+  },
+  {
+    "char": "勝",
+    "reading": "승",
+    "meaning": "이길",
+    "level": 6.0,
+    "radical": "力",
+    "stroke_count": 10
+  },
+  {
+    "char": "式",
+    "reading": "식",
+    "meaning": "법",
+    "level": 6.0,
+    "radical": "弋",
+    "stroke_count": 3
+  },
+  {
+    "char": "失",
+    "reading": "실",
+    "meaning": "잃을",
+    "level": 6.0,
+    "radical": "大",
+    "stroke_count": 2
+  },
+  {
+    "char": "愛",
+    "reading": "애",
+    "meaning": "사랑",
+    "level": 6.0,
+    "radical": "心",
+    "stroke_count": 9
+  },
+  {
+    "char": "野",
+    "reading": "야",
+    "meaning": "들[坪]",
+    "level": 6.0,
+    "radical": "里",
+    "stroke_count": 4
+  },
+  {
+    "char": "夜",
+    "reading": "야",
+    "meaning": "밤",
+    "level": 6.0,
+    "radical": "夕",
+    "stroke_count": 5
+  },
+  {
+    "char": "陽",
+    "reading": "양",
+    "meaning": "볕",
+    "level": 6.0,
+    "radical": "阜",
+    "stroke_count": 9
+  },
+  {
+    "char": "洋",
+    "reading": "양",
+    "meaning": "큰바다",
+    "level": 6.0,
+    "radical": "水",
+    "stroke_count": 6
+  },
+  {
+    "char": "言",
+    "reading": "언",
+    "meaning": "말씀",
+    "level": 6.0,
+    "radical": "言",
+    "stroke_count": 0
+  },
+  {
+    "char": "永",
+    "reading": "영",
+    "meaning": "길",
+    "level": 6.0,
+    "radical": "水",
+    "stroke_count": 1
+  },
+  {
+    "char": "英",
+    "reading": "영",
+    "meaning": "꽃부리",
+    "level": 6.0,
+    "radical": "艸",
+    "stroke_count": 5
+  },
+  {
+    "char": "溫",
+    "reading": "온",
+    "meaning": "따뜻할",
+    "level": 6.0,
+    "radical": "水",
+    "stroke_count": 10
+  },
+  {
+    "char": "園",
+    "reading": "원",
+    "meaning": "동산",
+    "level": 6.0,
+    "radical": "囗",
+    "stroke_count": 10
+  },
+  {
+    "char": "遠",
+    "reading": "원",
+    "meaning": "멀",
+    "level": 6.0,
+    "radical": "辵",
+    "stroke_count": 10
+  },
+  {
+    "char": "油",
+    "reading": "유",
+    "meaning": "기름",
+    "level": 6.0,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "由",
+    "reading": "유",
+    "meaning": "말미암을",
+    "level": 6.0,
+    "radical": "田",
+    "stroke_count": 0
+  },
+  {
+    "char": "銀",
+    "reading": "은",
+    "meaning": "은",
+    "level": 6.0,
+    "radical": "金",
+    "stroke_count": 6
+  },
+  {
+    "char": "衣",
+    "reading": "의",
+    "meaning": "옷",
+    "level": 6.0,
+    "radical": "衣",
+    "stroke_count": 0
+  },
+  {
+    "char": "醫",
+    "reading": "의",
+    "meaning": "의원",
+    "level": 6.0,
+    "radical": "酉",
+    "stroke_count": 11
+  },
+  {
+    "char": "者",
+    "reading": "자",
+    "meaning": "놈",
+    "level": 6.0,
+    "radical": "老",
+    "stroke_count": 5
+  },
+  {
+    "char": "章",
+    "reading": "장",
+    "meaning": "글",
+    "level": 6.0,
+    "radical": "立",
+    "stroke_count": 6
+  },
+  {
+    "char": "在",
+    "reading": "재",
+    "meaning": "있을",
+    "level": 6.0,
+    "radical": "土",
+    "stroke_count": 3
+  },
+  {
+    "char": "定",
+    "reading": "정",
+    "meaning": "정할",
+    "level": 6.0,
+    "radical": "宀",
+    "stroke_count": 5
+  },
+  {
+    "char": "朝",
+    "reading": "조",
+    "meaning": "아침",
+    "level": 6.0,
+    "radical": "月",
+    "stroke_count": 8
+  },
+  {
+    "char": "族",
+    "reading": "족",
+    "meaning": "겨레",
+    "level": 6.0,
+    "radical": "方",
+    "stroke_count": 7
+  },
+  {
+    "char": "晝",
+    "reading": "주",
+    "meaning": "낮",
+    "level": 6.0,
+    "radical": "日",
+    "stroke_count": 7
+  },
+  {
+    "char": "親",
+    "reading": "친",
+    "meaning": "친할",
+    "level": 6.0,
+    "radical": "見",
+    "stroke_count": 9
+  },
+  {
+    "char": "太",
+    "reading": "태",
+    "meaning": "클",
+    "level": 6.0,
+    "radical": "大",
+    "stroke_count": 1
+  },
+  {
+    "char": "通",
+    "reading": "통",
+    "meaning": "통할",
+    "level": 6.0,
+    "radical": "辵",
+    "stroke_count": 7
+  },
+  {
+    "char": "特",
+    "reading": "특",
+    "meaning": "특별할",
+    "level": 6.0,
+    "radical": "牛",
+    "stroke_count": 6
+  },
+  {
+    "char": "合",
+    "reading": "합",
+    "meaning": "합할",
+    "level": 6.0,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "行",
+    "reading": "행",
+    "meaning": "다닐",
+    "level": 6.0,
+    "radical": "行",
+    "stroke_count": 0
+  },
+  {
+    "char": "向",
+    "reading": "향",
+    "meaning": "향할",
+    "level": 6.0,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "號",
+    "reading": "호",
+    "meaning": "이름",
+    "level": 6.0,
+    "radical": "虍",
+    "stroke_count": 7
+  },
+  {
+    "char": "畫",
+    "reading": "화",
+    "meaning": "그림",
+    "level": 6.0,
+    "radical": "田",
+    "stroke_count": 7
+  },
+  {
+    "char": "黃",
+    "reading": "황",
+    "meaning": "누를",
+    "level": 6.0,
+    "radical": "黃",
+    "stroke_count": 0
+  },
+  {
+    "char": "訓",
+    "reading": "훈",
+    "meaning": "가르칠",
+    "level": 6.0,
+    "radical": "言",
+    "stroke_count": 3
+  },
+  {
+    "char": "各",
+    "reading": "각",
+    "meaning": "각각",
+    "level": 6.5,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "角",
+    "reading": "각",
+    "meaning": "뿔",
+    "level": 6.5,
+    "radical": "角",
+    "stroke_count": 0
+  },
+  {
+    "char": "計",
+    "reading": "계",
+    "meaning": "셀",
+    "level": 6.5,
+    "radical": "言",
+    "stroke_count": 2
+  },
+  {
+    "char": "界",
+    "reading": "계",
+    "meaning": "지경",
+    "level": 6.5,
+    "radical": "田",
+    "stroke_count": 4
+  },
+  {
+    "char": "高",
+    "reading": "고",
+    "meaning": "높을",
+    "level": 6.5,
+    "radical": "高",
+    "stroke_count": 0
+  },
+  {
+    "char": "功",
+    "reading": "공",
+    "meaning": "공[勳]",
+    "level": 6.5,
+    "radical": "力",
+    "stroke_count": 3
+  },
+  {
+    "char": "公",
+    "reading": "공",
+    "meaning": "공평할",
+    "level": 6.5,
+    "radical": "八",
+    "stroke_count": 2
+  },
+  {
+    "char": "共",
+    "reading": "공",
+    "meaning": "한가지",
+    "level": 6.5,
+    "radical": "八",
+    "stroke_count": 4
+  },
+  {
+    "char": "科",
+    "reading": "과",
+    "meaning": "과목",
+    "level": 6.5,
+    "radical": "禾",
+    "stroke_count": 4
+  },
+  {
+    "char": "果",
+    "reading": "과",
+    "meaning": "실과",
+    "level": 6.5,
+    "radical": "木",
+    "stroke_count": 4
+  },
+  {
+    "char": "光",
+    "reading": "광",
+    "meaning": "빛",
+    "level": 6.5,
+    "radical": "儿",
+    "stroke_count": 4
+  },
+  {
+    "char": "球",
+    "reading": "구",
+    "meaning": "공",
+    "level": 6.5,
+    "radical": "玉",
+    "stroke_count": 7
+  },
+  {
+    "char": "今",
+    "reading": "금",
+    "meaning": "이제",
+    "level": 6.5,
+    "radical": "人",
+    "stroke_count": 2
+  },
+  {
+    "char": "急",
+    "reading": "급",
+    "meaning": "급할",
+    "level": 6.5,
+    "radical": "心",
+    "stroke_count": 5
+  },
+  {
+    "char": "短",
+    "reading": "단",
+    "meaning": "짧을",
+    "level": 6.5,
+    "radical": "矢",
+    "stroke_count": 7
+  },
+  {
+    "char": "堂",
+    "reading": "당",
+    "meaning": "집",
+    "level": 6.5,
+    "radical": "土",
+    "stroke_count": 8
+  },
+  {
+    "char": "代",
+    "reading": "대",
+    "meaning": "대신할",
+    "level": 6.5,
+    "radical": "人",
+    "stroke_count": 3
+  },
+  {
+    "char": "對",
+    "reading": "대",
+    "meaning": "대할",
+    "level": 6.5,
+    "radical": "寸",
+    "stroke_count": 11
+  },
+  {
+    "char": "圖",
+    "reading": "도",
+    "meaning": "그림",
+    "level": 6.5,
+    "radical": "囗",
+    "stroke_count": 11
+  },
+  {
+    "char": "讀",
+    "reading": "독",
+    "meaning": "읽을",
+    "level": 6.5,
+    "radical": "言",
+    "stroke_count": 15
+  },
+  {
+    "char": "童",
+    "reading": "동",
+    "meaning": "아이",
+    "level": 6.5,
+    "radical": "立",
+    "stroke_count": 7
+  },
+  {
+    "char": "等",
+    "reading": "등",
+    "meaning": "무리",
+    "level": 6.5,
+    "radical": "竹",
+    "stroke_count": 6
+  },
+  {
+    "char": "樂",
+    "reading": "락",
+    "meaning": "즐길",
+    "level": 6.5,
+    "radical": "木",
+    "stroke_count": 11
+  },
+  {
+    "char": "理",
+    "reading": "리",
+    "meaning": "다스릴",
+    "level": 6.5,
+    "radical": "玉",
+    "stroke_count": 7
+  },
+  {
+    "char": "利",
+    "reading": "리",
+    "meaning": "이할",
+    "level": 6.5,
+    "radical": "刀",
+    "stroke_count": 5
+  },
+  {
+    "char": "明",
+    "reading": "명",
+    "meaning": "밝을",
+    "level": 6.5,
+    "radical": "日",
+    "stroke_count": 4
+  },
+  {
+    "char": "聞",
+    "reading": "문",
+    "meaning": "들을",
+    "level": 6.5,
+    "radical": "耳",
+    "stroke_count": 8
+  },
+  {
+    "char": "班",
+    "reading": "반",
+    "meaning": "나눌",
+    "level": 6.5,
+    "radical": "玉",
+    "stroke_count": 6
+  },
+  {
+    "char": "反",
+    "reading": "반",
+    "meaning": "돌이킬/돌아올",
+    "level": 6.5,
+    "radical": "又",
+    "stroke_count": 2
+  },
+  {
+    "char": "半",
+    "reading": "반",
+    "meaning": "반(半)",
+    "level": 6.5,
+    "radical": "十",
+    "stroke_count": 3
+  },
+  {
+    "char": "發",
+    "reading": "발",
+    "meaning": "필",
+    "level": 6.5,
+    "radical": "癶",
+    "stroke_count": 7
+  },
+  {
+    "char": "放",
+    "reading": "방",
+    "meaning": "놓을",
+    "level": 6.5,
+    "radical": "攴",
+    "stroke_count": 4
+  },
+  {
+    "char": "部",
+    "reading": "부",
+    "meaning": "떼",
+    "level": 6.5,
+    "radical": "邑",
+    "stroke_count": 8
+  },
+  {
+    "char": "分",
+    "reading": "분",
+    "meaning": "나눌",
+    "level": 6.5,
+    "radical": "刀",
+    "stroke_count": 2
+  },
+  {
+    "char": "社",
+    "reading": "사",
+    "meaning": "모일",
+    "level": 6.5,
+    "radical": "示",
+    "stroke_count": 3
+  },
+  {
+    "char": "書",
+    "reading": "서",
+    "meaning": "글",
+    "level": 6.5,
+    "radical": "曰",
+    "stroke_count": 6
+  },
+  {
+    "char": "線",
+    "reading": "선",
+    "meaning": "줄",
+    "level": 6.5,
+    "radical": "糸",
+    "stroke_count": 9
+  },
+  {
+    "char": "雪",
+    "reading": "설",
+    "meaning": "눈",
+    "level": 6.5,
+    "radical": "雨",
+    "stroke_count": 3
+  },
+  {
+    "char": "省",
+    "reading": "성",
+    "meaning": "살필",
+    "level": 6.5,
+    "radical": "目",
+    "stroke_count": 4
+  },
+  {
+    "char": "成",
+    "reading": "성",
+    "meaning": "이룰",
+    "level": 6.5,
+    "radical": "戈",
+    "stroke_count": 3
+  },
+  {
+    "char": "消",
+    "reading": "소",
+    "meaning": "사라질",
+    "level": 6.5,
+    "radical": "水",
+    "stroke_count": 7
+  },
+  {
+    "char": "術",
+    "reading": "술",
+    "meaning": "재주",
+    "level": 6.5,
+    "radical": "行",
+    "stroke_count": 5
+  },
+  {
+    "char": "始",
+    "reading": "시",
+    "meaning": "비로소",
+    "level": 6.5,
+    "radical": "女",
+    "stroke_count": 5
+  },
+  {
+    "char": "神",
+    "reading": "신",
+    "meaning": "귀신",
+    "level": 6.5,
+    "radical": "示",
+    "stroke_count": 5
+  },
+  {
+    "char": "身",
+    "reading": "신",
+    "meaning": "몸",
+    "level": 6.5,
+    "radical": "身",
+    "stroke_count": 0
+  },
+  {
+    "char": "信",
+    "reading": "신",
+    "meaning": "믿을",
+    "level": 6.5,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "新",
+    "reading": "신",
+    "meaning": "새",
+    "level": 6.5,
+    "radical": "斤",
+    "stroke_count": 9
+  },
+  {
+    "char": "藥",
+    "reading": "약",
+    "meaning": "약",
+    "level": 6.5,
+    "radical": "艸",
+    "stroke_count": 15
+  },
+  {
+    "char": "弱",
+    "reading": "약",
+    "meaning": "약할",
+    "level": 6.5,
+    "radical": "弓",
+    "stroke_count": 7
+  },
+  {
+    "char": "業",
+    "reading": "업",
+    "meaning": "업",
+    "level": 6.5,
+    "radical": "木",
+    "stroke_count": 9
+  },
+  {
+    "char": "勇",
+    "reading": "용",
+    "meaning": "날랠",
+    "level": 6.5,
+    "radical": "力",
+    "stroke_count": 7
+  },
+  {
+    "char": "用",
+    "reading": "용",
+    "meaning": "쓸",
+    "level": 6.5,
+    "radical": "用",
+    "stroke_count": 0
+  },
+  {
+    "char": "運",
+    "reading": "운",
+    "meaning": "옮길",
+    "level": 6.5,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "飮",
+    "reading": "음",
+    "meaning": "마실",
+    "level": 6.5,
+    "radical": "食",
+    "stroke_count": 4
+  },
+  {
+    "char": "音",
+    "reading": "음",
+    "meaning": "소리",
+    "level": 6.5,
+    "radical": "音",
+    "stroke_count": 0
+  },
+  {
+    "char": "意",
+    "reading": "의",
+    "meaning": "뜻",
+    "level": 6.5,
+    "radical": "心",
+    "stroke_count": 9
+  },
+  {
+    "char": "昨",
+    "reading": "작",
+    "meaning": "어제",
+    "level": 6.5,
+    "radical": "日",
+    "stroke_count": 5
+  },
+  {
+    "char": "作",
+    "reading": "작",
+    "meaning": "지을",
+    "level": 6.5,
+    "radical": "人",
+    "stroke_count": 5
+  },
+  {
+    "char": "才",
+    "reading": "재",
+    "meaning": "재주",
+    "level": 6.5,
+    "radical": "手",
+    "stroke_count": 0
+  },
+  {
+    "char": "戰",
+    "reading": "전",
+    "meaning": "싸움",
+    "level": 6.5,
+    "radical": "戈",
+    "stroke_count": 12
+  },
+  {
+    "char": "庭",
+    "reading": "정",
+    "meaning": "뜰",
+    "level": 6.5,
+    "radical": "广",
+    "stroke_count": 7
+  },
+  {
+    "char": "題",
+    "reading": "제",
+    "meaning": "제목",
+    "level": 6.5,
+    "radical": "頁",
+    "stroke_count": 9
+  },
+  {
+    "char": "第",
+    "reading": "제",
+    "meaning": "차례",
+    "level": 6.5,
+    "radical": "竹",
+    "stroke_count": 5
+  },
+  {
+    "char": "注",
+    "reading": "주",
+    "meaning": "부을",
+    "level": 6.5,
+    "radical": "水",
+    "stroke_count": 5
+  },
+  {
+    "char": "集",
+    "reading": "집",
+    "meaning": "모을",
+    "level": 6.5,
+    "radical": "隹",
+    "stroke_count": 4
+  },
+  {
+    "char": "窓",
+    "reading": "창",
+    "meaning": "창",
+    "level": 6.5,
+    "radical": "穴",
+    "stroke_count": 6
+  },
+  {
+    "char": "淸",
+    "reading": "청",
+    "meaning": "맑을",
+    "level": 6.5,
+    "radical": "水",
+    "stroke_count": 8
+  },
+  {
+    "char": "體",
+    "reading": "체",
+    "meaning": "몸",
+    "level": 6.5,
+    "radical": "骨",
+    "stroke_count": 13
+  },
+  {
+    "char": "表",
+    "reading": "표",
+    "meaning": "겉",
+    "level": 6.5,
+    "radical": "衣",
+    "stroke_count": 2
+  },
+  {
+    "char": "風",
+    "reading": "풍",
+    "meaning": "바람",
+    "level": 6.5,
+    "radical": "風",
+    "stroke_count": 0
+  },
+  {
+    "char": "幸",
+    "reading": "행",
+    "meaning": "다행",
+    "level": 6.5,
+    "radical": "干",
+    "stroke_count": 5
+  },
+  {
+    "char": "現",
+    "reading": "현",
+    "meaning": "나타날",
+    "level": 6.5,
+    "radical": "玉",
+    "stroke_count": 7
+  },
+  {
+    "char": "形",
+    "reading": "형",
+    "meaning": "모양",
+    "level": 6.5,
+    "radical": "彡",
+    "stroke_count": 4
+  },
+  {
+    "char": "和",
+    "reading": "화",
+    "meaning": "화할",
+    "level": 6.5,
+    "radical": "口",
+    "stroke_count": 5
+  },
+  {
+    "char": "會",
+    "reading": "회",
+    "meaning": "모일",
+    "level": 6.5,
+    "radical": "曰",
+    "stroke_count": 9
+  },
+  {
+    "char": "歌",
+    "reading": "가",
+    "meaning": "노래",
+    "level": 7.0,
+    "radical": "欠",
+    "stroke_count": 10
+  },
+  {
+    "char": "口",
+    "reading": "구",
+    "meaning": "입",
+    "level": 7.0,
+    "radical": "口",
+    "stroke_count": 0
+  },
+  {
+    "char": "旗",
+    "reading": "기",
+    "meaning": "기",
+    "level": 7.0,
+    "radical": "方",
+    "stroke_count": 10
+  },
+  {
+    "char": "冬",
+    "reading": "동",
+    "meaning": "겨울",
+    "level": 7.0,
+    "radical": "冫",
+    "stroke_count": 3
+  },
+  {
+    "char": "洞",
+    "reading": "동",
+    "meaning": "골",
+    "level": 7.0,
+    "radical": "水",
+    "stroke_count": 6
+  },
+  {
+    "char": "同",
+    "reading": "동",
+    "meaning": "한가지",
+    "level": 7.0,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "登",
+    "reading": "등",
+    "meaning": "오를",
+    "level": 7.0,
+    "radical": "癶",
+    "stroke_count": 7
+  },
+  {
+    "char": "來",
+    "reading": "래",
+    "meaning": "올",
+    "level": 7.0,
+    "radical": "人",
+    "stroke_count": 6
+  },
+  {
+    "char": "老",
+    "reading": "로",
+    "meaning": "늙을",
+    "level": 7.0,
+    "radical": "老",
+    "stroke_count": 0
+  },
+  {
+    "char": "里",
+    "reading": "리",
+    "meaning": "마을",
+    "level": 7.0,
+    "radical": "里",
+    "stroke_count": 0
+  },
+  {
+    "char": "林",
+    "reading": "림",
+    "meaning": "수풀",
+    "level": 7.0,
+    "radical": "木",
+    "stroke_count": 4
+  },
+  {
+    "char": "面",
+    "reading": "면",
+    "meaning": "낯",
+    "level": 7.0,
+    "radical": "面",
+    "stroke_count": 0
+  },
+  {
+    "char": "命",
+    "reading": "명",
+    "meaning": "목숨",
+    "level": 7.0,
+    "radical": "口",
+    "stroke_count": 5
+  },
+  {
+    "char": "文",
+    "reading": "문",
+    "meaning": "글월",
+    "level": 7.0,
+    "radical": "文",
+    "stroke_count": 0
+  },
+  {
+    "char": "問",
+    "reading": "문",
+    "meaning": "물을",
+    "level": 7.0,
+    "radical": "口",
+    "stroke_count": 8
+  },
+  {
+    "char": "百",
+    "reading": "백",
+    "meaning": "일백",
+    "level": 7.0,
+    "radical": "白",
+    "stroke_count": 1
+  },
+  {
+    "char": "夫",
+    "reading": "부",
+    "meaning": "지아비",
+    "level": 7.0,
+    "radical": "大",
+    "stroke_count": 1
+  },
+  {
+    "char": "算",
+    "reading": "산",
+    "meaning": "셈",
+    "level": 7.0,
+    "radical": "竹",
+    "stroke_count": 8
+  },
+  {
+    "char": "色",
+    "reading": "색",
+    "meaning": "빛",
+    "level": 7.0,
+    "radical": "色",
+    "stroke_count": 0
+  },
+  {
+    "char": "夕",
+    "reading": "석",
+    "meaning": "저녁",
+    "level": 7.0,
+    "radical": "夕",
+    "stroke_count": 0
+  },
+  {
+    "char": "所",
+    "reading": "소",
+    "meaning": "바",
+    "level": 7.0,
+    "radical": "戶",
+    "stroke_count": 4
+  },
+  {
+    "char": "少",
+    "reading": "소",
+    "meaning": "적을",
+    "level": 7.0,
+    "radical": "小",
+    "stroke_count": 1
+  },
+  {
+    "char": "數",
+    "reading": "수",
+    "meaning": "셈",
+    "level": 7.0,
+    "radical": "攴",
+    "stroke_count": 11
+  },
+  {
+    "char": "植",
+    "reading": "식",
+    "meaning": "심을",
+    "level": 7.0,
+    "radical": "木",
+    "stroke_count": 8
+  },
+  {
+    "char": "心",
+    "reading": "심",
+    "meaning": "마음",
+    "level": 7.0,
+    "radical": "心",
+    "stroke_count": 0
+  },
+  {
+    "char": "語",
+    "reading": "어",
+    "meaning": "말씀",
+    "level": 7.0,
+    "radical": "言",
+    "stroke_count": 7
+  },
+  {
+    "char": "然",
+    "reading": "연",
+    "meaning": "그럴",
+    "level": 7.0,
+    "radical": "火",
+    "stroke_count": 8
+  },
+  {
+    "char": "有",
+    "reading": "유",
+    "meaning": "있을",
+    "level": 7.0,
+    "radical": "月",
+    "stroke_count": 2
+  },
+  {
+    "char": "育",
+    "reading": "육",
+    "meaning": "기를",
+    "level": 7.0,
+    "radical": "肉",
+    "stroke_count": 4
+  },
+  {
+    "char": "邑",
+    "reading": "읍",
+    "meaning": "고을",
+    "level": 7.0,
+    "radical": "邑",
+    "stroke_count": 0
+  },
+  {
+    "char": "入",
+    "reading": "입",
+    "meaning": "들",
+    "level": 7.0,
+    "radical": "入",
+    "stroke_count": 0
+  },
+  {
+    "char": "字",
+    "reading": "자",
+    "meaning": "글자",
+    "level": 7.0,
+    "radical": "子",
+    "stroke_count": 3
+  },
+  {
+    "char": "祖",
+    "reading": "조",
+    "meaning": "할아비",
+    "level": 7.0,
+    "radical": "示",
+    "stroke_count": 5
+  },
+  {
+    "char": "住",
+    "reading": "주",
+    "meaning": "살",
+    "level": 7.0,
+    "radical": "人",
+    "stroke_count": 5
+  },
+  {
+    "char": "主",
+    "reading": "주",
+    "meaning": "임금/주인",
+    "level": 7.0,
+    "radical": "丶",
+    "stroke_count": 4
+  },
+  {
+    "char": "重",
+    "reading": "중",
+    "meaning": "무거울",
+    "level": 7.0,
+    "radical": "里",
+    "stroke_count": 2
+  },
+  {
+    "char": "地",
+    "reading": "지",
+    "meaning": "따",
+    "level": 7.0,
+    "radical": "土",
+    "stroke_count": 3
+  },
+  {
+    "char": "紙",
+    "reading": "지",
+    "meaning": "종이",
+    "level": 7.0,
+    "radical": "糸",
+    "stroke_count": 4
+  },
+  {
+    "char": "川",
+    "reading": "천",
+    "meaning": "내",
+    "level": 7.0,
+    "radical": "巛",
+    "stroke_count": 0
+  },
+  {
+    "char": "千",
+    "reading": "천",
+    "meaning": "일천",
+    "level": 7.0,
+    "radical": "十",
+    "stroke_count": 1
+  },
+  {
+    "char": "天",
+    "reading": "천",
+    "meaning": "하늘",
+    "level": 7.0,
+    "radical": "大",
+    "stroke_count": 1
+  },
+  {
+    "char": "草",
+    "reading": "초",
+    "meaning": "풀",
+    "level": 7.0,
+    "radical": "艸",
+    "stroke_count": 6
+  },
+  {
+    "char": "村",
+    "reading": "촌",
+    "meaning": "마을",
+    "level": 7.0,
+    "radical": "木",
+    "stroke_count": 3
+  },
+  {
+    "char": "秋",
+    "reading": "추",
+    "meaning": "가을",
+    "level": 7.0,
+    "radical": "禾",
+    "stroke_count": 4
+  },
+  {
+    "char": "春",
+    "reading": "춘",
+    "meaning": "봄",
+    "level": 7.0,
+    "radical": "日",
+    "stroke_count": 5
+  },
+  {
+    "char": "出",
+    "reading": "출",
+    "meaning": "날[生]",
+    "level": 7.0,
+    "radical": "凵",
+    "stroke_count": 3
+  },
+  {
+    "char": "便",
+    "reading": "편",
+    "meaning": "편할",
+    "level": 7.0,
+    "radical": "人",
+    "stroke_count": 7
+  },
+  {
+    "char": "夏",
+    "reading": "하",
+    "meaning": "여름",
+    "level": 7.0,
+    "radical": "夊",
+    "stroke_count": 7
+  },
+  {
+    "char": "花",
+    "reading": "화",
+    "meaning": "꽃",
+    "level": 7.0,
+    "radical": "艸",
+    "stroke_count": 4
+  },
+  {
+    "char": "休",
+    "reading": "휴",
+    "meaning": "쉴",
+    "level": 7.0,
+    "radical": "人",
+    "stroke_count": 4
+  },
+  {
+    "char": "家",
+    "reading": "가",
+    "meaning": "집",
+    "level": 7.5,
+    "radical": "宀",
+    "stroke_count": 7
+  },
+  {
+    "char": "間",
+    "reading": "간",
+    "meaning": "사이",
+    "level": 7.5,
+    "radical": "門",
+    "stroke_count": 4
+  },
+  {
+    "char": "江",
+    "reading": "강",
+    "meaning": "강",
+    "level": 7.5,
+    "radical": "水",
+    "stroke_count": 3
+  },
+  {
+    "char": "車",
+    "reading": "거",
+    "meaning": "수레",
+    "level": 7.5,
+    "radical": "車",
+    "stroke_count": 0
+  },
+  {
+    "char": "空",
+    "reading": "공",
+    "meaning": "빌",
+    "level": 7.5,
+    "radical": "穴",
+    "stroke_count": 3
+  },
+  {
+    "char": "工",
+    "reading": "공",
+    "meaning": "장인",
+    "level": 7.5,
+    "radical": "工",
+    "stroke_count": 0
+  },
+  {
+    "char": "記",
+    "reading": "기",
+    "meaning": "기록할",
+    "level": 7.5,
+    "radical": "言",
+    "stroke_count": 3
+  },
+  {
+    "char": "氣",
+    "reading": "기",
+    "meaning": "기운",
+    "level": 7.5,
+    "radical": "气",
+    "stroke_count": 6
+  },
+  {
+    "char": "男",
+    "reading": "남",
+    "meaning": "사내",
+    "level": 7.5,
+    "radical": "田",
+    "stroke_count": 2
+  },
+  {
+    "char": "內",
+    "reading": "내",
+    "meaning": "안",
+    "level": 7.5,
+    "radical": "入",
+    "stroke_count": 2
+  },
+  {
+    "char": "農",
+    "reading": "농",
+    "meaning": "농사",
+    "level": 7.5,
+    "radical": "辰",
+    "stroke_count": 6
+  },
+  {
+    "char": "答",
+    "reading": "답",
+    "meaning": "대답",
+    "level": 7.5,
+    "radical": "竹",
+    "stroke_count": 6
+  },
+  {
+    "char": "道",
+    "reading": "도",
+    "meaning": "길",
+    "level": 7.5,
+    "radical": "辵",
+    "stroke_count": 9
+  },
+  {
+    "char": "動",
+    "reading": "동",
+    "meaning": "움직일",
+    "level": 7.5,
+    "radical": "力",
+    "stroke_count": 9
+  },
+  {
+    "char": "力",
+    "reading": "력",
+    "meaning": "힘",
+    "level": 7.5,
+    "radical": "力",
+    "stroke_count": 0
+  },
+  {
+    "char": "立",
+    "reading": "립",
+    "meaning": "설",
+    "level": 7.5,
+    "radical": "立",
+    "stroke_count": 0
+  },
+  {
+    "char": "每",
+    "reading": "매",
+    "meaning": "매양",
+    "level": 7.5,
+    "radical": "毋",
+    "stroke_count": 3
+  },
+  {
+    "char": "名",
+    "reading": "명",
+    "meaning": "이름",
+    "level": 7.5,
+    "radical": "口",
+    "stroke_count": 3
+  },
+  {
+    "char": "物",
+    "reading": "물",
+    "meaning": "물건",
+    "level": 7.5,
+    "radical": "牛",
+    "stroke_count": 4
+  },
+  {
+    "char": "方",
+    "reading": "방",
+    "meaning": "모[棱]",
+    "level": 7.5,
+    "radical": "方",
+    "stroke_count": 0
+  },
+  {
+    "char": "不",
+    "reading": "불",
+    "meaning": "아닐",
+    "level": 7.5,
+    "radical": "一",
+    "stroke_count": 3
+  },
+  {
+    "char": "事",
+    "reading": "사",
+    "meaning": "일",
+    "level": 7.5,
+    "radical": "亅",
+    "stroke_count": 7
+  },
+  {
+    "char": "上",
+    "reading": "상",
+    "meaning": "윗",
+    "level": 7.5,
+    "radical": "一",
+    "stroke_count": 2
+  },
+  {
+    "char": "姓",
+    "reading": "성",
+    "meaning": "성",
+    "level": 7.5,
+    "radical": "女",
+    "stroke_count": 5
+  },
+  {
+    "char": "世",
+    "reading": "세",
+    "meaning": "인간",
+    "level": 7.5,
+    "radical": "一",
+    "stroke_count": 4
+  },
+  {
+    "char": "手",
+    "reading": "수",
+    "meaning": "손",
+    "level": 7.5,
+    "radical": "手",
+    "stroke_count": 0
+  },
+  {
+    "char": "時",
+    "reading": "시",
+    "meaning": "때",
+    "level": 7.5,
+    "radical": "日",
+    "stroke_count": 6
+  },
+  {
+    "char": "市",
+    "reading": "시",
+    "meaning": "저자",
+    "level": 7.5,
+    "radical": "巾",
+    "stroke_count": 2
+  },
+  {
+    "char": "食",
+    "reading": "식",
+    "meaning": "밥/먹을",
+    "level": 7.5,
+    "radical": "食",
+    "stroke_count": 0
+  },
+  {
+    "char": "安",
+    "reading": "안",
+    "meaning": "편안",
+    "level": 7.5,
+    "radical": "宀",
+    "stroke_count": 3
+  },
+  {
+    "char": "午",
+    "reading": "오",
+    "meaning": "낮",
+    "level": 7.5,
+    "radical": "十",
+    "stroke_count": 2
+  },
+  {
+    "char": "右",
+    "reading": "우",
+    "meaning": "오를/오른(쪽)",
+    "level": 7.5,
+    "radical": "口",
+    "stroke_count": 2
+  },
+  {
+    "char": "自",
+    "reading": "자",
+    "meaning": "스스로",
+    "level": 7.5,
+    "radical": "自",
+    "stroke_count": 0
+  },
+  {
+    "char": "子",
+    "reading": "자",
+    "meaning": "아들",
+    "level": 7.5,
+    "radical": "子",
+    "stroke_count": 0
+  },
+  {
+    "char": "場",
+    "reading": "장",
+    "meaning": "마당",
+    "level": 7.5,
+    "radical": "土",
+    "stroke_count": 9
+  },
+  {
+    "char": "電",
+    "reading": "전",
+    "meaning": "번개",
+    "level": 7.5,
+    "radical": "雨",
+    "stroke_count": 5
+  },
+  {
+    "char": "前",
+    "reading": "전",
+    "meaning": "앞",
+    "level": 7.5,
+    "radical": "刀",
+    "stroke_count": 7
+  },
+  {
+    "char": "全",
+    "reading": "전",
+    "meaning": "온전",
+    "level": 7.5,
+    "radical": "入",
+    "stroke_count": 4
+  },
+  {
+    "char": "正",
+    "reading": "정",
+    "meaning": "바를",
+    "level": 7.5,
+    "radical": "止",
+    "stroke_count": 1
+  },
+  {
+    "char": "足",
+    "reading": "족",
+    "meaning": "발",
+    "level": 7.5,
+    "radical": "足",
+    "stroke_count": 0
+  },
+  {
+    "char": "左",
+    "reading": "좌",
+    "meaning": "왼",
+    "level": 7.5,
+    "radical": "工",
+    "stroke_count": 2
+  },
+  {
+    "char": "直",
+    "reading": "직",
+    "meaning": "곧을",
+    "level": 7.5,
+    "radical": "目",
+    "stroke_count": 3
+  },
+  {
+    "char": "平",
+    "reading": "평",
+    "meaning": "평평할",
+    "level": 7.5,
+    "radical": "干",
+    "stroke_count": 2
+  },
+  {
+    "char": "下",
+    "reading": "하",
+    "meaning": "아래",
+    "level": 7.5,
+    "radical": "一",
+    "stroke_count": 2
+  },
+  {
+    "char": "漢",
+    "reading": "한",
+    "meaning": "한수/한나라",
+    "level": 7.5,
+    "radical": "水",
+    "stroke_count": 11
+  },
+  {
+    "char": "海",
+    "reading": "해",
+    "meaning": "바다",
+    "level": 7.5,
+    "radical": "水",
+    "stroke_count": 7
+  },
+  {
+    "char": "話",
+    "reading": "화",
+    "meaning": "말씀",
+    "level": 7.5,
+    "radical": "言",
+    "stroke_count": 6
+  },
+  {
+    "char": "活",
+    "reading": "활",
+    "meaning": "살",
+    "level": 7.5,
+    "radical": "水",
+    "stroke_count": 6
+  },
+  {
+    "char": "孝",
+    "reading": "효",
+    "meaning": "효도",
+    "level": 7.5,
+    "radical": "子",
+    "stroke_count": 4
+  },
+  {
+    "char": "後",
+    "reading": "후",
+    "meaning": "뒤",
+    "level": 7.5,
+    "radical": "彳",
+    "stroke_count": 6
+  },
+  {
+    "char": "敎",
+    "reading": "교",
+    "meaning": "가르칠",
+    "level": 8.0,
+    "radical": "攴",
+    "stroke_count": 7
+  },
+  {
+    "char": "校",
+    "reading": "교",
+    "meaning": "학교",
+    "level": 8.0,
+    "radical": "木",
+    "stroke_count": 6
+  },
+  {
+    "char": "九",
+    "reading": "구",
+    "meaning": "아홉",
+    "level": 8.0,
+    "radical": "乙",
+    "stroke_count": 1
+  },
+  {
+    "char": "國",
+    "reading": "국",
+    "meaning": "나라",
+    "level": 8.0,
+    "radical": "囗",
+    "stroke_count": 8
+  },
+  {
+    "char": "軍",
+    "reading": "군",
+    "meaning": "군사",
+    "level": 8.0,
+    "radical": "車",
+    "stroke_count": 2
+  },
+  {
+    "char": "金",
+    "reading": "금",
+    "meaning": "쇠",
+    "level": 8.0,
+    "radical": "金",
+    "stroke_count": 0
+  },
+  {
+    "char": "南",
+    "reading": "남",
+    "meaning": "남녘",
+    "level": 8.0,
+    "radical": "十",
+    "stroke_count": 7
+  },
+  {
+    "char": "女",
+    "reading": "녀",
+    "meaning": "계집",
+    "level": 8.0,
+    "radical": "女",
+    "stroke_count": 0
+  },
+  {
+    "char": "年",
+    "reading": "년",
+    "meaning": "해",
+    "level": 8.0,
+    "radical": "干",
+    "stroke_count": 3
+  },
+  {
+    "char": "大",
+    "reading": "대",
+    "meaning": "큰",
+    "level": 8.0,
+    "radical": "大",
+    "stroke_count": 0
+  },
+  {
+    "char": "東",
+    "reading": "동",
+    "meaning": "동녘",
+    "level": 8.0,
+    "radical": "木",
+    "stroke_count": 4
+  },
+  {
+    "char": "六",
+    "reading": "륙",
+    "meaning": "여섯",
+    "level": 8.0,
+    "radical": "八",
+    "stroke_count": 2
+  },
+  {
+    "char": "萬",
+    "reading": "만",
+    "meaning": "일만",
+    "level": 8.0,
+    "radical": "艸",
+    "stroke_count": 9
+  },
+  {
+    "char": "母",
+    "reading": "모",
+    "meaning": "어미",
+    "level": 8.0,
+    "radical": "毋",
+    "stroke_count": 1
+  },
+  {
+    "char": "木",
+    "reading": "목",
+    "meaning": "나무",
+    "level": 8.0,
+    "radical": "木",
+    "stroke_count": 0
+  },
+  {
+    "char": "門",
+    "reading": "문",
+    "meaning": "문",
+    "level": 8.0,
+    "radical": "門",
+    "stroke_count": 0
+  },
+  {
+    "char": "民",
+    "reading": "민",
+    "meaning": "백성",
+    "level": 8.0,
+    "radical": "氏",
+    "stroke_count": 1
+  },
+  {
+    "char": "白",
+    "reading": "백",
+    "meaning": "흰",
+    "level": 8.0,
+    "radical": "白",
+    "stroke_count": 0
+  },
+  {
+    "char": "父",
+    "reading": "부",
+    "meaning": "아비",
+    "level": 8.0,
+    "radical": "父",
+    "stroke_count": 0
+  },
+  {
+    "char": "北",
+    "reading": "북",
+    "meaning": "북녘",
+    "level": 8.0,
+    "radical": "匕",
+    "stroke_count": 3
+  },
+  {
+    "char": "四",
+    "reading": "사",
+    "meaning": "넉",
+    "level": 8.0,
+    "radical": "囗",
+    "stroke_count": 2
+  },
+  {
+    "char": "山",
+    "reading": "산",
+    "meaning": "메",
+    "level": 8.0,
+    "radical": "山",
+    "stroke_count": 0
+  },
+  {
+    "char": "三",
+    "reading": "삼",
+    "meaning": "석",
+    "level": 8.0,
+    "radical": "一",
+    "stroke_count": 2
+  },
+  {
+    "char": "生",
+    "reading": "생",
+    "meaning": "날",
+    "level": 8.0,
+    "radical": "生",
+    "stroke_count": 0
+  },
+  {
+    "char": "西",
+    "reading": "서",
+    "meaning": "서녘",
+    "level": 8.0,
+    "radical": "襾",
+    "stroke_count": 0
+  },
+  {
+    "char": "先",
+    "reading": "선",
+    "meaning": "먼저",
+    "level": 8.0,
+    "radical": "儿",
+    "stroke_count": 4
+  },
+  {
+    "char": "小",
+    "reading": "소",
+    "meaning": "작을",
+    "level": 8.0,
+    "radical": "小",
+    "stroke_count": 0
+  },
+  {
+    "char": "水",
+    "reading": "수",
+    "meaning": "물",
+    "level": 8.0,
+    "radical": "水",
+    "stroke_count": 0
+  },
+  {
+    "char": "室",
+    "reading": "실",
+    "meaning": "집",
+    "level": 8.0,
+    "radical": "宀",
+    "stroke_count": 6
+  },
+  {
+    "char": "十",
+    "reading": "십",
+    "meaning": "열",
+    "level": 8.0,
+    "radical": "十",
+    "stroke_count": 0
+  },
+  {
+    "char": "五",
+    "reading": "오",
+    "meaning": "다섯",
+    "level": 8.0,
+    "radical": "二",
+    "stroke_count": 2
+  },
+  {
+    "char": "王",
+    "reading": "왕",
+    "meaning": "임금",
+    "level": 8.0,
+    "radical": "玉",
+    "stroke_count": 0
+  },
+  {
+    "char": "外",
+    "reading": "외",
+    "meaning": "바깥",
+    "level": 8.0,
+    "radical": "夕",
+    "stroke_count": 2
+  },
+  {
+    "char": "月",
+    "reading": "월",
+    "meaning": "달",
+    "level": 8.0,
+    "radical": "月",
+    "stroke_count": 0
+  },
+  {
+    "char": "二",
+    "reading": "이",
+    "meaning": "두",
+    "level": 8.0,
+    "radical": "二",
+    "stroke_count": 0
+  },
+  {
+    "char": "人",
+    "reading": "인",
+    "meaning": "사람",
+    "level": 8.0,
+    "radical": "人",
+    "stroke_count": 0
+  },
+  {
+    "char": "日",
+    "reading": "일",
+    "meaning": "날",
+    "level": 8.0,
+    "radical": "日",
+    "stroke_count": 0
+  },
+  {
+    "char": "一",
+    "reading": "일",
+    "meaning": "한",
+    "level": 8.0,
+    "radical": "一",
+    "stroke_count": 0
+  },
+  {
+    "char": "長",
+    "reading": "장",
+    "meaning": "긴",
+    "level": 8.0,
+    "radical": "長",
+    "stroke_count": 0
+  },
+  {
+    "char": "弟",
+    "reading": "제",
+    "meaning": "아우",
+    "level": 8.0,
+    "radical": "弓",
+    "stroke_count": 4
+  },
+  {
+    "char": "中",
+    "reading": "중",
+    "meaning": "가운데",
+    "level": 8.0,
+    "radical": "丨",
+    "stroke_count": 3
+  },
+  {
+    "char": "靑",
+    "reading": "청",
+    "meaning": "푸를",
+    "level": 8.0,
+    "radical": "靑",
+    "stroke_count": 0
+  },
+  {
+    "char": "寸",
+    "reading": "촌",
+    "meaning": "마디",
+    "level": 8.0,
+    "radical": "寸",
+    "stroke_count": 0
+  },
+  {
+    "char": "七",
+    "reading": "칠",
+    "meaning": "일곱",
+    "level": 8.0,
+    "radical": "一",
+    "stroke_count": 1
+  },
+  {
+    "char": "土",
+    "reading": "토",
+    "meaning": "흙",
+    "level": 8.0,
+    "radical": "土",
+    "stroke_count": 0
+  },
+  {
+    "char": "八",
+    "reading": "팔",
+    "meaning": "여덟",
+    "level": 8.0,
+    "radical": "八",
+    "stroke_count": 0
+  },
+  {
+    "char": "學",
+    "reading": "학",
+    "meaning": "배울",
+    "level": 8.0,
+    "radical": "子",
+    "stroke_count": 13
+  },
+  {
+    "char": "韓",
+    "reading": "한",
+    "meaning": "한국/나라",
+    "level": 8.0,
+    "radical": "韋",
+    "stroke_count": 8
+  },
+  {
+    "char": "兄",
+    "reading": "형",
+    "meaning": "형",
+    "level": 8.0,
+    "radical": "儿",
+    "stroke_count": 3
+  },
+  {
+    "char": "火",
+    "reading": "화",
+    "meaning": "불",
+    "level": 8.0,
+    "radical": "火",
+    "stroke_count": 0
+  }
+]

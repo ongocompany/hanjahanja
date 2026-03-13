@@ -52,8 +52,8 @@ const NATIVE_KOREAN_BLOCKLIST = new Set([
   '차랑', '초고리', '초고지', '추근', '칠봉', '팔랑', '피륙', '회창',
 ]);
 
-/** 최소 변환 빈도 (빈도 데이터 기준) */
-const MIN_CONVERT_FREQ = 7;
+/** 최소 변환 빈도 (빈도 데이터 기준, 낮을수록 더 많이 변환) */
+const MIN_CONVERT_FREQ = 3;
 
 /** 한글 음절 범위 체크 */
 function isKorean(ch: string): boolean {
@@ -69,7 +69,50 @@ export function buildWordSet(dict: HanjaDict): Set<string> {
 }
 
 /**
- * 텍스트에서 한자어 매칭 (최장일치)
+ * 위치 i에서 매칭 가능한 단어 후보 조회
+ * 블록리스트, 최소 빈도 등 필터 적용
+ */
+function getCandidatesAt(
+  text: string,
+  i: number,
+  dict: HanjaDict,
+  wordSet: Set<string>,
+  homonymFreq: HomonymFreq,
+  maxWordLen: number,
+): Array<{ len: number; candidate: string }> {
+  const candidates: Array<{ len: number; candidate: string }> = [];
+  const maxLen = Math.min(maxWordLen, text.length - i);
+
+  for (let len = 2; len <= maxLen; len++) {
+    const candidate = text.substring(i, i + len);
+
+    if (NATIVE_KOREAN_BLOCKLIST.has(candidate)) continue;
+    if (!wordSet.has(candidate)) continue;
+
+    const entries = dict[candidate];
+    if (!entries || entries.length === 0) continue;
+
+    // 최소 빈도 체크
+    const freq = homonymFreq[candidate] || {};
+    const sorted = sortEntries(entries, freq);
+    const topEntry = sorted[0];
+    const topFreq = freq[topEntry.hanja] || 0;
+    if (Object.keys(freq).length > 0 && topFreq < MIN_CONVERT_FREQ) continue;
+
+    candidates.push({ len, candidate });
+  }
+
+  return candidates;
+}
+
+/**
+ * 텍스트에서 한자어 매칭 (커버리지 최대화 DP)
+ *
+ * 기존 "최장일치"는 '미술전문기자'를 '미술전+문+기자'로 잘못 분리.
+ * DP 방식은 전체 커버리지를 최대화하여 '미술+전문+기자'를 선택.
+ *
+ * dp[i] = 위치 i부터 끝까지 매칭 가능한 최대 글자 수
+ * choice[i] = dp[i]를 달성하는 매칭 길이 (0이면 스킵)
  */
 export function findMatches(
   text: string,
@@ -78,71 +121,66 @@ export function findMatches(
   homonymFreq: HomonymFreq,
   maxWordLen: number = 6,
 ): MatchResult[] {
+  const n = text.length;
+
+  // Pass 1: DP 테이블 구축 (오른쪽 → 왼쪽)
+  const dp = new Array<number>(n + 1).fill(0);       // dp[i] = i~끝까지 최대 매칭 글자수
+  const choice = new Array<number>(n + 1).fill(0);    // choice[i] = 선택한 단어 길이 (0=스킵)
+
+  for (let i = n - 1; i >= 0; i--) {
+    // 기본: 이 글자를 스킵
+    dp[i] = dp[i + 1];
+    choice[i] = 0;
+
+    // 한글이 아니면 스킵만 가능
+    if (!isKorean(text[i])) continue;
+
+    // 이 위치에서 가능한 모든 단어 시도
+    const candidates = getCandidatesAt(text, i, dict, wordSet, homonymFreq, maxWordLen);
+    for (const { len } of candidates) {
+      const coverage = len + dp[i + len];
+      if (coverage > dp[i]) {
+        dp[i] = coverage;
+        choice[i] = len;
+      }
+    }
+  }
+
+  // Pass 2: 선택 추적 → 결과 생성
   const results: MatchResult[] = [];
   let i = 0;
 
-  while (i < text.length) {
-    // 한글이 아니면 스킵
-    if (!isKorean(text[i])) {
+  while (i < n) {
+    const len = choice[i];
+    if (len === 0) {
       i++;
       continue;
     }
 
-    // 최장일치: 긴 것부터 시도
-    let matched = false;
-    const maxLen = Math.min(maxWordLen, text.length - i);
+    const candidate = text.substring(i, i + len);
+    const entries = dict[candidate];
+    const freq = homonymFreq[candidate] || {};
+    const sorted = sortEntries(entries, freq);
+    const topEntry = sorted[0];
 
-    for (let len = maxLen; len >= 2; len--) {
-      const candidate = text.substring(i, i + len);
+    results.push({
+      word: candidate,
+      hanja: topEntry.hanja,
+      meaning: topEntry.meaning,
+      reading: topEntry.reading,
+      level: topEntry.level,
+      startIdx: i,
+      endIdx: i + len,
+      entries: sorted.map((e) => ({
+        hanja: e.hanja,
+        meaning: e.meaning,
+        reading: e.reading,
+        level: e.level,
+        freq: freq[e.hanja] || 0,
+      })),
+    });
 
-      // 블록리스트 체크
-      if (NATIVE_KOREAN_BLOCKLIST.has(candidate)) continue;
-
-      // 사전에 있는지 확인
-      if (!wordSet.has(candidate)) continue;
-
-      const entries = dict[candidate];
-      if (!entries || entries.length === 0) continue;
-
-      // 한 글자 단어 스킵 (오변환 위험)
-      if (candidate.length === 1) continue;
-
-      // 빈도 기반 정렬
-      const freq = homonymFreq[candidate] || {};
-      const sorted = sortEntries(entries, freq);
-
-      // 최소 빈도 체크 (빈도 데이터가 있을 때만)
-      const topEntry = sorted[0];
-      const topFreq = freq[topEntry.hanja] || 0;
-      if (Object.keys(freq).length > 0 && topFreq < MIN_CONVERT_FREQ) {
-        continue;
-      }
-
-      results.push({
-        word: candidate,
-        hanja: topEntry.hanja,
-        meaning: topEntry.meaning,
-        reading: topEntry.reading,
-        level: topEntry.level,
-        startIdx: i,
-        endIdx: i + len,
-        entries: sorted.map((e) => ({
-          hanja: e.hanja,
-          meaning: e.meaning,
-          reading: e.reading,
-          level: e.level,
-          freq: freq[e.hanja] || 0,
-        })),
-      });
-
-      i += len;
-      matched = true;
-      break;
-    }
-
-    if (!matched) {
-      i++;
-    }
+    i += len;
   }
 
   return results;

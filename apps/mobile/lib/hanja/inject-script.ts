@@ -4,7 +4,8 @@
  * 흐름:
  * 1. 페이지 로드 → 텍스트 노드 수집 → RN에 전송
  * 2. RN에서 매칭 결과 수신 → DOM 변환 적용
- * 3. 한자 탭 → RN에 이벤트 전송
+ * 3. 한자 탭 → RN에 상세 이벤트 전송
+ * 4. 한자 꾹 누르기 → RN에 저장 이벤트 전송
  */
 export function getInjectScript(): string {
   return `
@@ -23,7 +24,7 @@ export function getInjectScript(): string {
   const ATTR = 'data-hanjahanja';
 
   // ── 스타일 주입 ──
-  const style = document.createElement('style');
+  var style = document.createElement('style');
   style.textContent = \`
     [data-hanjahanja] {
       text-decoration: underline;
@@ -37,53 +38,15 @@ export function getInjectScript(): string {
       background-color: rgba(218, 165, 32, 0.15);
       border-radius: 2px;
     }
-    .hjhj-tooltip {
-      position: fixed;
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 10px 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      z-index: 999999;
-      font-size: 14px;
-      line-height: 1.5;
-      max-width: 280px;
-      color: #333;
-      pointer-events: auto;
-    }
-    .hjhj-tooltip-hanja {
-      font-size: 22px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 4px;
-    }
-    .hjhj-tooltip-reading {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 2px;
-    }
-    .hjhj-tooltip-meaning {
-      font-size: 13px;
-      color: #888;
-    }
-    .hjhj-tooltip-close {
-      position: absolute;
-      top: 4px;
-      right: 8px;
-      font-size: 18px;
-      color: #aaa;
-      cursor: pointer;
-      padding: 4px;
-    }
   \`;
   document.head.appendChild(style);
 
   // ── 텍스트 노드 수집 ──
-  let textNodes = [];
-  let nodeId = 0;
+  var textNodes = [];
+  var nodeId = 0;
 
   function collectTextNodes(root) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function(node) {
         if (!node.textContent || !node.textContent.trim()) return NodeFilter.FILTER_REJECT;
         if (node.parentElement && SKIP_TAGS.has(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
@@ -93,8 +56,8 @@ export function getInjectScript(): string {
         return NodeFilter.FILTER_ACCEPT;
       }
     });
-    const nodes = [];
-    let n;
+    var nodes = [];
+    var n;
     while (n = walker.nextNode()) {
       n.__hjId = nodeId++;
       nodes.push(n);
@@ -107,8 +70,7 @@ export function getInjectScript(): string {
     textNodes = collectTextNodes(document.body);
     if (textNodes.length === 0) return;
 
-    // 텍스트를 배치로 묶어서 전송 (성능)
-    const batch = textNodes.map(function(node) {
+    var batch = textNodes.map(function(node) {
       return { id: node.__hjId, text: node.textContent };
     });
 
@@ -118,32 +80,53 @@ export function getInjectScript(): string {
     }));
   }
 
+  // ── 문맥 문장 추출 ──
+  function getContextSentence(el) {
+    // 부모 블록 요소에서 전체 텍스트 가져오기
+    var block = el;
+    var blockTags = new Set(['P', 'DIV', 'LI', 'TD', 'TH', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'ARTICLE', 'SECTION', 'BLOCKQUOTE', 'FIGCAPTION']);
+    while (block && block !== document.body) {
+      if (blockTags.has(block.tagName)) break;
+      block = block.parentElement;
+    }
+    if (!block || block === document.body) block = el.parentElement;
+
+    var fullText = (block && block.textContent) ? block.textContent.trim() : '';
+    if (fullText.length > 200) {
+      // 한자 요소 위치 기준으로 앞뒤 100자 자르기
+      var elText = el.textContent || '';
+      var idx = fullText.indexOf(elText);
+      if (idx < 0) idx = 0;
+      var start = Math.max(0, idx - 80);
+      var end = Math.min(fullText.length, idx + elText.length + 80);
+      fullText = (start > 0 ? '…' : '') + fullText.substring(start, end) + (end < fullText.length ? '…' : '');
+    }
+    return fullText;
+  }
+
   // ── 매칭 결과 수신 & DOM 변환 ──
   function applyConversions(conversions) {
-    // conversions: [{ nodeId, matches: [{ word, hanja, meaning, reading, level, startIdx, endIdx, entries }] }]
-    for (const conv of conversions) {
-      const node = textNodes.find(function(n) { return n.__hjId === conv.nodeId; });
+    for (var c = 0; c < conversions.length; c++) {
+      var conv = conversions[c];
+      var node = textNodes.find(function(n) { return n.__hjId === conv.nodeId; });
       if (!node || !node.parentNode) continue;
 
-      const text = node.textContent;
+      var text = node.textContent;
       if (!text) continue;
 
-      // 매치를 endIdx 역순 정렬 (뒤에서부터 치환해야 인덱스 안 꼬임)
-      const matches = conv.matches.sort(function(a, b) { return b.startIdx - a.startIdx; });
+      // 매치를 endIdx 역순 정렬
+      var matches = conv.matches.sort(function(a, b) { return b.startIdx - a.startIdx; });
 
-      // DocumentFragment로 교체
-      const frag = document.createDocumentFragment();
-      let lastIdx = text.length;
+      var frag = document.createDocumentFragment();
+      var lastIdx = text.length;
 
-      for (let i = 0; i < matches.length; i++) {
+      for (var i = 0; i < matches.length; i++) {
         var m = matches[i];
 
-        // 매치 뒤 텍스트
         if (m.endIdx < lastIdx) {
           frag.insertBefore(document.createTextNode(text.substring(m.endIdx, lastIdx)), frag.firstChild);
         }
 
-        // 한자 span 생성
         var span = document.createElement('span');
         span.setAttribute(ATTR, m.word);
         span.setAttribute('data-hanja', m.hanja);
@@ -157,7 +140,6 @@ export function getInjectScript(): string {
         lastIdx = m.startIdx;
       }
 
-      // 첫 번째 매치 앞 텍스트
       if (lastIdx > 0) {
         frag.insertBefore(document.createTextNode(text.substring(0, lastIdx)), frag.firstChild);
       }
@@ -166,111 +148,62 @@ export function getInjectScript(): string {
     }
   }
 
-  // ── 툴팁 ──
-  let activeTooltip = null;
+  // ── 동음이의어 선택 시 DOM 업데이트 ──
+  function updateHanja(word, newHanja, newMeaning, newReading, newLevel) {
+    var spans = document.querySelectorAll('[' + ATTR + '="' + word + '"]');
+    for (var i = 0; i < spans.length; i++) {
+      var span = spans[i];
+      span.setAttribute('data-hanja', newHanja);
+      span.setAttribute('data-meaning', newMeaning);
+      span.setAttribute('data-reading', newReading);
+      span.setAttribute('data-level', String(newLevel));
+      span.textContent = newHanja;
+    }
+  }
 
-  function showTooltip(el) {
-    hideTooltip();
+  // ── 한자 탭 (click 이벤트만, 네이티브 충돌 없음) ──
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest ? e.target.closest('[' + ATTR + ']') : null;
+    if (!el) return;
 
-    const hanja = el.getAttribute('data-hanja');
-    const meaning = el.getAttribute('data-meaning');
-    const reading = el.getAttribute('data-reading');
-    const word = el.getAttribute(ATTR);
+    e.preventDefault();
+    e.stopPropagation();
 
-    const tooltip = document.createElement('div');
-    tooltip.className = 'hjhj-tooltip';
-    tooltip.innerHTML =
-      '<div class="hjhj-tooltip-close">&times;</div>' +
-      '<div class="hjhj-tooltip-hanja">' + hanja + '</div>' +
-      '<div class="hjhj-tooltip-reading">' + word + ' [' + reading + ']</div>' +
-      '<div class="hjhj-tooltip-meaning">' + meaning + '</div>';
-
-    document.body.appendChild(tooltip);
-
-    // 위치 계산
-    const rect = el.getBoundingClientRect();
-    const tw = tooltip.offsetWidth;
-    const th = tooltip.offsetHeight;
-    let top = rect.top - th - 8;
-    let left = rect.left + (rect.width - tw) / 2;
-
-    // 화면 밖 방지
-    if (top < 0) top = rect.bottom + 8;
-    if (left < 8) left = 8;
-    if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
-
-    tooltip.style.top = top + 'px';
-    tooltip.style.left = left + 'px';
-
-    // 닫기 버튼
-    tooltip.querySelector('.hjhj-tooltip-close').addEventListener('click', function(e) {
-      e.stopPropagation();
-      hideTooltip();
-    });
-
-    activeTooltip = tooltip;
-
-    // RN에 탭 이벤트 전송 (동음이의어 엔트리 포함)
-    var entriesStr = el.getAttribute('data-entries');
+    var context = getContextSentence(el);
     var entries = [];
-    try { entries = JSON.parse(entriesStr || '[]'); } catch(e) {}
+    try { entries = JSON.parse(el.getAttribute('data-entries') || '[]'); } catch(err) {}
 
     window.ReactNativeWebView.postMessage(JSON.stringify({
       type: 'HANJA_TAP',
-      word: word,
-      hanja: hanja,
-      meaning: meaning,
-      reading: reading,
+      word: el.getAttribute(ATTR),
+      hanja: el.getAttribute('data-hanja'),
+      meaning: el.getAttribute('data-meaning'),
+      reading: el.getAttribute('data-reading'),
+      context: context,
       entries: entries,
     }));
-  }
-
-  function hideTooltip() {
-    if (activeTooltip) {
-      activeTooltip.remove();
-      activeTooltip = null;
-    }
-  }
-
-  // 한자 요소 클릭/탭 이벤트
-  document.addEventListener('click', function(e) {
-    const el = e.target.closest('[' + ATTR + ']');
-    if (el) {
-      e.preventDefault();
-      e.stopPropagation();
-      showTooltip(el);
-    } else if (activeTooltip && !e.target.closest('.hjhj-tooltip')) {
-      hideTooltip();
-    }
   }, true);
 
   // ── RN → WebView 메시지 수신 ──
-  // React Native에서 window.postMessage로 보내면 여기서 받음
-  document.addEventListener('message', function(e) {
+  function handleRNMessage(e) {
     try {
-      var data = JSON.parse(e.data);
+      var data = JSON.parse(typeof e.data === 'string' ? e.data : '');
       if (data.type === 'APPLY_CONVERSIONS') {
         applyConversions(data.conversions);
+      } else if (data.type === 'UPDATE_HANJA') {
+        updateHanja(data.word, data.hanja, data.meaning, data.reading, data.level);
       }
     } catch(err) {}
-  });
+  }
 
-  // window.onmessage도 등록 (RN WebView는 이쪽으로 보냄)
-  window.addEventListener('message', function(e) {
-    try {
-      var data = JSON.parse(e.data);
-      if (data.type === 'APPLY_CONVERSIONS') {
-        applyConversions(data.conversions);
-      }
-    } catch(err) {}
-  });
+  document.addEventListener('message', handleRNMessage);
+  window.addEventListener('message', handleRNMessage);
 
   // ── MutationObserver: 동적 콘텐츠 감지 ──
-  let debounceTimer = null;
-  const observer = new MutationObserver(function(mutations) {
+  var debounceTimer = null;
+  var observer = new MutationObserver(function(mutations) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function() {
-      // 새로 추가된 노드만 재수집
       textNodes = collectTextNodes(document.body);
       var newNodes = textNodes.filter(function(n) { return !n.__hjSent; });
       if (newNodes.length === 0) return;
@@ -289,7 +222,6 @@ export function getInjectScript(): string {
   });
 
   // ── 초기화 ──
-  // 페이지 로드 완료 대기
   function init() {
     window.ReactNativeWebView.postMessage(JSON.stringify({
       type: 'PAGE_LOADED',
@@ -297,12 +229,10 @@ export function getInjectScript(): string {
       title: document.title,
     }));
 
-    // 약간의 지연 후 텍스트 추출 (페이지 렌더링 완료 대기)
     setTimeout(function() {
       extractAndSend();
       textNodes.forEach(function(n) { n.__hjSent = true; });
 
-      // 동적 콘텐츠 감시 시작
       observer.observe(document.body, {
         childList: true,
         subtree: true,

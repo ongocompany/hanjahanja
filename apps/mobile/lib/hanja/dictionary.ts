@@ -34,6 +34,40 @@ const BUNDLED_DICTS: Record<number, () => HanjaDict> = {
   6: () => require('@/assets/dict/level-6.json'),
 };
 
+// ── 상용 한자어 사전 (5.5급~특급 중 고빈도, compact 포맷) ──
+// 비동음: "한자|뜻|급수", 동음: [["한자","뜻",급수], ...]
+type CompactEntry = string | [string, string, number][];
+
+/** compact 포맷 → DictEntry[] 변환 */
+function parseCommonWords(raw: Record<string, CompactEntry>): HanjaDict {
+  const result: HanjaDict = {};
+  for (const [word, val] of Object.entries(raw)) {
+    if (typeof val === 'string') {
+      // 비동음: "한자|뜻|급수"
+      const parts = val.split('|');
+      result[word] = [{
+        hanja: parts[0],
+        reading: word,
+        meaning: parts[1] || '',
+        level: Number(parts[2]) || 5,
+        source: 'common',
+        chars: [],
+      }];
+    } else {
+      // 동음: [["한자","뜻",급수], ...] (빈도순, 첫번째가 기본)
+      result[word] = val.map(([hanja, meaning, level]) => ({
+        hanja,
+        reading: word,
+        meaning: meaning || '',
+        level: level || 5,
+        source: 'common',
+        chars: [],
+      }));
+    }
+  }
+  return result;
+}
+
 // 서버 URL (추가 급수 다운로드용, 나중에 배포 시 사용)
 const DICT_BASE_URL = 'https://hanjahanja.co.kr/dict';
 
@@ -90,7 +124,18 @@ export async function loadDict(maxLevel: number = 8): Promise<HanjaDict> {
     }
   }
 
-  // 2. 서버에서 추가 급수 로드 (비동기, 번들에 없는 것만)
+  // 2. 상용 한자어 사전 로드 (5.5급~특급 고빈도, compact 포맷)
+  // 6~8급 번들에 없는 일상 단어 커버 (대통령, 정치, 기업 등)
+  try {
+    const commonRaw = require('@/assets/dict/common-words.json');
+    const commonDict = parseCommonWords(commonRaw);
+    mergeDict(merged, commonDict);
+    console.log(`상용 사전 로드: ${Object.keys(commonDict).length}단어`);
+  } catch (error) {
+    console.warn('상용 사전 로드 실패:', error);
+  }
+
+  // 3. 서버에서 추가 급수 로드 (비동기, 번들에 없는 것만)
   const remoteToLoad = Object.keys(REMOTE_LEVEL_FILES)
     .map(Number)
     .filter((lv) => lv >= maxLevel);

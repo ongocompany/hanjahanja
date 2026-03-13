@@ -787,3 +787,64 @@
 - `apps/mobile/` — Expo 프로젝트 전체 (신규)
 
 **현재 상태**: VPS 재구축 완료, 웹스토어 등록 완료, 모바일 앱 Phase 1 진행 중. 다음 작업: Supabase Auth 연동 → Phase 2 (인앱 브라우저 WebView)
+
+## 2026-03-13
+
+### 세션 25: 모바일 WSD 서버 연동 + 자기 개선 파이프라인 구축
+
+#### 모바일 앱 WSD 서버 연동
+- `apps/mobile/lib/hanja/wsd.ts` — 신규. WSD API 클라이언트 (직접 fetch, Expo는 프록시 불필요)
+  - `initWSD()`: 3초 타임아웃 헬스체크
+  - `predictHanjaBatch(sentence, words)`: 5초 타임아웃, Map<word, hanja> 반환
+- `apps/mobile/app/(tabs)/browser.tsx` — WSD 2단계 변환 흐름 구현
+  - 1단계: 사전 기반 매칭 → 2단계: 동음이의어(entries ≥ 2)는 WSD 서버 판별
+  - WSD 결과로 match 객체의 hanja/meaning/reading/level 업데이트
+- `apps/mobile/lib/hanja/matcher.ts` — 삭제된 함수 호출 (`isLikelyName`, `crossesParticleBoundary`) 제거
+
+#### WSD 교정 데이터 수집 (자기 개선 학습 루프)
+- **핵심 아이디어**: 동음이의어 선택 UI가 곧 WSD 학습 데이터 수집 장치
+  - 사용자가 다른 한자를 선택하면 = 오변환 신고 = 교정 데이터
+  - 마침표 기준 문장 추출 (`extractSentence`) → 깨끗한 학습 문맥
+- `apps/mobile/lib/hanja/tracker.ts` — `trackWSDCorrection()`, `extractSentence()` 추가
+  - WSDCorrection: { sentence, word, selectedHanja, originalHanja, ts }
+- `apps/mobile/lib/supabase/sync.ts` — 신규. `syncWSDCorrections()` AsyncStorage → Supabase error_reports
+  - 비로그인도 INSERT 가능 (user_id nullable, RLS: anyone_can_report)
+  - AppState 포그라운드 복귀 시 `syncAll()` 자동 호출
+
+#### 자동 야간 재학습 파이프라인 (jinserver)
+- **설계 문서**: `docs/wsd-self-improving-pipeline.md` — 4단계 아키텍처
+  1. Data Collection (앱/확장 → AsyncStorage → Supabase)
+  2. Server Aggregation (Supabase → JSONL 변환)
+  3. Nightly Retrain (학습 → ONNX 변환)
+  4. Deploy + Monitor (핫 리로드 → 검증)
+
+#### 서버 구현 (jinserver SSH)
+- `api_server.py` — `/reload` POST 엔드포인트 추가 (무중단 핫 리로드)
+  - 새 ONNX 세션 + heads 로드 → 전역 변수 원자적 교체 (0.5초 소요)
+  - `_new` 접미사 파일 우선 로드, 없으면 기존 파일 유지
+- `pull_corrections.py` — 신규. Supabase REST API로 error_reports 증분 pull
+  - 역매핑 87,371개 (hanja → scode), 라벨맵 9,889개 단어
+  - 마지막 pull 타임스탬프 기반 증분 조회
+  - JSONL 변환 → train_augmented.jsonl에 병합
+- `nightly_retrain.sh` — 신규. 전체 파이프라인 자동화
+  - Phase 2: 교정 데이터 pull (50건 미만 스킵)
+  - Phase 3: 모델 백업 → 재학습 → ONNX 변환
+  - Phase 4: 핫 리로드 → 헬스체크
+
+#### 서버 검증 완료
+- API 서버 재시작 (virtualenv python 직접 실행, setsid)
+- `/health` 응답: `{"status":"ok","heads":561,"scode_map":35238,"model_loaded":true}`
+- `/reload` 응답: `{"status":"reloaded","heads":561,"scode_map":35238,"elapsed_s":0.5}`
+- **crontab 등록**: `0 3 * * * /home/jinwoo/wsd-data/nightly_retrain.sh >> nightly.log 2>&1`
+
+#### 서버 파일 변경 (jinserver:/home/jinwoo/wsd-data/)
+- `api_server.py` — `/reload` 엔드포인트 추가
+- `pull_corrections.py` — 신규 (Supabase → JSONL 변환)
+- `nightly_retrain.sh` — 신규 (야간 자동 재학습)
+
+#### 주의사항
+- API 서버가 setsid로 실행 중 → 서버 리부팅 시 자동 시작 안 됨 (systemd 서비스 등록 미완)
+- `train_wsd.py`의 `--train_file`, `export_onnx.py`의 `--suffix` 플래그 지원 미검증
+- E2E 파이프라인 테스트 (교정 → 동기화 → pull → 재학습 → 리로드) 미완
+
+**현재 상태**: WSD 서버 연동 + 자기 개선 파이프라인 서버 구현 완료. crontab 등록 완료 (매일 03:00). systemd 서비스 등록, E2E 테스트 남음

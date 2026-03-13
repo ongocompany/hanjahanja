@@ -1,0 +1,1223 @@
+[
+  {
+    "word": "동음이의",
+    "hanja": "同音異義",
+    "meaning": "글자의 소리가 서로 같으나 뜻이 다름.",
+    "level": 4,
+    "chars": [
+      {
+        "char": "同",
+        "reading": "동",
+        "meaning": "한가지",
+        "level": 7
+      },
+      {
+        "char": "音",
+        "reading": "음",
+        "meaning": "소리",
+        "level": 6.5
+      },
+      {
+        "char": "異",
+        "reading": "이",
+        "meaning": "다를",
+        "level": 4
+      },
+      {
+        "char": "義",
+        "reading": "의",
+        "meaning": "옳을",
+        "level": 4.5
+      }
+    ],
+    "exam_level": 1.0
+  },
+  {
+    "word": "사자성어",
+    "hanja": "四字成語",
+    "meaning": "한자 네 자로 이루어진 성어. 교훈이나 유래를 담고 있다.",
+    "level": 6.5,
+    "chars": [
+      {
+        "char": "四",
+        "reading": "사",
+        "meaning": "넉",
+        "level": 8
+      },
+      {
+        "char": "字",
+        "reading": "자",
+        "meaning": "글자",
+        "level": 7
+      },
+      {
+        "char": "成",
+        "reading": "성",
+        "meaning": "이룰",
+        "level": 6.5
+      },
+      {
+        "char": "語",
+        "reading": "어",
+        "meaning": "말씀",
+        "level": 7
+      }
+    ],
+    "exam_level": 1.0
+  },
+  {
+    "word": "능력검정",
+    "hanja": "能力檢定",
+    "meaning": "가축을 일정한 조건에서 사육하고 가축의 능력을 비교하여 종축(種畜)을 선발하는 방법. 가축 개량을 위한 방법의 하나이다.",
+    "level": 4.5,
+    "chars": [
+      {
+        "char": "能",
+        "reading": "능",
+        "meaning": "능할",
+        "level": 5.5
+      },
+      {
+        "char": "力",
+        "reading": "력",
+        "meaning": "힘",
+        "level": 7.5
+      },
+      {
+        "char": "檢",
+        "reading": "검",
+        "meaning": "검사할",
+        "level": 4.5
+      },
+      {
+        "char": "定",
+        "reading": "정",
+        "meaning": "정할",
+        "level": 6
+      }
+    ],
+    "exam_level": 1.0
+  },
+  {
+    "word": "고사성어",
+    "hanja": "故事成語",
+    "meaning": "옛이야기에서 유래한, 한자로 이루어진 말.",
+    "level": 4.5,
+    "chars": [
+      {
+        "char": "故",
+        "reading": "고",
+        "meaning": "연고",
+        "level": 4.5
+      },
+      {
+        "char": "事",
+        "reading": "사",
+        "meaning": "일",
+        "level": 7.5
+      },
+      {
+        "char": "成",
+        "reading": "성",
+        "meaning": "이룰",
+        "level": 6.5
+      },
+      {
+        "char": "語",
+        "reading": "어",
+        "meaning": "말씀",
+        "level": 7
+      }
+    ],
+    "exam_level": 2.0
+  },
+  {
+    "word": "상부상조",
+    "hanja": "相扶相助",
+    "meaning": "서로서로 도움.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "相",
+        "reading": "상",
+        "meaning": "서로",
+        "level": 5.5
+      },
+      {
+        "char": "扶",
+        "reading": "부",
+        "meaning": "도울",
+        "level": 3.5
+      },
+      {
+        "char": "相",
+        "reading": "상",
+        "meaning": "서로",
+        "level": 5.5
+      },
+      {
+        "char": "助",
+        "reading": "조",
+        "meaning": "도울",
+        "level": 4.5
+      }
+    ],
+    "exam_level": 2.0
+  },
+  {
+    "word": "삼국사기",
+    "hanja": "三國史記",
+    "meaning": "고려 인종 23년(1145)에 김부식이 왕명에 따라 펴낸 역사책. 신라, 고구려, 백제 세 나라의 역사를 기전체로 적었다. 본기(本紀)·연표(年",
+    "level": 5.5,
+    "chars": [
+      {
+        "char": "三",
+        "reading": "삼",
+        "meaning": "석",
+        "level": 8
+      },
+      {
+        "char": "國",
+        "reading": "국",
+        "meaning": "나라",
+        "level": 8
+      },
+      {
+        "char": "史",
+        "reading": "사",
+        "meaning": "사기(史記)",
+        "level": 5.5
+      },
+      {
+        "char": "記",
+        "reading": "기",
+        "meaning": "기록할",
+        "level": 7.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "삼국유사",
+    "hanja": "三國遺事",
+    "meaning": "고려 충렬왕 7년(1281)에 승려 일연이 쓴 역사책. 단군·기자·대방·부여의 사적(史跡)과 신라·고구려·백제의 역사를 기록하고, 불교에 관한 ",
+    "level": 4,
+    "chars": [
+      {
+        "char": "三",
+        "reading": "삼",
+        "meaning": "석",
+        "level": 8
+      },
+      {
+        "char": "國",
+        "reading": "국",
+        "meaning": "나라",
+        "level": 8
+      },
+      {
+        "char": "遺",
+        "reading": "유",
+        "meaning": "남길",
+        "level": 4
+      },
+      {
+        "char": "事",
+        "reading": "사",
+        "meaning": "일",
+        "level": 7.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "극기복례",
+    "hanja": "克己復禮",
+    "meaning": "자기의 욕심을 누르고 예의범절을 따름.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "克",
+        "reading": "극",
+        "meaning": "이길",
+        "level": 3.5
+      },
+      {
+        "char": "己",
+        "reading": "기",
+        "meaning": "몸",
+        "level": 5.5
+      },
+      {
+        "char": "復",
+        "reading": "복",
+        "meaning": "회복할",
+        "level": 4.5
+      },
+      {
+        "char": "禮",
+        "reading": "례",
+        "meaning": "예도",
+        "level": 6
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "각주구검",
+    "hanja": "刻舟求劍",
+    "meaning": "융통성 없이 현실에 맞지 않는 낡은 생각을 고집하는 어리석음을 이르는 말. 초나라 사람이 배에서 칼을 물속에 떨어뜨리고 그 위치를 뱃전에 표시하",
+    "level": 3,
+    "chars": [
+      {
+        "char": "刻",
+        "reading": "각",
+        "meaning": "새길",
+        "level": 4
+      },
+      {
+        "char": "舟",
+        "reading": "주",
+        "meaning": "배",
+        "level": 3
+      },
+      {
+        "char": "求",
+        "reading": "구",
+        "meaning": "구할[索]",
+        "level": 4.5
+      },
+      {
+        "char": "劍",
+        "reading": "검",
+        "meaning": "칼",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "낭중지추",
+    "hanja": "囊中之錐",
+    "meaning": "주머니 속의 송곳이라는 뜻으로, 재능이 뛰어난 사람은 숨어 있어도 저절로 사람들에게 알려짐을 이르는 말.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "囊",
+        "reading": "낭",
+        "meaning": "주머니",
+        "level": 1
+      },
+      {
+        "char": "中",
+        "reading": "중",
+        "meaning": "가운데",
+        "level": 8
+      },
+      {
+        "char": "之",
+        "reading": "지",
+        "meaning": "갈",
+        "level": 3.5
+      },
+      {
+        "char": "錐",
+        "reading": "추",
+        "meaning": "송곳",
+        "level": 1
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "부귀재천",
+    "hanja": "富貴在天",
+    "meaning": "부귀를 누리는 일은 하늘의 뜻에 달려 있어 사람의 힘으로는 어찌할 수 없음을 이르는 말.",
+    "level": 4.5,
+    "chars": [
+      {
+        "char": "富",
+        "reading": "부",
+        "meaning": "부자",
+        "level": 4.5
+      },
+      {
+        "char": "貴",
+        "reading": "귀",
+        "meaning": "귀할",
+        "level": 5
+      },
+      {
+        "char": "在",
+        "reading": "재",
+        "meaning": "있을",
+        "level": 6
+      },
+      {
+        "char": "天",
+        "reading": "천",
+        "meaning": "하늘",
+        "level": 7
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "행유여력",
+    "hanja": "行有餘力",
+    "meaning": "일을 다 하고도 오히려 힘이 남음.",
+    "level": 4.5,
+    "chars": [
+      {
+        "char": "行",
+        "reading": "행",
+        "meaning": "다닐",
+        "level": 6
+      },
+      {
+        "char": "有",
+        "reading": "유",
+        "meaning": "있을",
+        "level": 7
+      },
+      {
+        "char": "餘",
+        "reading": "여",
+        "meaning": "남을",
+        "level": 4.5
+      },
+      {
+        "char": "力",
+        "reading": "력",
+        "meaning": "힘",
+        "level": 7.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "전화위복",
+    "hanja": "轉禍爲福",
+    "meaning": "재앙과 근심, 걱정이 바뀌어 오히려 복이 됨.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "轉",
+        "reading": "전",
+        "meaning": "구를",
+        "level": 4
+      },
+      {
+        "char": "禍",
+        "reading": "화",
+        "meaning": "재앙",
+        "level": 3.5
+      },
+      {
+        "char": "爲",
+        "reading": "위",
+        "meaning": "하/할",
+        "level": 4.5
+      },
+      {
+        "char": "福",
+        "reading": "복",
+        "meaning": "복",
+        "level": 5.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "면종복배",
+    "hanja": "面從腹背",
+    "meaning": "겉으로는 복종하는 체하면서 내심으로는 배반함.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "面",
+        "reading": "면",
+        "meaning": "낯",
+        "level": 7
+      },
+      {
+        "char": "從",
+        "reading": "종",
+        "meaning": "좇을",
+        "level": 4
+      },
+      {
+        "char": "腹",
+        "reading": "복",
+        "meaning": "배",
+        "level": 3.5
+      },
+      {
+        "char": "背",
+        "reading": "배",
+        "meaning": "등",
+        "level": 4.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "풍전등화",
+    "hanja": "風前燈火",
+    "meaning": "바람 앞의 등불이라는 뜻으로, 사물이 매우 위태로운 처지에 놓여 있음을 비유적으로 이르는 말.",
+    "level": 4.5,
+    "chars": [
+      {
+        "char": "風",
+        "reading": "풍",
+        "meaning": "바람",
+        "level": 6.5
+      },
+      {
+        "char": "前",
+        "reading": "전",
+        "meaning": "앞",
+        "level": 7.5
+      },
+      {
+        "char": "燈",
+        "reading": "등",
+        "meaning": "등",
+        "level": 4.5
+      },
+      {
+        "char": "火",
+        "reading": "화",
+        "meaning": "불",
+        "level": 8
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "환과고독",
+    "hanja": "鰥寡孤獨",
+    "meaning": "늙어서 아내 없는 사람, 늙어서 남편 없는 사람, 어려서 어버이 없는 사람, 늙어서 자식 없는 사람을 아울러 이르는 말.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "鰥",
+        "reading": "환",
+        "meaning": "홀아비",
+        "level": 1
+      },
+      {
+        "char": "寡",
+        "reading": "과",
+        "meaning": "적을",
+        "level": 3.5
+      },
+      {
+        "char": "孤",
+        "reading": "고",
+        "meaning": "외로울",
+        "level": 4
+      },
+      {
+        "char": "獨",
+        "reading": "독",
+        "meaning": "홀로",
+        "level": 5.5
+      }
+    ],
+    "exam_level": 0.0
+  },
+  {
+    "word": "하석상대",
+    "hanja": "下石上臺",
+    "meaning": "아랫돌 빼서 윗돌 괴고 윗돌 빼서 아랫돌 괸다는 뜻으로, 임시변통으로 이리저리 둘러맞춤을 이르는 말.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "下",
+        "reading": "하",
+        "meaning": "아래",
+        "level": 7.5
+      },
+      {
+        "char": "石",
+        "reading": "석",
+        "meaning": "돌",
+        "level": 6
+      },
+      {
+        "char": "上",
+        "reading": "상",
+        "meaning": "윗",
+        "level": 7.5
+      },
+      {
+        "char": "臺",
+        "reading": "대",
+        "meaning": "대",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "동족방뇨",
+    "hanja": "凍足放尿",
+    "meaning": "언 발에 오줌 누기라는 뜻으로, 잠시 동안만 효력이 있을 뿐 효력이 바로 사라짐을 비유적으로 이르는 말.",
+    "level": 2,
+    "chars": [
+      {
+        "char": "凍",
+        "reading": "동",
+        "meaning": "얼",
+        "level": 3.5
+      },
+      {
+        "char": "足",
+        "reading": "족",
+        "meaning": "발",
+        "level": 7.5
+      },
+      {
+        "char": "放",
+        "reading": "방",
+        "meaning": "놓을",
+        "level": 6.5
+      },
+      {
+        "char": "尿",
+        "reading": "뇨",
+        "meaning": "오줌",
+        "level": 2
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "구밀복검",
+    "hanja": "口蜜腹劍",
+    "meaning": "입에는 꿀이 있고 뱃속에는 칼이 있다는 뜻으로, 말로는 친한 듯하나 속으로는 해칠 생각이 있음을 이르는 말.",
+    "level": 3,
+    "chars": [
+      {
+        "char": "口",
+        "reading": "구",
+        "meaning": "입",
+        "level": 7
+      },
+      {
+        "char": "蜜",
+        "reading": "밀",
+        "meaning": "꿀",
+        "level": 3
+      },
+      {
+        "char": "腹",
+        "reading": "복",
+        "meaning": "배",
+        "level": 3.5
+      },
+      {
+        "char": "劍",
+        "reading": "검",
+        "meaning": "칼",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "동가홍상",
+    "hanja": "同價紅裳",
+    "meaning": "같은 값이면 다홍치마라는 뜻으로, 같은 값이면 좋은 물건을 가짐을 이르는 말.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "同",
+        "reading": "동",
+        "meaning": "한가지",
+        "level": 7
+      },
+      {
+        "char": "價",
+        "reading": "가",
+        "meaning": "값",
+        "level": 5.5
+      },
+      {
+        "char": "紅",
+        "reading": "홍",
+        "meaning": "붉을",
+        "level": 4
+      },
+      {
+        "char": "裳",
+        "reading": "상",
+        "meaning": "치마",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "유유자적",
+    "hanja": "悠悠自適",
+    "meaning": "속세를 떠나 아무 속박 없이 조용하고 편안하게 삶.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "悠",
+        "reading": "유",
+        "meaning": "멀",
+        "level": 3.5
+      },
+      {
+        "char": "悠",
+        "reading": "유",
+        "meaning": "멀",
+        "level": 3.5
+      },
+      {
+        "char": "自",
+        "reading": "자",
+        "meaning": "스스로",
+        "level": 7.5
+      },
+      {
+        "char": "適",
+        "reading": "적",
+        "meaning": "맞을",
+        "level": 4
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "아전인수",
+    "hanja": "我田引水",
+    "meaning": "자기 논에 물 대기라는 뜻으로, 자기에게만 이롭게 되도록 생각하거나 행동함을 이르는 말.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "我",
+        "reading": "아",
+        "meaning": "나",
+        "level": 3.5
+      },
+      {
+        "char": "田",
+        "reading": "전",
+        "meaning": "밭",
+        "level": 4.5
+      },
+      {
+        "char": "引",
+        "reading": "인",
+        "meaning": "끌",
+        "level": 4.5
+      },
+      {
+        "char": "水",
+        "reading": "수",
+        "meaning": "물",
+        "level": 8
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "조제모염",
+    "hanja": "朝薺暮鹽",
+    "meaning": "아침에는 냉이를 저녁에는 소금을 먹는다는 뜻으로, 매우 가난한 살림살이를 비유적으로 이르는 말.",
+    "level": 0.5,
+    "chars": [
+      {
+        "char": "朝",
+        "reading": "조",
+        "meaning": "아침",
+        "level": 6
+      },
+      {
+        "char": "薺",
+        "reading": "제",
+        "meaning": "냉이",
+        "level": 0.5
+      },
+      {
+        "char": "暮",
+        "reading": "모",
+        "meaning": "저물",
+        "level": 3
+      },
+      {
+        "char": "鹽",
+        "reading": "염",
+        "meaning": "소금",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "살신성인",
+    "hanja": "殺身成仁",
+    "meaning": "자기의 몸을 희생하여 인(仁)을 이룸. ≪논어≫의 &lt;위령공편(衛靈公篇)&gt;에 나오는 말이다.",
+    "level": 4,
+    "chars": [
+      {
+        "char": "殺",
+        "reading": "살",
+        "meaning": "죽일",
+        "level": 4.5
+      },
+      {
+        "char": "身",
+        "reading": "신",
+        "meaning": "몸",
+        "level": 6.5
+      },
+      {
+        "char": "成",
+        "reading": "성",
+        "meaning": "이룰",
+        "level": 6.5
+      },
+      {
+        "char": "仁",
+        "reading": "인",
+        "meaning": "어질",
+        "level": 4
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "초미지급",
+    "hanja": "焦眉之急",
+    "meaning": "눈썹에 불이 붙어 다급하다는 뜻으로, 매우 급함을 이르는 말.",
+    "level": 2,
+    "chars": [
+      {
+        "char": "焦",
+        "reading": "초",
+        "meaning": "탈[燥]",
+        "level": 2
+      },
+      {
+        "char": "眉",
+        "reading": "미",
+        "meaning": "눈썹",
+        "level": 3
+      },
+      {
+        "char": "之",
+        "reading": "지",
+        "meaning": "갈",
+        "level": 3.5
+      },
+      {
+        "char": "急",
+        "reading": "급",
+        "meaning": "급할",
+        "level": 6.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "빈계사신",
+    "hanja": "牝鷄司晨",
+    "meaning": "암탉이 새벽을 알리느라고 먼저 운다는 뜻으로, 부인이 남편을 젖혀 놓고 집안일을 마음대로 처리함을 이르는 말.",
+    "level": 0.5,
+    "chars": [
+      {
+        "char": "牝",
+        "reading": "빈",
+        "meaning": "암컷",
+        "level": 0.5
+      },
+      {
+        "char": "鷄",
+        "reading": "계",
+        "meaning": "닭",
+        "level": 4
+      },
+      {
+        "char": "司",
+        "reading": "사",
+        "meaning": "맡을",
+        "level": 3.5
+      },
+      {
+        "char": "晨",
+        "reading": "신",
+        "meaning": "새벽",
+        "level": 3
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "감탄고토",
+    "hanja": "甘呑苦吐",
+    "meaning": "달면 삼키고 쓰면 뱉는다는 뜻으로, 자신의 비위에 따라서 사리의 옳고 그름을 판단함을 이르는 말.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "甘",
+        "reading": "감",
+        "meaning": "달",
+        "level": 4
+      },
+      {
+        "char": "呑",
+        "reading": "탄",
+        "meaning": "삼킬",
+        "level": 1
+      },
+      {
+        "char": "苦",
+        "reading": "고",
+        "meaning": "쓸[味覺]",
+        "level": 6
+      },
+      {
+        "char": "吐",
+        "reading": "토",
+        "meaning": "토할",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "진충갈력",
+    "hanja": "盡忠竭力",
+    "meaning": "충성을 다하고 있는 힘을 다 바침.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "盡",
+        "reading": "진",
+        "meaning": "다할",
+        "level": 4
+      },
+      {
+        "char": "忠",
+        "reading": "충",
+        "meaning": "충성",
+        "level": 4.5
+      },
+      {
+        "char": "竭",
+        "reading": "갈",
+        "meaning": "다할",
+        "level": 1
+      },
+      {
+        "char": "力",
+        "reading": "력",
+        "meaning": "힘",
+        "level": 7.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "소리장도",
+    "hanja": "笑裏藏刀",
+    "meaning": "웃는 마음속에 칼이 있다는 뜻으로, 겉으로는 웃고 있으나 마음속에는 해칠 마음을 품고 있음을 이르는 말.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "笑",
+        "reading": "소",
+        "meaning": "웃음",
+        "level": 4.5
+      },
+      {
+        "char": "裏",
+        "reading": "리",
+        "meaning": "속",
+        "level": 3.5
+      },
+      {
+        "char": "藏",
+        "reading": "장",
+        "meaning": "감출",
+        "level": 3.5
+      },
+      {
+        "char": "刀",
+        "reading": "도",
+        "meaning": "칼",
+        "level": 3.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "관포지교",
+    "hanja": "管鮑之交",
+    "meaning": "관중과 포숙의 사귐이란 뜻으로, 우정이 아주 돈독한 친구 관계를 이르는 말.",
+    "level": 1.5,
+    "chars": [
+      {
+        "char": "管",
+        "reading": "관",
+        "meaning": "대롱/주관할",
+        "level": 4
+      },
+      {
+        "char": "鮑",
+        "reading": "포",
+        "meaning": "절인물고기",
+        "level": 1.5
+      },
+      {
+        "char": "之",
+        "reading": "지",
+        "meaning": "갈",
+        "level": 3.5
+      },
+      {
+        "char": "交",
+        "reading": "교",
+        "meaning": "사귈",
+        "level": 6
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "종횡무진",
+    "hanja": "縱橫無盡",
+    "meaning": "자유자재로 행동하여 거침이 없는 상태.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "縱",
+        "reading": "종",
+        "meaning": "세로",
+        "level": 3.5
+      },
+      {
+        "char": "橫",
+        "reading": "횡",
+        "meaning": "가로",
+        "level": 3.5
+      },
+      {
+        "char": "無",
+        "reading": "무",
+        "meaning": "없을",
+        "level": 5
+      },
+      {
+        "char": "盡",
+        "reading": "진",
+        "meaning": "다할",
+        "level": 4
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "고량진미",
+    "hanja": "膏粱珍味",
+    "meaning": "기름진 고기와 좋은 곡식으로 만든 맛있는 음식.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "膏",
+        "reading": "고",
+        "meaning": "기름",
+        "level": 1
+      },
+      {
+        "char": "粱",
+        "reading": "량",
+        "meaning": "기장",
+        "level": 1
+      },
+      {
+        "char": "珍",
+        "reading": "진",
+        "meaning": "보배",
+        "level": 4
+      },
+      {
+        "char": "味",
+        "reading": "미",
+        "meaning": "맛",
+        "level": 4.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "포류지질",
+    "hanja": "蒲柳之質",
+    "meaning": "갯버들 같은 체질이라는 뜻으로, 갯버들의 나뭇잎이 가을이 되자마자 떨어지는 데서, 사람의 체질이 허약하거나 나이보다 일찍 노쇠함을 비유적으로 이",
+    "level": 1,
+    "chars": [
+      {
+        "char": "蒲",
+        "reading": "포",
+        "meaning": "부들",
+        "level": 1
+      },
+      {
+        "char": "柳",
+        "reading": "류",
+        "meaning": "버들",
+        "level": 4
+      },
+      {
+        "char": "之",
+        "reading": "지",
+        "meaning": "갈",
+        "level": 3.5
+      },
+      {
+        "char": "質",
+        "reading": "질",
+        "meaning": "바탕",
+        "level": 5.5
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "당랑거철",
+    "hanja": "螳螂拒轍",
+    "meaning": "제 역량을 생각하지 않고, 강한 상대나 되지 않을 일에 덤벼드는 무모한 행동거지를 비유적으로 이르는 말. 중국 제나라 장공(莊公)이 사냥을 나가",
+    "level": 0.5,
+    "chars": [
+      {
+        "char": "螳",
+        "reading": "당",
+        "meaning": "버마재비(사마귀)",
+        "level": 1
+      },
+      {
+        "char": "螂",
+        "reading": "랑",
+        "meaning": "사마귀",
+        "level": 0.5
+      },
+      {
+        "char": "拒",
+        "reading": "거",
+        "meaning": "막을",
+        "level": 4
+      },
+      {
+        "char": "轍",
+        "reading": "철",
+        "meaning": "바퀴자국",
+        "level": 1
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "개문읍도",
+    "hanja": "開門揖盜",
+    "meaning": "문을 열어 도둑을 맞이한다는 뜻으로, 상황을 깨닫지 못하고 스스로 화를 불러들임을 이르는 말.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "開",
+        "reading": "개",
+        "meaning": "열",
+        "level": 6
+      },
+      {
+        "char": "門",
+        "reading": "문",
+        "meaning": "문",
+        "level": 8
+      },
+      {
+        "char": "揖",
+        "reading": "읍",
+        "meaning": "읍할",
+        "level": 1
+      },
+      {
+        "char": "盜",
+        "reading": "도",
+        "meaning": "도둑",
+        "level": 4
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "설니홍조",
+    "hanja": "雪泥鴻爪",
+    "meaning": "눈 위에 난 기러기의 발자국이 눈이 녹으면 없어진다는 뜻으로, 인생의 자취가 눈 녹듯이 사라져 무상함을 비유적으로 이르는 말.",
+    "level": 1,
+    "chars": [
+      {
+        "char": "雪",
+        "reading": "설",
+        "meaning": "눈",
+        "level": 6.5
+      },
+      {
+        "char": "泥",
+        "reading": "니",
+        "meaning": "진흙",
+        "level": 3.5
+      },
+      {
+        "char": "鴻",
+        "reading": "홍",
+        "meaning": "기러기",
+        "level": 3
+      },
+      {
+        "char": "爪",
+        "reading": "조",
+        "meaning": "손톱",
+        "level": 1
+      }
+    ],
+    "exam_level": 0.5
+  },
+  {
+    "word": "조족지혈",
+    "hanja": "鳥足之血",
+    "meaning": "새 발의 피라는 뜻으로, 매우 적은 분량을 비유적으로 이르는 말.",
+    "level": 3.5,
+    "chars": [
+      {
+        "char": "鳥",
+        "reading": "조",
+        "meaning": "새",
+        "level": 4.5
+      },
+      {
+        "char": "足",
+        "reading": "족",
+        "meaning": "발",
+        "level": 7.5
+      },
+      {
+        "char": "之",
+        "reading": "지",
+        "meaning": "갈",
+        "level": 3.5
+      },
+      {
+        "char": "血",
+        "reading": "혈",
+        "meaning": "피",
+        "level": 4.5
+      }
+    ],
+    "exam_level": 0.5
+  }
+]

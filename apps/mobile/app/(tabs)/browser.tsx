@@ -1,17 +1,22 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { StyleSheet, TextInput, Pressable, ActivityIndicator, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, Pressable, ActivityIndicator, Keyboard, Platform, AppState } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView, type WebViewNavigation, type WebViewMessageEvent } from 'react-native-webview';
 
 import { Text, View } from '@/components/Themed';
-import HanjaDetailModal, { type HanjaTapData } from '@/components/HanjaDetailModal';
+import HanjaDetailModal, { type HanjaTapData, type HanjaEntry } from '@/components/HanjaDetailModal';
 import { loadDict, loadHomonymFreq, type HanjaDict, type HomonymFreq } from '@/lib/hanja/dictionary';
-import { findMatches, buildWordSet } from '@/lib/hanja/matcher';
+import { findMatches, buildWordSet, type MatchResult } from '@/lib/hanja/matcher';
 import { getInjectScript } from '@/lib/hanja/inject-script';
-import { trackExposure, trackClick, addToVocab, startAutoFlush, stopAutoFlush, rotateDailyData, flushExposures } from '@/lib/hanja/tracker';
+import { initWSD, predictHanjaBatch } from '@/lib/hanja/wsd';
+import { trackExposure, trackClick, trackWSDCorrection, addToVocab, startAutoFlush, stopAutoFlush, rotateDailyData, flushExposures } from '@/lib/hanja/tracker';
+import { getUserLevel } from '@/lib/settings';
+import { syncAll, reportError } from '@/lib/supabase/sync';
 
 const DEFAULT_URL = 'https://news.naver.com';
 
 export default function BrowserScreen() {
+  const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [inputUrl, setInputUrl] = useState(DEFAULT_URL);
   const [currentUrl, setCurrentUrl] = useState(DEFAULT_URL);
@@ -33,12 +38,17 @@ export default function BrowserScreen() {
   useEffect(() => {
     async function initDict() {
       try {
-        // 테스트: 8급만 (335KB, 가볍게 시작)
-        const [dict, freq] = await Promise.all([loadDict(8), loadHomonymFreq()]);
+        // 사용자 급수 읽기 → 해당 급수 이상 사전 로드
+        const userLevel = await getUserLevel();
+        // 번들 내장 최소 6급까지, 사용자가 더 높은 급수면 그 급수까지
+        const loadLevel = Math.min(userLevel, 6);
+        const [dict, freq] = await Promise.all([loadDict(loadLevel), loadHomonymFreq()]);
         dictRef.current = dict;
         freqRef.current = freq;
         wordSetRef.current = buildWordSet(dict);
         setDictReady(true);
+        // WSD 서버 연결 (실패해도 빈도 기반 폴백)
+        initWSD();
       } catch (error) {
         console.warn('사전 로드 실패:', error);
       }
@@ -48,8 +58,16 @@ export default function BrowserScreen() {
     try { rotateDailyData(); } catch {}
     try { startAutoFlush(); } catch {}
 
+    // 앱 포그라운드 복귀 시 Supabase 동기화
+    const appStateSub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        syncAll().catch(() => {});
+      }
+    });
+
     return () => {
       try { stopAutoFlush(); } catch {}
+      appStateSub.remove();
     };
   }, []);
 
@@ -80,14 +98,15 @@ export default function BrowserScreen() {
 
   // 텍스트 매칭 처리 (RN 측)
   const processTextBatch = useCallback(
-    (batch: Array<{ id: number; text: string }>) => {
+    async (batch: Array<{ id: number; text: string }>) => {
       if (!dictRef.current || !wordSetRef.current || !freqRef.current) return;
 
       const conversions: Array<{
         nodeId: number;
-        matches: ReturnType<typeof findMatches>;
+        matches: MatchResult[];
       }> = [];
 
+      // 1단계: 사전 기반 매칭
       for (const item of batch) {
         const matches = findMatches(
           item.text,
@@ -97,6 +116,38 @@ export default function BrowserScreen() {
         );
         if (matches.length > 0) {
           conversions.push({ nodeId: item.id, matches });
+        }
+      }
+
+      // 2단계: 동음이의어 → WSD 서버로 판별
+      // 각 노드의 원문 텍스트를 문맥으로 사용
+      for (const conv of conversions) {
+        const homonyms = conv.matches.filter(m => m.entries.length >= 2);
+        if (homonyms.length === 0) continue;
+
+        // 해당 노드의 원문 텍스트 찾기
+        const nodeText = batch.find(b => b.id === conv.nodeId)?.text || '';
+        const homWords = homonyms.map(m => m.word);
+
+        try {
+          const wsdResults = await predictHanjaBatch(nodeText, homWords);
+
+          // WSD 결과로 기본 한자 업데이트
+          for (const m of homonyms) {
+            const predicted = wsdResults.get(m.word);
+            if (!predicted) continue;
+
+            // 예측된 한자가 entries에 있는지 확인
+            const matchedEntry = m.entries.find(e => e.hanja === predicted);
+            if (matchedEntry) {
+              m.hanja = matchedEntry.hanja;
+              m.meaning = matchedEntry.meaning;
+              m.reading = matchedEntry.reading;
+              m.level = matchedEntry.level;
+            }
+          }
+        } catch {
+          // WSD 실패 → 빈도 기반 유지
         }
       }
 
@@ -153,10 +204,12 @@ export default function BrowserScreen() {
               hanja: data.hanja,
               meaning: data.meaning,
               reading: data.reading,
+              context: data.context || '',
               entries: data.entries,
             });
             setModalVisible(true);
             break;
+
         }
       } catch {
         // JSON이 아닌 메시지 무시
@@ -176,7 +229,7 @@ export default function BrowserScreen() {
   `;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* 주소창 */}
       <View style={styles.addressBar}>
         <TextInput
@@ -236,8 +289,30 @@ export default function BrowserScreen() {
         visible={modalVisible}
         data={modalData}
         onClose={() => setModalVisible(false)}
-        onAddVocab={(word, hanja) => {
-          addToVocab(word, hanja, modalData?.meaning || '');
+        onAddVocab={(word, hanja, meaning, context) => {
+          addToVocab(word, hanja, meaning, context);
+        }}
+        onSelectHanja={(word, entry) => {
+          // WSD 교정 데이터 기록 (학습용)
+          if (modalData?.context && modalData.hanja !== entry.hanja) {
+            trackWSDCorrection(modalData.context, word, entry.hanja, modalData.hanja);
+          }
+          // 동음이의어 선택 → WebView DOM 업데이트
+          const message = JSON.stringify({
+            type: 'UPDATE_HANJA',
+            word,
+            hanja: entry.hanja,
+            meaning: entry.meaning,
+            reading: entry.reading,
+            level: entry.level,
+          });
+          webViewRef.current?.injectJavaScript(`
+            window.dispatchEvent(new MessageEvent('message', { data: ${JSON.stringify(message)} }));
+            true;
+          `);
+        }}
+        onReport={(word, hanja, context) => {
+          reportError(word, hanja, context, currentUrl).catch(() => {});
         }}
       />
 
